@@ -1,10 +1,10 @@
-# goCheck Detection Algorithm
+# GoCheck Detection Algorithm
 
-This document describes the methodology used by goCheck to distinguish automated bot activity from genuine human interactions in GoPhish campaigns.
+This document describes the methodology used by GoCheck to distinguish automated bot activity from genuine human interactions in GoPhish campaigns.
 
 ## Overview
 
-goCheck uses a **multi-factor scoring system** that analyzes each IP interaction independently, then aggregates results per email target. The system is designed to be conservative: when in doubt, it favors classifying activity as human to avoid false negatives.
+GoCheck uses a **multi-factor scoring system** that analyzes each IP interaction independently, then aggregates results per email target. The system is designed to be conservative: when in doubt, it favors classifying activity as human to avoid false negatives.
 
 ## Scoring System
 

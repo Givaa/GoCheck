@@ -6,10 +6,10 @@
 
 **Advanced bot detection for GoPhish phishing campaigns**
 
-goCheck analyzes GoPhish campaign events to distinguish automated scanner activity from genuine human interactions. Stop counting bot clicks as successful phishing attempts and get accurate metrics on real user behavior.
+GoCheck analyzes GoPhish campaign events to distinguish automated scanner activity from genuine human interactions. Stop counting bot clicks as successful phishing attempts and get accurate metrics on real user behavior.
 
 <div align="center">
-  <img src="docs/images/banner.png" alt="goCheck Banner" width="800"/>
+  <img src="docs/images/banner.png" alt="GoCheck Banner" width="800"/>
 </div>
 
 ## ✨ Features
@@ -28,14 +28,14 @@ goCheck analyzes GoPhish campaign events to distinguish automated scanner activi
 
 ```bash
 # Clone the repository
-git clone https://github.com/holygivaa/goCheck.git
-cd goCheck
+git clone https://github.com/holygivaa/GoCheck.git
+cd GoCheck
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Run analysis
-python gocheck/analyzer.py -i raw_events.csv
+python GoCheck/analyzer.py -i raw_events.csv
 ```
 
 ## 📖 Usage
@@ -44,22 +44,22 @@ python gocheck/analyzer.py -i raw_events.csv
 
 ```bash
 # Basic analysis
-python gocheck/analyzer.py -i events.csv
+python GoCheck/analyzer.py -i events.csv
 
 # Custom output directory
-python gocheck/analyzer.py -i events.csv -o reports/
+python GoCheck/analyzer.py -i events.csv -o reports/
 
 # Verbose mode
-python gocheck/analyzer.py -i events.csv -v
+python GoCheck/analyzer.py -i events.csv -v
 
 # Show help
-python gocheck/analyzer.py --help
+python GoCheck/analyzer.py --help
 ```
 
 ### As a Python Module
 
 ```python
-from gocheck import GoPhishAnalyzer
+from GoCheck import GoPhishAnalyzer
 
 analyzer = GoPhishAnalyzer('raw_events.csv')
 results = analyzer.analyze_campaign()
@@ -68,7 +68,7 @@ human_report = analyzer.generate_human_report(results)
 
 ## 🎯 How It Works
 
-goCheck uses a multi-factor scoring system to classify each IP interaction:
+GoCheck uses a multi-factor scoring system to classify each IP interaction:
 
 ### Detection Factors
 
@@ -139,10 +139,10 @@ Final Result: ✅ User clicked (despite bot scanner activity)
 
 ```bash
 # Format code
-black gocheck/
+black GoCheck/
 
 # Lint
-flake8 gocheck/
+flake8 GoCheck/
 ```
 
 ## 📋 Requirements
