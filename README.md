@@ -19,7 +19,6 @@ GoCheck analyzes GoPhish campaign events to distinguish automated scanner activi
 - 🌍 **IP Intelligence** - Geolocation, ISP, and hosting provider classification
 - 🔍 **Multi-IP Tracking** - Separates bot scans from real user clicks on the same email
 - 📊 **Comprehensive Reports** - Clean CSV exports with human-only interactions
-- 🎨 **Dark Mode GUI** - User-friendly interface with real-time analysis
 - 💻 **CLI Tool** - Full-featured command-line interface for automation
 
 ## 🚀 Quick Start
@@ -35,7 +34,7 @@ cd GoCheck
 pip install -r requirements.txt
 
 # Run analysis
-python GoCheck/analyzer.py -i raw_events.csv
+python GoCheck/GoCheck.py -i raw_events.csv
 ```
 
 ## 📖 Usage
@@ -44,16 +43,16 @@ python GoCheck/analyzer.py -i raw_events.csv
 
 ```bash
 # Basic analysis
-python GoCheck/analyzer.py -i events.csv
+python GoCheck/GoCheck.py -i events.csv
 
 # Custom output directory
-python GoCheck/analyzer.py -i events.csv -o reports/
+python GoCheck/GoCheck.py -i events.csv -o reports/
 
 # Verbose mode
-python GoCheck/analyzer.py -i events.csv -v
+python GoCheck/GoCheck.py -i events.csv -v
 
 # Show help
-python GoCheck/analyzer.py --help
+python GoCheck/GoCheck.py --help
 ```
 
 ### As a Python Module
