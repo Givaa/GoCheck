@@ -1,0 +1,30 @@
+email,human_opened,human_clicked,human_score,details,human_ip
+alessia.barbieri@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+andrea.moretti@azienda.it,YES,YES,100,"Actions: opened email, clicked link",93.40.78.234
+anna.ferrari@azienda.it,YES,NO,100,Actions: opened email,87.12.234.56
+antonio.gentile@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+camilla.rinaldi@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+chiara.conti@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+davide.mancini@azienda.it,YES,YES,100,"Actions: opened email, clicked link",87.23.156.78
+elena.costa@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+federica.greco@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+francesca.marino@azienda.it,YES,YES,100,"Actions: opened email, clicked link",151.25.78.45
+gabriele.santoro@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+giorgia.de_santis@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+giulia.verdi@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+laura.ricci@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+lorenzo.marchetti@azienda.it,NO,YES,100,Actions: clicked link,151.78.45.123
+luca.bianchi@azienda.it,YES,YES,100,"Actions: opened email, clicked link",93.45.123.87
+marco.esposito@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+mario.rossi@azienda.it,YES,YES,100,"Actions: opened email, clicked link",151.18.45.123
+martina.lombardi@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+matteo.fontana@azienda.it,YES,YES,100,"Actions: opened email, clicked link",151.34.89.120
+paolo.romano@azienda.it,YES,YES,100,"Actions: opened email, clicked link",79.23.156.78
+riccardo.pellegrini@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+roberto.gallo@azienda.it,YES,YES,100,"Actions: opened email, clicked link",79.18.234.90
+sara.colombo@azienda.it,YES,NO,100,Actions: opened email,151.67.89.123
+silvia.de_luca@azienda.it,YES,NO,100,Actions: opened email,93.67.123.55
+simone.villa@azienda.it,YES,NO,100,Actions: opened email,79.45.123.90
+sofia.monti@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+tommaso.caruso@azienda.it,YES,YES,100,"Actions: opened email, clicked link",93.34.156.89
+valentina.russo@azienda.it,NO,NO,0,Bot/scanner only detected,N/A

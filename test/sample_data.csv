@@ -1,0 +1,101 @@
+campaign,email,time,message,details
+Test Campaign,mario.rossi@azienda.it,2024-12-01 09:15:23.000,Email Sent,{}
+Test Campaign,mario.rossi@azienda.it,2024-12-01 09:15:23.450,Email Opened,"{""browser"":{""address"":""52.18.134.87"",""user-agent"":""SecurityBot/1.0""}}"
+Test Campaign,mario.rossi@azienda.it,2024-12-01 09:15:23.680,Clicked Link,"{""browser"":{""address"":""52.18.134.87"",""user-agent"":""SecurityBot/1.0""}}"
+Test Campaign,mario.rossi@azienda.it,2024-12-01 10:30:15.000,Email Opened,"{""browser"":{""address"":""151.18.45.123"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0""}}"
+Test Campaign,mario.rossi@azienda.it,2024-12-01 10:35:40.000,Clicked Link,"{""browser"":{""address"":""151.18.45.123"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0""}}"
+Test Campaign,giulia.verdi@azienda.it,2024-12-01 09:15:25.000,Email Sent,{}
+Test Campaign,giulia.verdi@azienda.it,2024-12-01 09:15:25.320,Email Opened,"{""browser"":{""address"":""35.158.127.45"",""user-agent"":""ProofpointEmailProtection/1.0""}}"
+Test Campaign,giulia.verdi@azienda.it,2024-12-01 09:15:25.550,Clicked Link,"{""browser"":{""address"":""35.158.127.45"",""user-agent"":""ProofpointEmailProtection/1.0""}}"
+Test Campaign,luca.bianchi@azienda.it,2024-12-01 09:15:27.000,Email Sent,{}
+Test Campaign,luca.bianchi@azienda.it,2024-12-01 11:45:12.000,Email Opened,"{""browser"":{""address"":""93.45.123.87"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,luca.bianchi@azienda.it,2024-12-01 11:52:33.000,Clicked Link,"{""browser"":{""address"":""93.45.123.87"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,anna.ferrari@azienda.it,2024-12-01 09:15:29.000,Email Sent,{}
+Test Campaign,anna.ferrari@azienda.it,2024-12-01 09:15:29.180,Email Opened,"{""browser"":{""address"":""104.197.32.12"",""user-agent"":""SecurityScanner/2.0""}}"
+Test Campaign,anna.ferrari@azienda.it,2024-12-01 14:20:45.000,Email Opened,"{""browser"":{""address"":""87.12.234.56"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0""}}"
+Test Campaign,paolo.romano@azienda.it,2024-12-01 09:15:31.000,Email Sent,{}
+Test Campaign,paolo.romano@azienda.it,2024-12-01 09:15:31.890,Email Opened,"{""browser"":{""address"":""40.74.123.56"",""user-agent"":""Mimecast-Security-Scanner/2.0""}}"
+Test Campaign,paolo.romano@azienda.it,2024-12-01 09:15:32.050,Clicked Link,"{""browser"":{""address"":""40.74.123.56"",""user-agent"":""Mimecast-Security-Scanner/2.0""}}"
+Test Campaign,paolo.romano@azienda.it,2024-12-01 15:10:23.000,Email Opened,"{""browser"":{""address"":""79.23.156.78"",""user-agent"":""Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) Safari/604.1""}}"
+Test Campaign,paolo.romano@azienda.it,2024-12-01 15:14:18.000,Clicked Link,"{""browser"":{""address"":""79.23.156.78"",""user-agent"":""Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) Safari/604.1""}}"
+Test Campaign,sara.colombo@azienda.it,2024-12-01 09:15:33.000,Email Sent,{}
+Test Campaign,sara.colombo@azienda.it,2024-12-01 13:25:45.000,Email Opened,"{""browser"":{""address"":""151.67.89.123"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Firefox/121.0""}}"
+Test Campaign,marco.esposito@azienda.it,2024-12-01 09:15:35.000,Email Sent,{}
+Test Campaign,marco.esposito@azienda.it,2024-12-01 09:15:35.200,Email Opened,"{""browser"":{""address"":""52.18.134.87"",""user-agent"":""SecurityBot/1.0""}}"
+Test Campaign,laura.ricci@azienda.it,2024-12-01 09:15:37.000,Email Sent,{}
+Test Campaign,laura.ricci@azienda.it,2024-12-01 09:15:37.450,Email Opened,"{""browser"":{""address"":""35.158.127.45"",""user-agent"":""ProofpointEmailProtection/1.0""}}"
+Test Campaign,laura.ricci@azienda.it,2024-12-01 09:15:37.620,Clicked Link,"{""browser"":{""address"":""35.158.127.45"",""user-agent"":""ProofpointEmailProtection/1.0""}}"
+Test Campaign,andrea.moretti@azienda.it,2024-12-01 09:15:39.000,Email Sent,{}
+Test Campaign,andrea.moretti@azienda.it,2024-12-01 16:40:12.000,Email Opened,"{""browser"":{""address"":""93.40.78.234"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Edge/120.0.0.0""}}"
+Test Campaign,andrea.moretti@azienda.it,2024-12-01 16:48:30.000,Clicked Link,"{""browser"":{""address"":""93.40.78.234"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Edge/120.0.0.0""}}"
+Test Campaign,chiara.conti@azienda.it,2024-12-01 09:15:41.000,Email Sent,{}
+Test Campaign,chiara.conti@azienda.it,2024-12-01 09:15:41.330,Email Opened,"{""browser"":{""address"":""104.197.32.12"",""user-agent"":""SecurityScanner/2.0""}}"
+Test Campaign,chiara.conti@azienda.it,2024-12-01 09:15:41.510,Clicked Link,"{""browser"":{""address"":""104.197.32.12"",""user-agent"":""SecurityScanner/2.0""}}"
+Test Campaign,francesca.marino@azienda.it,2024-12-01 09:15:43.000,Email Sent,{}
+Test Campaign,francesca.marino@azienda.it,2024-12-01 14:30:00.000,Email Opened,"{""browser"":{""address"":""151.25.78.45"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0""}}"
+Test Campaign,francesca.marino@azienda.it,2024-12-01 14:45:22.000,Clicked Link,"{""browser"":{""address"":""151.25.78.45"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0""}}"
+Test Campaign,roberto.gallo@azienda.it,2024-12-01 09:15:45.000,Email Sent,{}
+Test Campaign,roberto.gallo@azienda.it,2024-12-01 09:15:45.120,Email Opened,"{""browser"":{""address"":""52.18.134.87"",""user-agent"":""SecurityBot/1.0""}}"
+Test Campaign,roberto.gallo@azienda.it,2024-12-01 09:15:45.290,Clicked Link,"{""browser"":{""address"":""52.18.134.87"",""user-agent"":""SecurityBot/1.0""}}"
+Test Campaign,roberto.gallo@azienda.it,2024-12-01 17:20:10.000,Email Opened,"{""browser"":{""address"":""79.18.234.90"",""user-agent"":""Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) Safari/604.1""}}"
+Test Campaign,roberto.gallo@azienda.it,2024-12-01 17:22:45.000,Clicked Link,"{""browser"":{""address"":""79.18.234.90"",""user-agent"":""Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) Safari/604.1""}}"
+Test Campaign,silvia.de_luca@azienda.it,2024-12-01 09:15:47.000,Email Sent,{}
+Test Campaign,silvia.de_luca@azienda.it,2024-12-01 10:05:30.000,Email Opened,"{""browser"":{""address"":""93.67.123.55"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,elena.costa@azienda.it,2024-12-01 09:15:49.000,Email Sent,{}
+Test Campaign,elena.costa@azienda.it,2024-12-01 09:15:49.450,Email Opened,"{""browser"":{""address"":""35.158.127.45"",""user-agent"":""ProofpointEmailProtection/1.0""}}"
+Test Campaign,elena.costa@azienda.it,2024-12-01 09:15:49.680,Clicked Link,"{""browser"":{""address"":""35.158.127.45"",""user-agent"":""ProofpointEmailProtection/1.0""}}"
+Test Campaign,davide.mancini@azienda.it,2024-12-01 09:15:51.000,Email Sent,{}
+Test Campaign,davide.mancini@azienda.it,2024-12-01 11:30:00.000,Email Opened,"{""browser"":{""address"":""87.23.156.78"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Firefox/121.0""}}"
+Test Campaign,davide.mancini@azienda.it,2024-12-01 11:37:20.000,Clicked Link,"{""browser"":{""address"":""87.23.156.78"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Firefox/121.0""}}"
+Test Campaign,valentina.russo@azienda.it,2024-12-01 09:15:53.000,Email Sent,{}
+Test Campaign,valentina.russo@azienda.it,2024-12-01 09:15:53.200,Email Opened,"{""browser"":{""address"":""104.197.32.12"",""user-agent"":""SecurityScanner/2.0""}}"
+Test Campaign,valentina.russo@azienda.it,2024-12-01 09:15:53.380,Clicked Link,"{""browser"":{""address"":""104.197.32.12"",""user-agent"":""SecurityScanner/2.0""}}"
+Test Campaign,matteo.fontana@azienda.it,2024-12-01 09:15:55.000,Email Sent,{}
+Test Campaign,matteo.fontana@azienda.it,2024-12-01 15:45:00.000,Email Opened,"{""browser"":{""address"":""151.34.89.120"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0""}}"
+Test Campaign,matteo.fontana@azienda.it,2024-12-01 15:50:30.000,Clicked Link,"{""browser"":{""address"":""151.34.89.120"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 09:15:57.000,Email Sent,{}
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 09:15:57.890,Email Opened,"{""browser"":{""address"":""40.74.123.56"",""user-agent"":""Mimecast-Security-Scanner/2.0""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 09:15:58.050,Clicked Link,"{""browser"":{""address"":""40.74.123.56"",""user-agent"":""Mimecast-Security-Scanner/2.0""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:10:00.000,Email Opened,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:15:45.000,Clicked Link,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:15:45.000,Clicked Link,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:15:45.000,Clicked Link,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:15:45.000,Clicked Link,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:15:45.000,Clicked Link,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:15:45.000,Clicked Link,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,simone.villa@azienda.it,2024-12-01 09:15:59.000,Email Sent,{}
+Test Campaign,simone.villa@azienda.it,2024-12-01 12:20:30.000,Email Opened,"{""browser"":{""address"":""79.45.123.90"",""user-agent"":""Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) Safari/604.1""}}"
+Test Campaign,federica.greco@azienda.it,2024-12-01 09:16:01.000,Email Sent,{}
+Test Campaign,federica.greco@azienda.it,2024-12-01 09:16:01.450,Email Opened,"{""browser"":{""address"":""52.18.134.87"",""user-agent"":""SecurityBot/1.0""}}"
+Test Campaign,federica.greco@azienda.it,2024-12-01 09:16:01.680,Clicked Link,"{""browser"":{""address"":""52.18.134.87"",""user-agent"":""SecurityBot/1.0""}}"
+Test Campaign,antonio.gentile@azienda.it,2024-12-01 09:16:03.000,Email Sent,{}
+Test Campaign,antonio.gentile@azienda.it,2024-12-01 16:30:00.000,Email Opened,"{""browser"":{""address"":""87.67.234.45"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Edge/120.0.0.0""}}"
+Test Campaign,antonio.gentile@azienda.it,2024-12-01 16:38:22.000,Clicked Link,"{""browser"":{""address"":""87.67.234.45"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Edge/120.0.0.0""}}"
+Test Campaign,martina.lombardi@azienda.it,2024-12-01 09:16:05.000,Email Sent,{}
+Test Campaign,martina.lombardi@azienda.it,2024-12-01 09:16:05.200,Email Opened,"{""browser"":{""address"":""35.158.127.45"",""user-agent"":""ProofpointEmailProtection/1.0""}}"
+Test Campaign,martina.lombardi@azienda.it,2024-12-01 09:16:05.380,Clicked Link,"{""browser"":{""address"":""35.158.127.45"",""user-agent"":""ProofpointEmailProtection/1.0""}}"
+Test Campaign,lorenzo.marchetti@azienda.it,2024-12-01 09:16:07.000,Email Sent,{}
+Test Campaign,lorenzo.marchetti@azienda.it,2024-12-01 14:15:00.000,Email Opened,"{""browser"":{""address"":""141.11.36.74"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Firefox/121.0""}}"
+Test Campaign,lorenzo.marchetti@azienda.it,2024-12-01 14:25:30.000,Clicked Link,"{""browser"":{""address"":""151.78.45.123"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Firefox/121.0""}}"
+Test Campaign,giorgia.de_santis@azienda.it,2024-12-01 09:16:09.000,Email Sent,{}
+Test Campaign,giorgia.de_santis@azienda.it,2024-12-01 09:16:09.890,Email Opened,"{""browser"":{""address"":""104.197.32.12"",""user-agent"":""SecurityScanner/2.0""}}"
+Test Campaign,giorgia.de_santis@azienda.it,2024-12-01 09:16:10.050,Clicked Link,"{""browser"":{""address"":""104.197.32.12"",""user-agent"":""SecurityScanner/2.0""}}"
+Test Campaign,tommaso.caruso@azienda.it,2024-12-01 09:16:11.000,Email Sent,{}
+Test Campaign,tommaso.caruso@azienda.it,2024-12-01 10:50:00.000,Email Opened,"{""browser"":{""address"":""93.34.156.89"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,tommaso.caruso@azienda.it,2024-12-01 10:58:45.000,Clicked Link,"{""browser"":{""address"":""93.34.156.89"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,sofia.monti@azienda.it,2024-12-01 09:16:13.000,Email Sent,{}
+Test Campaign,sofia.monti@azienda.it,2024-12-01 09:16:13.450,Email Opened,"{""browser"":{""address"":""40.74.123.56"",""user-agent"":""Mimecast-Security-Scanner/2.0""}}"
+Test Campaign,sofia.monti@azienda.it,2024-12-01 09:16:13.620,Clicked Link,"{""browser"":{""address"":""40.74.123.56"",""user-agent"":""Mimecast-Security-Scanner/2.0""}}"
+Test Campaign,gabriele.santoro@azienda.it,2024-12-01 09:16:15.000,Email Sent,{}
+Test Campaign,gabriele.santoro@azienda.it,2024-12-01 15:00:00.000,Email Opened,"{""browser"":{""address"":""79.89.234.56"",""user-agent"":""Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) Safari/604.1""}}"
+Test Campaign,gabriele.santoro@azienda.it,2024-12-01 15:05:30.000,Clicked Link,"{""browser"":{""address"":""79.89.234.56"",""user-agent"":""Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) Safari/604.1""}}"
+Test Campaign,camilla.rinaldi@azienda.it,2024-12-01 09:16:17.000,Email Sent,{}
+Test Campaign,camilla.rinaldi@azienda.it,2024-12-01 13:40:00.000,Email Opened,"{""browser"":{""address"":""87.45.123.78"",""user-agent"":""Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0""}}"
+Test Campaign,riccardo.pellegrini@azienda.it,2024-12-01 09:16:19.000,Email Sent,{}
+Test Campaign,riccardo.pellegrini@azienda.it,2024-12-01 09:16:19.200,Email Opened,"{""browser"":{""address"":""52.18.134.87"",""user-agent"":""SecurityBot/1.0""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:10:00.000,Email Opened,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:10:00.000,Email Opened,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:10:00.000,Email Opened,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:10:00.000,Email Opened,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 13:10:00.000,Email Opened,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"
+Test Campaign,alessia.barbieri@azienda.it,2024-12-01 20:10:00.000,Email Opened,"{""browser"":{""address"":""93.56.234.78"",""user-agent"":""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/537.36""}}"

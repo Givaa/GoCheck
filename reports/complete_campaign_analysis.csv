@@ -1,0 +1,36 @@
+email,ip,ip_score,ip_classification,ip_type,is_bot,events,final_email_score,final_classification
+alessia.barbieri@azienda.it,40.74.123.56,0,Foreign IP,foreign,True,Email Opened | Clicked Link,20,Bot/scanner only
+alessia.barbieri@azienda.it,93.56.234.78,20,Bot/Scanner,legitimate_isp,True,Email Opened | Email Opened | Email Opened | Email Opened | Email Opened | Email Opened | Clicked Link | Clicked Link | Clicked Link | Clicked Link | Clicked Link | Clicked Link | Email Opened,20,Bot/scanner only
+andrea.moretti@azienda.it,93.40.78.234,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+anna.ferrari@azienda.it,104.197.32.12,0,Foreign IP,foreign,True,Email Opened,100,Bot scanner + Real user
+anna.ferrari@azienda.it,87.12.234.56,100,Genuine user,legitimate_isp,False,Email Opened,100,Bot scanner + Real user
+antonio.gentile@azienda.it,87.67.234.45,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+camilla.rinaldi@azienda.it,87.45.123.78,0,Foreign IP,foreign,True,Email Opened,0,Bot/scanner only
+chiara.conti@azienda.it,104.197.32.12,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+davide.mancini@azienda.it,87.23.156.78,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+elena.costa@azienda.it,35.158.127.45,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+federica.greco@azienda.it,52.18.134.87,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+francesca.marino@azienda.it,151.25.78.45,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+gabriele.santoro@azienda.it,79.89.234.56,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+giorgia.de_santis@azienda.it,104.197.32.12,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+giulia.verdi@azienda.it,35.158.127.45,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+laura.ricci@azienda.it,35.158.127.45,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+lorenzo.marchetti@azienda.it,141.11.36.74,40,Suspicious,vpn,False,Email Opened,100,Real user only
+lorenzo.marchetti@azienda.it,151.78.45.123,100,Genuine user,legitimate_isp,False,Clicked Link,100,Real user only
+luca.bianchi@azienda.it,93.45.123.87,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+marco.esposito@azienda.it,52.18.134.87,0,Foreign IP,foreign,True,Email Opened,0,Bot/scanner only
+mario.rossi@azienda.it,52.18.134.87,0,Foreign IP,foreign,True,Email Opened | Clicked Link,100,Bot scanner + Real user
+mario.rossi@azienda.it,151.18.45.123,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Bot scanner + Real user
+martina.lombardi@azienda.it,35.158.127.45,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+matteo.fontana@azienda.it,151.34.89.120,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+paolo.romano@azienda.it,40.74.123.56,0,Foreign IP,foreign,True,Email Opened | Clicked Link,100,Bot scanner + Real user
+paolo.romano@azienda.it,79.23.156.78,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Bot scanner + Real user
+riccardo.pellegrini@azienda.it,52.18.134.87,0,Foreign IP,foreign,True,Email Opened,0,Bot/scanner only
+roberto.gallo@azienda.it,52.18.134.87,0,Foreign IP,foreign,True,Email Opened | Clicked Link,100,Bot scanner + Real user
+roberto.gallo@azienda.it,79.18.234.90,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Bot scanner + Real user
+sara.colombo@azienda.it,151.67.89.123,100,Genuine user,legitimate_isp,False,Email Opened,100,Real user only
+silvia.de_luca@azienda.it,93.67.123.55,100,Genuine user,legitimate_isp,False,Email Opened,100,Real user only
+simone.villa@azienda.it,79.45.123.90,100,Genuine user,legitimate_isp,False,Email Opened,100,Real user only
+sofia.monti@azienda.it,40.74.123.56,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+tommaso.caruso@azienda.it,93.34.156.89,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+valentina.russo@azienda.it,104.197.32.12,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
