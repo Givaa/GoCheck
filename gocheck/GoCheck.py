@@ -3,7 +3,7 @@ GoPhish Campaign Analyzer
 Analyzes phishing campaign events to distinguish automated activity from genuine human interactions.
 Supports all GoPhish event types and data formats.
 
-Author: @holygivaa
+Author: @Givaa
 """
 
 import pandas as pd
@@ -26,19 +26,19 @@ class Colors:
     RED = '\033[91m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
+    BLACK = '\033[30m'
     UNDERLINE = '\033[4m'
 
 def print_banner():
     """Print colored ASCII banner."""
     banner = f"""
-{Colors.CYAN}{Colors.BOLD}
-╔═══════════════════════════════════════════════════════════════════════════╗
-║                                                                           ║
-║              GoCheck - GoPhish Campaign Bot Detection Tool                ║
-║                                                                           ║
-║                             @holygivaa                                    ║
-║                                                                           ║
-╚═══════════════════════════════════════════════════════════════════════════╝
+{Colors.BLACK}{Colors.BOLD}
+
+ ▗▄▄▖ ▄▄▄   ▗▄▄▖▐▌   ▗▞▀▚▖▗▞▀▘█  ▄      
+▐▌   █   █ ▐▌   ▐▌   ▐▛▀▀▘▝▚▄▖█▄▀       "We erase what tries to replace us."
+▐▌▝▜▌▀▄▄▄▀ ▐▌   ▐▛▀▚▖▝▚▄▄▖    █ ▀▄      Author: @Givaa
+▝▚▄▞▘      ▝▚▄▄▖▐▌ ▐▌         █  █ 
+                                                                  
 {Colors.ENDC}
     """
     print(banner)
@@ -211,12 +211,13 @@ class GoPhishAnalyzer:
     def classify_ip(self, ip_info):
         """
         Classify IP type and calculate penalty for scoring.
+        AGGRESSIVE APPROACH: When in doubt, classify as bot to ensure humans are genuine.
         
         Returns:
             tuple: (is_italian, ip_type, penalty, description)
         """
         if not ip_info or ip_info.get('status') == 'fail':
-            return None, 'unknown', 50, "IP lookup failed"
+            return None, 'unknown', 60, "IP lookup failed - assume bot"
         
         is_italian = ip_info.get('countryCode') == 'IT'
         country = ip_info.get('country', 'Unknown')
@@ -231,27 +232,27 @@ class GoPhishAnalyzer:
         hosting = ip_info.get('hosting', '')
         combined = f"{org} {isp} {as_name}"
         
-        # Security vendor (very high bot probability)
+        # Security vendor (definite bot)
         if any(vendor in combined for vendor in self.security_vendors):
-            return True, 'security_scanner', 90, f"Security scanner: {org}"
+            return True, 'security_scanner', 95, f"Security scanner: {org}"
         
-        # Cloud provider (likely scanner)
+        # Cloud provider (very likely bot)
         if any(provider in combined for provider in self.cloud_providers):
-            return True, 'cloud', 70, f"Cloud provider: {org}"
+            return True, 'cloud', 80, f"Cloud provider: {org}"
         
-        # VPN/Proxy
+        # VPN/Proxy (suspicious)
         if 'vpn' in combined or 'proxy' in combined or proxy == True:
-            return True, 'vpn', 60, "VPN/Proxy"
+            return True, 'vpn', 70, "VPN/Proxy"
         
-        # Datacenter/Hosting
+        # Datacenter/Hosting (likely automated)
         if any(term in combined for term in ['datacenter', 'hosting', 'server']) or hosting == True:
-            return True, 'datacenter', 65, "Datacenter"
+            return True, 'datacenter', 75, "Datacenter"
         
         # Legitimate business/residential ISP
         if ip_info.get('isp'):
             return True, 'legitimate_isp', 0, f"ISP: {ip_info.get('isp')}"
         
-        return True, 'unknown', 20, "Unknown type"
+        return True, 'unknown', 30, "Unknown type - suspicious"
     
     def analyze_user_agent(self, user_agent):
         """
@@ -278,7 +279,6 @@ class GoPhishAnalyzer:
             'security', 'protection', 'safe', 'guard', 'threat',
             'sandbox', 'analyzer', 'scanner'
         ]
-
         if any(indicator in ua_lower for indicator in security_indicators):
             return 70, "Security tool"
         
@@ -476,10 +476,9 @@ class GoPhishAnalyzer:
             'num_ips': len(ip_groups)
         }
     
-    def analyze_campaign(self, verbose):
+    def analyze_campaign(self, verbose=False):
         """Execute complete campaign analysis."""
         results = []
-        
         if verbose:
             print(f"\n{'='*80}")
             print(f"GOPHISH CAMPAIGN ANALYSIS - Real User Detection")
@@ -502,20 +501,21 @@ class GoPhishAnalyzer:
                 print(f"Classification: {result['final_classification']}")
                 print(f"Unique IPs detected: {result['num_ips']}")
             
-                for i, ip_analysis in enumerate(result['ip_analyses'], 1):
+            for i, ip_analysis in enumerate(result['ip_analyses'], 1):
+                if verbose:
                     print(f"\n   {'─'*70}")
                     print(f"   IP #{i}: {ip_analysis['ip']} - {ip_analysis['classification']}")
                     print(f"   Score: {ip_analysis['score']}/100 | Type: {ip_analysis['type']}")
                     print(f"   Events: {', '.join(ip_analysis['events'])}")
                     print(f"   Period: {ip_analysis['first_event']} -> {ip_analysis['last_event']}")
-                    
+                
                     if ip_analysis['details']:
                         print(f"   Details:")
                         for detail in ip_analysis['details']:
                             print(f"      - {detail}")
-        
-                print(f"\n{'='*80}")
 
+        if verbose:
+            print(f"\n{'='*80}")
         self._print_summary(results, verbose)
         
         return results
@@ -566,7 +566,7 @@ class GoPhishAnalyzer:
         
         return human_report
     
-    def _print_summary(self, results, verbose):
+    def _print_summary(self, results, verbose=False):
         """Print campaign statistics summary."""
         total = len(results)
         only_human = len([r for r in results if r['has_human'] and not r['has_bot']])
@@ -586,19 +586,18 @@ class GoPhishAnalyzer:
             print(f"   Average score: {avg_score:.1f}/100")
             print(f"\n{'='*80}\n")
 
+
 def main():
     """Main function for standalone execution."""
     
     parser = argparse.ArgumentParser(
-        description=f'{Colors.CYAN}{Colors.BOLD}GoPhish Campaign Analyzer{Colors.ENDC} - Distinguish bots from real users',
+        description=f'{Colors.BLACK}{Colors.BOLD}GoPhish Campaign Analyzer{Colors.ENDC} - Distinguish bots from real users',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=f"""
-{Colors.YELLOW}Usage examples:{Colors.ENDC}
+{Colors.BLACK}Usage examples:{Colors.ENDC}
   python gophish_analyzer.py -i raw_events.csv
   python gophish_analyzer.py --input-file events.csv --output-dir results/
   python gophish_analyzer.py -i data.csv -o reports/ --verbose
-
-{Colors.CYAN}Author:{Colors.ENDC} @holygivaa
         """
     )
     
@@ -621,7 +620,7 @@ def main():
     parser.add_argument(
         '-v', '--verbose',
         action='store_true',
-        help='Show detailed output during the analysis'
+        help='Show detailed output during analysis'
     )
     
     parser.add_argument(
@@ -633,7 +632,7 @@ def main():
     parser.add_argument(
         '--version',
         action='version',
-        version=f'{Colors.CYAN}GoPhish Analyzer v1.0{Colors.ENDC} by @holygivaa'
+        version=f'{Colors.BLACK}GoPhish Analyzer v1.0{Colors.ENDC} by @Ggivaa'
     )
     
     args = parser.parse_args()
@@ -657,8 +656,7 @@ def main():
     
     try:
         analyzer = GoPhishAnalyzer(args.input_file)
-
-        results = analyzer.analyze_campaign(args.verbose)
+        results = analyzer.analyze_campaign(verbose=args.verbose)
         
         # Human report
         print("\n" + "="*80)
