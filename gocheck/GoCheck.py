@@ -16,6 +16,7 @@ import argparse
 import sys
 import os
 import statistics
+import random
 
 # ANSI color codes
 class Colors:
@@ -28,18 +29,38 @@ class Colors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     BLACK = '\033[30m'
-    UNDERLINE = '\033[4m'
+
+# Human vs Machine quotes - hacker culture
+HACKER_QUOTES = [
+    "We erase what tries to replace us.",
+    "In a world of algorithms, human intuition is the ultimate exploit.",
+    "Machines learn patterns. Humans break them.",
+    "They automate. We investigate. We win.",
+    "Every bot leaves a signature. Every human leaves chaos.",
+    "The difference between 0.8s and 8s? Humanity.",
+    "Artificial intelligence vs actual intelligence. Place your bets.",
+    "Bots follow rules. Humans write new ones.",
+    "Security scanners think in milliseconds. We think in context.",
+    "Machine precision meets human unpredictability. Game over.",
+    "They optimize for speed. We optimize for truth.",
+    "In the battle of bits vs bytes, we're the compiler.",
+    "Automated threats require manual genius.",
+    "Silicon logic cannot simulate human curiosity.",
+    "We don't detect bots. We expose them."
+]
 
 def print_banner():
-    """Print colored ASCII banner."""
+    """Print GoCheck banner with random hacker quote."""
+    quote = random.choice(HACKER_QUOTES)
+
     banner = f"""
 {Colors.BLACK}{Colors.BOLD}
 
- ▗▄▄▖ ▄▄▄   ▗▄▄▖▐▌   ▗▞▀▚▖▗▞▀▘█  ▄      
-▐▌   █   █ ▐▌   ▐▌   ▐▛▀▀▘▝▚▄▖█▄▀       "We erase what tries to replace us."
+ ▗▄▄▖ ▄▄▄   ▗▄▄▖▐▌   ▗▞▀▚▖▗▞▀▘█  ▄
+▐▌   █   █ ▐▌   ▐▌   ▐▛▀▀▘▝▚▄▖█▄▀       {Colors.BLACK}"{quote}"{Colors.ENDC}{Colors.BLACK}{Colors.BOLD}
 ▐▌▝▜▌▀▄▄▄▀ ▐▌   ▐▛▀▚▖▝▚▄▄▖    █ ▀▄      Author: @Givaa
-▝▚▄▞▘      ▝▚▄▄▖▐▌ ▐▌         █  █ 
-                                                                  
+▝▚▄▞▘      ▝▚▄▄▖▐▌ ▐▌         █  █
+
 {Colors.ENDC}
     """
     print(banner)

@@ -25,7 +25,7 @@ GoCheck analyzes GoPhish campaign events to accurately distinguish automated sca
 
 ```bash
 # Clone the repository
-git clone https://github.com/holygivaa/GoCheck.git
+git clone https://github.com/Givaa/GoCheck.git
 cd GoCheck
 
 # Install dependencies
@@ -244,30 +244,6 @@ Analysis:
   Score: 100/100 → Genuine User ✅
 ```
 
-## 🆚 Before vs After
-
-### Previous "Aggressive" Approach
-```
-❌ VPN users: -70 penalty → often flagged as bots
-❌ Email clients: -10 penalty → marked suspicious
-❌ Any fast timing: → automatically bot
-❌ No learning: same penalty every time
-❌ Fixed thresholds: no context awareness
-
-Result: Many false positives, legitimate users flagged
-```
-
-### New "Intelligent" Approach
-```
-✅ VPN users: -40 → -15 (whitelisted) → genuine
-✅ Email clients: 0 penalty → legitimate access
-✅ Smart timing: send→open (hours) vs open→click (30s)
-✅ Dynamic whitelist: learns per-domain patterns
-✅ Context-aware: adapts to enterprise environments
-
-Result: Accurate detection, legitimate users recognized
-```
-
 ## 📋 Requirements
 
 - Python 3.8+
@@ -336,8 +312,6 @@ SECURITY_SCANNER_PENALTY = 95
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👤 Author
-
-**@Givaa**
 
 - GitHub: [@holygivaa](https://github.com/holygivaa)
 
