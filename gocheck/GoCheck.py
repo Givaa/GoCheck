@@ -30,7 +30,6 @@ class Colors:
     BOLD = '\033[1m'
     BLACK = '\033[30m'
 
-# Human vs Machine quotes - hacker culture
 HACKER_QUOTES = [
     "We erase what tries to replace us.",
     "In a world of algorithms, human intuition is the ultimate exploit.",
@@ -276,6 +275,10 @@ class GoPhishAnalyzer:
         if any(provider in combined for provider in self.cloud_providers):
             return True, 'cloud', 80, f"Cloud provider: {org}"
 
+        # Datacenter/Hosting (likely automated)
+        if any(term in combined for term in ['datacenter', 'hosting', 'server']) or hosting == True:
+            return True, 'datacenter', 75, "Datacenter"
+        
         # VPN/Proxy - check whitelist first
         if 'vpn' in combined or 'proxy' in combined or proxy == True:
             # Check if this IP is whitelisted for this domain
@@ -283,10 +286,6 @@ class GoPhishAnalyzer:
                 return True, 'vpn_whitelisted', 15, f"VPN/Proxy (whitelisted for {email_domain})"
             # Not whitelisted yet, apply moderate penalty (will be reduced if behavior is human-like)
             return True, 'vpn', 40, "VPN/Proxy (pending validation)"
-
-        # Datacenter/Hosting (likely automated)
-        if any(term in combined for term in ['datacenter', 'hosting', 'server']) or hosting == True:
-            return True, 'datacenter', 75, "Datacenter"
 
         # Legitimate business/residential ISP
         if ip_info.get('isp'):
