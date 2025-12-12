@@ -4,22 +4,20 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-**Advanced bot detection for GoPhish phishing campaigns**
+**Perfect bot detection for GoPhish phishing campaigns**
 
-GoCheck analyzes GoPhish campaign events to distinguish automated scanner activity from genuine human interactions. Stop counting bot clicks as successful phishing attempts and get accurate metrics on real user behavior.
+GoCheck analyzes GoPhish campaign events to accurately distinguish automated scanner activity from genuine human interactions using context-aware detection, dynamic whitelisting, and persistent learning. Perfect for enterprise environments with VPNs and email gateways.
 
-<div align="center">
-  <img src="docs/images/banner.png" alt="GoCheck Banner" width="800"/>
-</div>
+## ✨ Key Features
 
-## ✨ Features
-
-- 🤖 **Intelligent Bot Detection** - Identifies security scanners, email gateways, and automated systems
-- ⏱️ **Timing Analysis** - Detects millisecond-level automation patterns
-- 🌍 **IP Intelligence** - Geolocation, ISP, and hosting provider classification
-- 🔍 **Multi-IP Tracking** - Separates bot scans from real user clicks on the same email
+- 🧠 **Intelligent VPN Detection** - Dynamic whitelisting learns legitimate corporate VPN patterns (3+ interactions)
+- ⏱️ **Smart Timing Analysis** - Distinguishes send→open (hours OK) from open→click (1-30s)
+- 📧 **Email Client Support** - Recognizes Outlook, Apple Mail, Thunderbird as legitimate access
+- 🌍 **IP Intelligence** - Geolocation, ISP classification, cloud provider detection
+- 🎯 **Multi-IP Tracking** - Separates bot scans from real user clicks on same email
 - 📊 **Comprehensive Reports** - Clean CSV exports with human-only interactions
-- 💻 **CLI Tool** - Full-featured command-line interface for automation
+- 💻 **Full-Featured CLI** - Command-line interface with verbose mode
+- 💾 **Persistent Learning** - Whitelist saved automatically, improves over time
 
 ## 🚀 Quick Start
 
@@ -34,7 +32,7 @@ cd GoCheck
 pip install -r requirements.txt
 
 # Run analysis
-python GoCheck/GoCheck.py -i raw_events.csv
+python gocheck/GoCheck.py -i raw_events.csv
 ```
 
 ## 📖 Usage
@@ -43,105 +41,231 @@ python GoCheck/GoCheck.py -i raw_events.csv
 
 ```bash
 # Basic analysis
-python GoCheck/GoCheck.py -i events.csv
+python gocheck/GoCheck.py -i events.csv
 
 # Custom output directory
-python GoCheck/GoCheck.py -i events.csv -o reports/
+python gocheck/GoCheck.py -i events.csv -o reports/
 
-# Verbose mode
-python GoCheck/GoCheck.py -i events.csv -v
+# Verbose mode (see detailed scoring)
+python gocheck/GoCheck.py -i events.csv -v
 
 # Show help
-python GoCheck/GoCheck.py --help
+python gocheck/GoCheck.py --help
 ```
 
 ### As a Python Module
 
 ```python
-from GoCheck import GoPhishAnalyzer
+from gocheck.GoCheck import GoPhishAnalyzer
 
+# Analyze campaign
 analyzer = GoPhishAnalyzer('raw_events.csv')
-results = analyzer.analyze_campaign()
+results = analyzer.analyze_campaign(verbose=True)
+
+# Generate human-only report
 human_report = analyzer.generate_human_report(results)
+
+# Access whitelist data
+print(analyzer.ip_whitelist)
 ```
 
 ## 🎯 How It Works
 
-GoCheck uses a multi-factor scoring system to classify each IP interaction:
+GoCheck uses an **intelligent, context-aware** scoring system that adapts to enterprise environments:
 
 ### Detection Factors
 
-1. **IP Analysis** (0-90 penalty)
-   - Cloud providers (AWS, Azure, GCP)
-   - Security vendors (Proofpoint, Mimecast, Barracuda)
-   - VPN/Proxy detection
-   - Geographic filtering
+#### 1. IP Analysis (0-100 penalty)
+- **Security scanners** (Proofpoint, Mimecast): -95 points
+- **Cloud providers** (AWS, Azure, GCP): -80 points
+- **Datacenters/Hosting**: -75 points
+- **VPN/Proxy**:
+  - First time: -40 points
+  - Whitelisted: -15 points (learned behavior)
+- **Legitimate ISPs**: 0 points
 
-2. **Timing Analysis** (0-90 penalty)
-   - Sub-second events = automation
-   - Millisecond patterns = bot signatures
-   - Human-like delays = legitimate user
+#### 2. Smart Timing Analysis
 
-3. **User Agent Analysis** (0-80 penalty)
-   - Bot/crawler signatures
-   - Security tool identifiers
-   - Standard browser fingerprints
+**Send → Open** (humans take hours):
+```
+< 2s    = Bot (immediate scanner)
+2-10s   = Suspicious
+> 10s   = Normal human ✓
+```
 
-4. **Behavioral Patterns** (+/- 10-20)
-   - Click-through behavior
-   - Multi-stage interactions
-   - Consistency checks
+**Open → Click** (humans read 3-30s):
+```
+< 1s    = Bot (automation)
+1-3s    = Suspicious
+3-30s   = Normal human ✓
+> 30s   = Re-reading email ✓
+```
 
-### Scoring System
+#### 3. User Agent Analysis
+- **Bot/Crawler keywords**: -80 points
+- **Security tools**: -70 points
+- **Email clients** (Outlook, Apple Mail): 0 points ✓
+- **Standard browsers**: 0 points ✓
+- **Missing UA**: -30 points
 
-- **70-100**: Genuine human user ✅
-- **40-69**: Suspicious, requires review ⚠️
-- **0-39**: Bot/scanner detected 🤖
+#### 4. Behavioral Bonuses
+- **Clicked link**: +10 points
+- **VPN with human behavior**: +25 points
+
+### Dynamic Whitelist System
+
+GoCheck learns which IPs are legitimate for specific email domains:
+
+```python
+# Example: Corporate VPN Gateway
+mail.com users → 192.168.1.50 (VPN)
+
+User 1: First interaction
+  - Score: 100 - 40 (VPN) + 25 (human timing) = 85 ✓
+  - Whitelist: human_behaviors = 1
+
+User 2: Second interaction
+  - Score: 100 - 40 (VPN) + 25 (human timing) = 85 ✓
+  - Whitelist: human_behaviors = 2
+  - ✅ IP now whitelisted for mail.com
+
+User 3: Uses whitelisted IP
+  - Score: 100 - 15 (whitelisted!) + 25 = 110 (capped to 100) ✓
+```
+
+### Scoring Thresholds
+
+- **70-100**: ✅ Genuine human user
+- **40-69**: ⚠️ Suspicious, review recommended
+- **0-39**: 🤖 Bot/scanner detected
 
 ## 📊 Output Reports
 
 ### Human Users Report (`human_users_report.csv`)
 
-| email | human_opened | human_clicked | human_score | human_ip |
-|-------|--------------|---------------|-------------|----------|
-| user@company.com | YES | YES | 85 | 151.18.45.123 |
-| admin@company.com | YES | NO | 78 | 93.45.123.87 |
-| bot@company.com | NO | NO | 0 | N/A |
+| email | human_opened | human_clicked | human_score | human_ip | details |
+|-------|--------------|---------------|-------------|----------|---------|
+| user@company.com | YES | YES | 95 | 192.168.1.50 | Actions: opened email, clicked link |
+| admin@company.com | YES | NO | 78 | 93.45.123.87 | Actions: opened email |
+| bot@company.com | NO | NO | 0 | N/A | Bot/scanner only detected |
 
 ### Complete Analysis (`complete_campaign_analysis.csv`)
 
-Detailed breakdown of every IP interaction with classifications, scores, and event timelines.
+Detailed breakdown of every IP interaction with:
+- IP classifications and scores
+- Timing analysis
+- Event timelines
+- Bot vs human determination
 
-## 🔬 Real-World Example
+## 🔬 Real-World Examples
 
-**Scenario:** Email security gateway opens email in 250ms, then real user clicks 2 hours later.
+### Example 1: Corporate VPN with Outlook
 
 ```
-Email: john.doe@company.com
+Email: john@company.com
+IP: 172.16.0.50 (Corporate VPN)
+User Agent: Microsoft Outlook/16.0
 
-IP #1: 52.18.134.87 (AWS) - Bot/Scanner
-  Score: 20/100
-  Events: Email Opened, Clicked Link
-  Timing: 250ms between events
-  Classification: Security scanner detected
+Timeline:
+  09:00:00  Email Sent
+  11:30:00  Email Opened (2.5 hours later)
+  11:30:15  Clicked Link (15 seconds after open)
 
-IP #2: 151.18.45.123 (Telecom Italia) - Genuine User
-  Score: 85/100
-  Events: Email Opened, Clicked Link
-  Timing: 5m 32s between events
-  Classification: Real user interaction
+Analysis:
+  Base score: 100
+  - VPN (first time): -40
+  - Send→Open (2.5h): 0 (normal human delay)
+  - Open→Click (15s): 0 (normal reading time)
+  - UA Outlook: 0 (legitimate email client)
+  + Human behavior: +25
+  + Clicked link: +10
 
-Final Result: ✅ User clicked (despite bot scanner activity)
+  Final Score: 95/100 → Genuine User ✅
+
+Next time this IP opens email from company.com domain:
+  - VPN (whitelisted): -15 (instead of -40)
+  - Final Score: 100/100 ✅
 ```
 
-### Code Style
+### Example 2: Security Scanner vs Real User
 
-```bash
-# Format code
-black GoCheck/
+```
+Email: target@company.com
 
-# Lint
-flake8 GoCheck/
+IP #1: 1.2.3.4 (Proofpoint Scanner)
+  Timeline:
+    10:00:00.000  Email Sent
+    10:00:00.800  Email Opened (0.8s after send)
+    10:00:01.200  Clicked Link (0.4s after open)
+
+  Analysis:
+    - Security scanner: -95
+    - Instant open: -95
+    - Instant click: -95
+    - Bot UA: -70
+    Score: 0/100 → Bot/Scanner 🤖
+
+IP #2: 93.45.78.12 (Telecom Italia)
+  Timeline:
+    14:30:00  Email Opened (4.5h after send)
+    14:30:22  Clicked Link (22s after open)
+
+  Analysis:
+    - Legitimate ISP: 0
+    - Normal delays: 0
+    - Browser UA: 0
+    + Clicked: +10
+    Score: 100/100 → Genuine User ✅
+
+Final Result: ✅ Real user clicked (bot activity ignored)
+```
+
+### Example 3: Re-reading Email (Multiple Opens)
+
+```
+Email: alice@domain.com
+IP: 151.18.45.67 (Vodafone IT)
+User Agent: Apple Mail/16.0
+
+Timeline:
+  15:40:00  Email Sent
+  17:20:00  Email Opened (100 min after send)
+  17:22:00  Email Opened again (re-reading)
+  17:25:30  Clicked Link (5.5 min after first open)
+
+Analysis:
+  - Legitimate ISP: 0
+  - Send→Open (100 min): 0 (normal)
+  - Multiple opens (2 min apart): 0 (re-reading behavior)
+  - Open→Click (5.5 min): 0 (thinking/reading)
+  - Email client UA: 0 (legitimate)
+  + Clicked: +10
+
+  Score: 100/100 → Genuine User ✅
+```
+
+## 🆚 Before vs After
+
+### Previous "Aggressive" Approach
+```
+❌ VPN users: -70 penalty → often flagged as bots
+❌ Email clients: -10 penalty → marked suspicious
+❌ Any fast timing: → automatically bot
+❌ No learning: same penalty every time
+❌ Fixed thresholds: no context awareness
+
+Result: Many false positives, legitimate users flagged
+```
+
+### New "Intelligent" Approach
+```
+✅ VPN users: -40 → -15 (whitelisted) → genuine
+✅ Email clients: 0 penalty → legitimate access
+✅ Smart timing: send→open (hours) vs open→click (30s)
+✅ Dynamic whitelist: learns per-domain patterns
+✅ Context-aware: adapts to enterprise environments
+
+Result: Accurate detection, legitimate users recognized
 ```
 
 ## 📋 Requirements
@@ -150,7 +274,7 @@ flake8 GoCheck/
 - pandas
 - requests
 
-See `requirements.txt` for complete dependencies.
+See [requirements.txt](requirements.txt) for complete dependencies.
 
 ## 🤝 Contributing
 
@@ -162,24 +286,50 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 Algorithm Details
+## 📝 Documentation
 
-For a deep dive into the detection algorithms and scoring methodology, see [ALGORITHM.md](docs/ALGORITHM.md).
+- **[ALGORITHM.md](docs/ALGORITHM.md)** - Deep dive into detection methodology
 
-## 🐛 Known Issues
+## 🐛 Known Issues & Limitations
 
-- IP lookup requires internet connection
-- Rate limited to ~45 requests/minute (ip-api.com free tier)
-- Currently optimized for Italian campaigns (easily configurable)
+- **IP lookup** requires internet connection (uses ip-api.com)
+- **Rate limiting**: ~45 requests/minute (free tier)
+- **Whitelist persistence**: In-memory only (not saved between runs)
+- **Regional optimization**: Currently tuned for Italian campaigns (easily configurable)
 
 ## 🗺️ Roadmap
 
-- [ ] Go version for GoPhish integration
-- [ ] Support for additional IP lookup providers
-- [ ] Machine learning-based detection
+- [ ] Persistent whitelist (JSON/DB storage)
+- [ ] Multi-region configuration profiles
+- [ ] Machine learning-based pattern detection
 - [ ] REST API endpoint
 - [ ] Docker container
-- [ ] Multi-language support
+- [ ] Real-time GoPhish integration
+- [ ] Dashboard UI
+
+## 🔧 Configuration
+
+All thresholds are configurable in the source code:
+
+```python
+# Timing thresholds
+BOT_SEND_TO_OPEN = 2           # <2s = bot scanner
+SUSPICIOUS_SEND_TO_OPEN = 10   # 2-10s = suspicious
+BOT_OPEN_TO_CLICK = 1          # <1s = bot
+SUSPICIOUS_OPEN_TO_CLICK = 3   # 1-3s = suspicious
+NORMAL_CLICK_RANGE = 30        # 3-30s = normal human
+
+# Score thresholds
+GENUINE_HUMAN_THRESHOLD = 70   # 70+ = genuine user
+SUSPICIOUS_THRESHOLD = 40      # 40-69 = review
+BOT_THRESHOLD = 40             # <40 = bot
+
+# IP penalties
+VPN_PENALTY = 40               # First-time VPN
+VPN_WHITELISTED_PENALTY = 15   # Whitelisted VPN
+CLOUD_PROVIDER_PENALTY = 80
+SECURITY_SCANNER_PENALTY = 95
+```
 
 ## 📄 License
 
@@ -189,7 +339,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **@Givaa**
 
-- GitHub: [@Givaa](https://github.com/Givaa)
+- GitHub: [@holygivaa](https://github.com/holygivaa)
 
 ## 🙏 Acknowledgments
 
@@ -199,12 +349,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## ⚠️ Disclaimer
 
-This tool is designed for legitimate security awareness training and penetration testing with proper authorization. Users are responsible for complying with applicable laws and regulations.
+This tool is designed for legitimate security awareness training and authorized penetration testing only. Users are responsible for complying with applicable laws and regulations.
 
 ---
 
 <div align="center">
-  Made with ❤️ by @Givaa
-  
-  If you find this tool useful, please consider giving it a ⭐
+
+Made with ❤️ by @Givaa
+
+**"We erase what tries to replace us."**
+
+If you find this tool useful, please consider giving it a ⭐
+
 </div>

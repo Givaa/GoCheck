@@ -9,12 +9,13 @@ Author: @Givaa
 import pandas as pd
 import requests
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from collections import defaultdict
 import time
 import argparse
 import sys
 import os
+import statistics
 
 # ANSI color codes
 class Colors:
@@ -52,27 +53,41 @@ class GoPhishAnalyzer:
     EVENT_REPORTED = 'Email Reported'
     EVENT_ERROR = 'Error Sending Email'
     EVENT_PROXY = 'Proxied request'
-    
+
     def __init__(self, csv_path):
         """
         Initialize analyzer with GoPhish events CSV file.
-        
+
         Args:
             csv_path: Path to raw events CSV file exported from GoPhish
         """
         self.df = pd.read_csv(
-            csv_path, 
-            names=['campaign', 'email', 'time', 'message', 'details'], 
+            csv_path,
+            names=['campaign', 'email', 'time', 'message', 'details'],
             skiprows=1
         )
         self.df['time'] = pd.to_datetime(self.df['time'], format='mixed')
-        
+
+        # Store original df with SENT events for timing analysis
+        self.df_with_sent = self.df.copy()
+
         # Filter out events not relevant for behavioral analysis
         self.df = self.df[~self.df['message'].isin([
-            self.EVENT_SENT, 
-            self.EVENT_ERROR, 
+            self.EVENT_SENT,
+            self.EVENT_ERROR,
             self.EVENT_PROXY
         ])]
+
+        # Dynamic whitelist: IP -> {domains, behavior_scores, first_seen, last_seen, timing_variance}
+        self.ip_whitelist = defaultdict(lambda: {
+            'domains': set(),
+            'scores': [],
+            'human_behaviors': 0,
+            'bot_behaviors': 0,
+            'timing_samples': [],
+            'first_seen': None,
+            'last_seen': None
+        })
         
         # Suspicious IP detection configuration
         self.cloud_providers = [
@@ -208,72 +223,77 @@ class GoPhishAnalyzer:
         
         return None
     
-    def classify_ip(self, ip_info):
+    def classify_ip(self, ip_info, email_domain=None, ip=None):
         """
         Classify IP type and calculate penalty for scoring.
-        AGGRESSIVE APPROACH: When in doubt, classify as bot to ensure humans are genuine.
-        
+        Now considers whitelisting for VPNs that show consistent human behavior.
+
         Returns:
             tuple: (is_italian, ip_type, penalty, description)
         """
         if not ip_info or ip_info.get('status') == 'fail':
-            return None, 'unknown', 60, "IP lookup failed - assume bot"
-        
+            return None, 'unknown', 30, "IP lookup failed - insufficient data"
+
         is_italian = ip_info.get('countryCode') == 'IT'
         country = ip_info.get('country', 'Unknown')
-        
+
         if not is_italian:
             return False, 'foreign', 100, f"Foreign IP: {country}"
-        
+
         org = ip_info.get('org', '').lower()
         isp = ip_info.get('isp', '').lower()
         as_name = ip_info.get('as', '').lower()
         proxy = ip_info.get('proxy', '')
         hosting = ip_info.get('hosting', '')
         combined = f"{org} {isp} {as_name}"
-        
+
         # Security vendor (definite bot)
         if any(vendor in combined for vendor in self.security_vendors):
             return True, 'security_scanner', 95, f"Security scanner: {org}"
-        
+
         # Cloud provider (very likely bot)
         if any(provider in combined for provider in self.cloud_providers):
             return True, 'cloud', 80, f"Cloud provider: {org}"
-        
-        # VPN/Proxy (suspicious)
+
+        # VPN/Proxy - check whitelist first
         if 'vpn' in combined or 'proxy' in combined or proxy == True:
-            return True, 'vpn', 70, "VPN/Proxy"
-        
+            # Check if this IP is whitelisted for this domain
+            if ip and email_domain and self._is_ip_whitelisted(ip, email_domain):
+                return True, 'vpn_whitelisted', 15, f"VPN/Proxy (whitelisted for {email_domain})"
+            # Not whitelisted yet, apply moderate penalty (will be reduced if behavior is human-like)
+            return True, 'vpn', 40, "VPN/Proxy (pending validation)"
+
         # Datacenter/Hosting (likely automated)
         if any(term in combined for term in ['datacenter', 'hosting', 'server']) or hosting == True:
             return True, 'datacenter', 75, "Datacenter"
-        
+
         # Legitimate business/residential ISP
         if ip_info.get('isp'):
             return True, 'legitimate_isp', 0, f"ISP: {ip_info.get('isp')}"
-        
+
         return True, 'unknown', 30, "Unknown type - suspicious"
     
     def analyze_user_agent(self, user_agent):
         """
         Analyze User Agent to detect bots/scanners.
-        
+        Email clients are now treated as legitimate human access patterns.
+
         Returns:
             tuple: (penalty, description)
         """
         if not user_agent or user_agent == '':
             return 30, "User Agent missing"
-        
+
         ua_lower = user_agent.lower()
-        
+
         # Bot keywords
         bot_indicators = [
-            'bot', 'crawler', 'spider', 'scan', 'check', 'monitor', 
+            'bot', 'crawler', 'spider', 'scan', 'check', 'monitor',
             'validation', 'test', 'probe', 'fetch'
         ]
         if any(indicator in ua_lower for indicator in bot_indicators):
             return 80, "Bot/Crawler detected"
-        
+
         # Security tools
         security_indicators = [
             'security', 'protection', 'safe', 'guard', 'threat',
@@ -281,23 +301,171 @@ class GoPhishAnalyzer:
         ]
         if any(indicator in ua_lower for indicator in security_indicators):
             return 70, "Security tool"
-        
+
         # Standard browsers
         if any(browser in ua_lower for browser in ['chrome', 'firefox', 'safari', 'edge', 'opera']):
             return 0, "Standard browser"
-        
-        # Email clients
-        if any(client in ua_lower for client in ['outlook', 'thunderbird', 'mail', 'msoffice']):
-            return 10, "Email client"
-        
+
+        # Email clients - legitimate human access, minimal penalty
+        if any(client in ua_lower for client in ['outlook', 'thunderbird', 'mail', 'msoffice', 'apple mail']):
+            return 0, "Email client (legitimate)"
+
         return 25, "Anomalous User Agent"
     
+    def _is_ip_whitelisted(self, ip, email_domain):
+        """
+        Check if an IP is whitelisted for a specific email domain.
+        An IP is whitelisted if it has shown consistent human behavior for this domain.
+
+        Whitelist criteria:
+        - At least 3 human-like interactions (increased from 2)
+        - Human behaviors must outweigh bot behaviors
+        - Timing variance check (not too uniform = bot)
+        - Not expired (90 days decay)
+        """
+        if ip not in self.ip_whitelist:
+            return False
+
+        whitelist_entry = self.ip_whitelist[ip]
+
+        # Must have seen this domain before
+        if email_domain not in whitelist_entry['domains']:
+            return False
+
+        # Whitelist decay: expires after 90 days
+        if whitelist_entry['last_seen']:
+            age = datetime.now() - whitelist_entry['last_seen']
+            if age.days > 90:
+                return False
+
+        # Must have at least 3 human-like interactions (more restrictive)
+        if whitelist_entry['human_behaviors'] < 3:
+            return False
+
+        # Human behaviors should outweigh bot behaviors
+        if whitelist_entry['bot_behaviors'] > whitelist_entry['human_behaviors']:
+            return False
+
+        # Check timing variance: bots have very uniform timing
+        timing_samples = whitelist_entry.get('timing_samples', [])
+        if len(timing_samples) >= 3:
+            try:
+                variance = statistics.stdev(timing_samples)
+                # If variance is too low (< 2 seconds), likely a bot with programmed delays
+                if variance < 2.0:
+                    return False
+            except statistics.StatisticsError:
+                # Not enough data or all values identical
+                pass
+
+        return True
+
+    def _update_whitelist(self, ip, email_domain, is_human_like, score, timing=None):
+        """
+        Update the whitelist with behavior information for an IP/domain pair.
+
+        Args:
+            ip: IP address
+            email_domain: Email domain
+            is_human_like: Whether behavior was human-like
+            score: Final score
+            timing: Open->click timing in seconds (for variance analysis)
+        """
+        if not ip or ip == 'unknown':
+            return
+
+        whitelist_entry = self.ip_whitelist[ip]
+        whitelist_entry['domains'].add(email_domain)
+        whitelist_entry['scores'].append(score)
+
+        # Update timestamps
+        now = datetime.now()
+        if whitelist_entry['first_seen'] is None:
+            whitelist_entry['first_seen'] = now
+        whitelist_entry['last_seen'] = now
+
+        # Track timing for variance analysis
+        if timing is not None and timing > 0:
+            whitelist_entry['timing_samples'].append(timing)
+            # Keep only last 10 samples
+            if len(whitelist_entry['timing_samples']) > 10:
+                whitelist_entry['timing_samples'].pop(0)
+
+        if is_human_like:
+            whitelist_entry['human_behaviors'] += 1
+        else:
+            whitelist_entry['bot_behaviors'] += 1
+
+    def _extract_email_domain(self, email):
+        """Extract domain from email address."""
+        if '@' in email:
+            return email.split('@')[1].lower()
+        return None
+
+    def _get_sent_time(self, email):
+        """Get the time when email was sent for this recipient."""
+        sent_events = self.df_with_sent[
+            (self.df_with_sent['email'] == email) &
+            (self.df_with_sent['message'] == self.EVENT_SENT)
+        ]
+        if not sent_events.empty:
+            return sent_events.iloc[0]['time']
+        return None
+
+    def save_whitelist(self, filepath='whitelist.json'):
+        """
+        Save whitelist to JSON file for persistence across runs.
+
+        Args:
+            filepath: Path to save whitelist JSON file
+        """
+        whitelist_serializable = {}
+        for ip, data in self.ip_whitelist.items():
+            whitelist_serializable[ip] = {
+                'domains': list(data['domains']),
+                'scores': data['scores'],
+                'human_behaviors': data['human_behaviors'],
+                'bot_behaviors': data['bot_behaviors'],
+                'timing_samples': data['timing_samples'],
+                'first_seen': data['first_seen'].isoformat() if data['first_seen'] else None,
+                'last_seen': data['last_seen'].isoformat() if data['last_seen'] else None
+            }
+
+        with open(filepath, 'w') as f:
+            json.dump(whitelist_serializable, f, indent=2)
+
+    def load_whitelist(self, filepath='whitelist.json'):
+        """
+        Load whitelist from JSON file.
+
+        Args:
+            filepath: Path to whitelist JSON file
+
+        Returns:
+            bool: True if loaded successfully, False if file doesn't exist
+        """
+        if not os.path.exists(filepath):
+            return False
+
+        with open(filepath, 'r') as f:
+            data = json.load(f)
+            for ip, entry in data.items():
+                self.ip_whitelist[ip]['domains'] = set(entry['domains'])
+                self.ip_whitelist[ip]['scores'] = entry['scores']
+                self.ip_whitelist[ip]['human_behaviors'] = entry['human_behaviors']
+                self.ip_whitelist[ip]['bot_behaviors'] = entry['bot_behaviors']
+                self.ip_whitelist[ip]['timing_samples'] = entry['timing_samples']
+                self.ip_whitelist[ip]['first_seen'] = datetime.fromisoformat(entry['first_seen']) if entry['first_seen'] else None
+                self.ip_whitelist[ip]['last_seen'] = datetime.fromisoformat(entry['last_seen']) if entry['last_seen'] else None
+
+        return True
+
     def group_events_by_ip(self, email_events):
         """
         Group events by source IP for separate bot/human analysis.
         """
         ip_groups = defaultdict(list)
-        
+
         for idx, event in email_events.iterrows():
             ip, ua = self.extract_ip_and_ua(event)
             ip_key = ip if ip else 'unknown'
@@ -308,67 +476,128 @@ class GoPhishAnalyzer:
                 'user_agent': ua,
                 'event': event
             })
-        
+
         # Sort chronologically
         for ip in ip_groups:
             ip_groups[ip] = sorted(ip_groups[ip], key=lambda x: x['time'])
-        
+
         return ip_groups
     
-    def analyze_timing(self, events_list):
+    def analyze_timing(self, events_list, sent_time=None):
         """
         Analyze time intervals between events to identify automation.
-        
+        Distinguishes between send->open (can be hours) and open->click (max 30s for humans).
+
         Returns:
-            tuple: (penalty, is_bot, details)
+            tuple: (penalty, is_bot, details, open_to_click_timing)
         """
-        if len(events_list) < 2:
-            return 0, False, []
-        
+        if len(events_list) < 1:
+            return 0, False, [], None
+
         details = []
         max_penalty = 0
         is_bot = False
-        
+        open_to_click_timing = None
+
+        # Analyze send->open if we have sent time
+        if sent_time and events_list[0]['message'] == self.EVENT_OPENED:
+            send_to_open = (events_list[0]['time'] - sent_time).total_seconds()
+            if send_to_open < 2:
+                details.append(f"Bot detected: opened {send_to_open:.1f}s after send")
+                max_penalty = max(max_penalty, 95)
+                is_bot = True
+            elif send_to_open < 10:
+                details.append(f"Suspicious: opened {send_to_open:.1f}s after send")
+                max_penalty = max(max_penalty, 70)
+                is_bot = True
+            else:
+                details.append(f"Normal: opened {send_to_open/60:.1f}min after send")
+        elif not sent_time and events_list[0]['message'] == self.EVENT_OPENED:
+            # Fallback: sent time missing
+            details.append("Sent time missing - limited timing analysis")
+            max_penalty = max(max_penalty, 10)
+
+        # Pattern analysis: detect suspicious re-opening patterns
+        consecutive_opens = []
+        for i in range(len(events_list) - 1):
+            if events_list[i]['message'] == self.EVENT_OPENED and events_list[i+1]['message'] == self.EVENT_OPENED:
+                time_diff = (events_list[i+1]['time'] - events_list[i]['time']).total_seconds()
+                consecutive_opens.append(time_diff)
+
+        # Check for bot pattern: too many rapid consecutive opens
+        if len(consecutive_opens) > 2:
+            avg_reopen = sum(consecutive_opens) / len(consecutive_opens)
+            if avg_reopen < 5:
+                details.append(f"Bot pattern: {len(consecutive_opens)} rapid re-opens (avg {avg_reopen:.1f}s)")
+                max_penalty = max(max_penalty, 50)
+                is_bot = True
+
+        # Analyze open->click and click->submit
         for i in range(len(events_list) - 1):
             time_diff = (events_list[i+1]['time'] - events_list[i]['time']).total_seconds()
             event1 = events_list[i]['message']
             event2 = events_list[i+1]['message']
-            
-            if time_diff < 1:
-                details.append(f"Automation detected: {event1} -> {event2} in {time_diff*1000:.0f}ms")
-                max_penalty = max(max_penalty, 90)
-                is_bot = True
-            elif time_diff < 3:
-                details.append(f"Suspicious timing: {event1} -> {event2} in {time_diff:.2f}s")
-                max_penalty = max(max_penalty, 70)
-                is_bot = True
-            elif time_diff < 10:
-                details.append(f"Fast timing: {event1} -> {event2} in {time_diff:.1f}s")
-                max_penalty = max(max_penalty, 50)
-            elif time_diff < 30:
-                details.append(f"Moderate timing: {event1} -> {event2} in {time_diff:.1f}s")
-                max_penalty = max(max_penalty, 25)
-        
-        if not is_bot and len(events_list) >= 2:
-            avg_time = sum((events_list[i+1]['time'] - events_list[i]['time']).total_seconds() 
-                          for i in range(len(events_list)-1)) / (len(events_list)-1)
-            details.append(f"Normal average timing: {avg_time:.1f}s")
-        
-        return max_penalty, is_bot, details
+
+            # open->click or click->submit timing (should be quick but not instant)
+            if event1 == self.EVENT_OPENED and event2 == self.EVENT_CLICKED:
+                open_to_click_timing = time_diff  # Capture for whitelist variance analysis
+
+                if time_diff < 1:
+                    details.append(f"Bot: open->click in {time_diff*1000:.0f}ms")
+                    max_penalty = max(max_penalty, 95)
+                    is_bot = True
+                elif time_diff < 3:
+                    # FIXED: Don't mark as definite bot, just suspicious
+                    details.append(f"Very fast: open->click in {time_diff:.1f}s")
+                    max_penalty = max(max_penalty, 40)
+                    # NOT setting is_bot = True here anymore
+                elif time_diff <= 30:
+                    details.append(f"Normal: open->click in {time_diff:.1f}s")
+                    max_penalty = max(max_penalty, 0)
+                else:
+                    # Clicked after long time - multiple opens or thinking
+                    details.append(f"Slow: open->click in {time_diff:.1f}s (re-reading email)")
+                    max_penalty = max(max_penalty, 0)
+
+            elif event2 == self.EVENT_CLICKED:
+                if time_diff < 1:
+                    details.append(f"Bot: {event1}->click in {time_diff*1000:.0f}ms")
+                    max_penalty = max(max_penalty, 90)
+                    is_bot = True
+                elif time_diff < 5:
+                    # FIXED: Reduced penalty from 40 to 20
+                    details.append(f"Fast: {event1}->click in {time_diff:.1f}s")
+                    max_penalty = max(max_penalty, 20)
+                elif time_diff <= 30:
+                    details.append(f"Normal: {event1}->click in {time_diff:.1f}s")
+
+            # Multiple opens (human re-reading)
+            elif event1 == self.EVENT_OPENED and event2 == self.EVENT_OPENED:
+                if time_diff < 2:
+                    details.append(f"Bot: multiple opens in {time_diff:.1f}s")
+                    max_penalty = max(max_penalty, 80)
+                    is_bot = True
+                else:
+                    details.append(f"Re-opened email after {time_diff:.1f}s")
+
+        return max_penalty, is_bot, details, open_to_click_timing
     
-    def calculate_ip_score(self, ip, events_list):
+    def calculate_ip_score(self, ip, events_list, email, sent_time=None):
         """
         Calculate reliability score for an IP group.
         High score (70-100) = likely human
         Low score (0-40) = likely bot
+
+        Now with whitelist support and improved timing analysis.
         """
         score = 100
         analysis_details = []
-        
+        email_domain = self._extract_email_domain(email)
+
         # IP analysis
         ip_info = self.get_ip_info(ip) if ip and ip != 'unknown' else None
-        is_italian, ip_type, ip_penalty, ip_desc = self.classify_ip(ip_info)
-        
+        is_italian, ip_type, ip_penalty, ip_desc = self.classify_ip(ip_info, email_domain, ip)
+
         if is_italian is False:
             return {
                 'ip': ip,
@@ -381,18 +610,18 @@ class GoPhishAnalyzer:
                 'first_event': events_list[0]['time'],
                 'last_event': events_list[-1]['time']
             }
-        
+
         score -= ip_penalty
         if ip_penalty > 0:
             analysis_details.append(f"IP: {ip_desc} (-{ip_penalty})")
-        
-        # Timing analysis
-        timing_penalty, is_bot_timing, timing_details = self.analyze_timing(events_list)
+
+        # Timing analysis with sent_time (now returns 4 values including timing)
+        timing_penalty, is_bot_timing, timing_details, open_to_click_timing = self.analyze_timing(events_list, sent_time)
         score -= timing_penalty
         if timing_penalty > 0:
             analysis_details.append(f"Timing: penalty {timing_penalty}")
         analysis_details.extend(timing_details)
-        
+
         # User Agent analysis
         ua = next((e['user_agent'] for e in events_list if e['user_agent']), None)
         if ua:
@@ -403,23 +632,39 @@ class GoPhishAnalyzer:
         else:
             score -= 25
             analysis_details.append("User Agent: missing (-25)")
-        
-        # Behavior
+
+        # Behavior bonuses
         messages = [e['message'] for e in events_list]
         if self.EVENT_CLICKED in messages:
             score += 10
             analysis_details.append("Clicked link (+10)")
-        
+
+        # VPN whitelist bonus: if VPN but behavior is human-like
+        if ip_type == 'vpn' and not is_bot_timing and score >= 50:
+            score += 25
+            analysis_details.append("VPN with human behavior (+25)")
+            is_human_like = True
+        else:
+            is_human_like = score >= 60 and not is_bot_timing
+
+        # Update whitelist with timing data for variance analysis
+        if email_domain:
+            self._update_whitelist(ip, email_domain, is_human_like, score, open_to_click_timing)
+
         # Final determination
         is_bot = is_bot_timing or ip_type in ['security_scanner', 'cloud'] or score < 40
-        
+
+        # Override bot detection for whitelisted VPNs
+        if ip_type == 'vpn_whitelisted' and score >= 50:
+            is_bot = False
+
         if score >= 70:
             classification = 'Genuine user'
         elif score >= 40:
             classification = 'Suspicious'
         else:
             classification = 'Bot/Scanner'
-        
+
         return {
             'ip': ip or 'N/A',
             'score': max(0, min(100, score)),
@@ -437,27 +682,28 @@ class GoPhishAnalyzer:
         Analyze all events for a single target email.
         """
         ip_groups = self.group_events_by_ip(email_events)
-        
+        sent_time = self._get_sent_time(email)
+
         ip_analyses = []
         for ip, events_list in ip_groups.items():
-            analysis = self.calculate_ip_score(ip, events_list)
+            analysis = self.calculate_ip_score(ip, events_list, email, sent_time)
             ip_analyses.append(analysis)
-        
+
         ip_analyses.sort(key=lambda x: x['first_event'])
-        
+
         # Determine bot/human presence
         human_analyses = [a for a in ip_analyses if not a['is_bot']]
         bot_analyses = [a for a in ip_analyses if a['is_bot']]
-        
+
         if human_analyses:
             final_score = max(a['score'] for a in human_analyses)
             has_human = True
         else:
             final_score = max((a['score'] for a in ip_analyses), default=0)
             has_human = False
-        
+
         has_bot = len(bot_analyses) > 0
-        
+
         # Final classification
         if has_bot and has_human:
             final_class = "Bot scanner + Real user"
@@ -465,7 +711,7 @@ class GoPhishAnalyzer:
             final_class = "Real user only"
         else:
             final_class = "Bot/scanner only"
-        
+
         return {
             'email': email,
             'final_score': final_score,
@@ -656,6 +902,12 @@ def main():
     
     try:
         analyzer = GoPhishAnalyzer(args.input_file)
+
+        # Load existing whitelist if available
+        whitelist_path = os.path.join(args.output_dir, 'whitelist.json')
+        if analyzer.load_whitelist(whitelist_path):
+            print(f"{Colors.GREEN}[INFO]{Colors.ENDC} Loaded whitelist from: {whitelist_path}")
+
         results = analyzer.analyze_campaign(verbose=args.verbose)
         
         # Human report
@@ -719,7 +971,11 @@ def main():
         df_output = pd.DataFrame(df_full)
         df_output.to_csv(full_file, index=False)
         print(f"{Colors.GREEN}[SAVED]{Colors.ENDC} Complete analysis: {full_file}")
-        
+
+        # Save updated whitelist
+        analyzer.save_whitelist(whitelist_path)
+        print(f"{Colors.GREEN}[SAVED]{Colors.ENDC} Updated whitelist: {whitelist_path}")
+
         print(f"\n{Colors.BOLD}{Colors.GREEN}Analysis completed successfully!{Colors.ENDC}\n")
         
     except Exception as e:

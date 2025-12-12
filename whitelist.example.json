@@ -1,0 +1,66 @@
+{
+  "192.168.100.50": {
+    "domains": [
+      "acme.com",
+      "company.com"
+    ],
+    "scores": [
+      85,
+      90,
+      88,
+      92
+    ],
+    "human_behaviors": 4,
+    "bot_behaviors": 0,
+    "timing_samples": [
+      12.3,
+      8.7,
+      15.2,
+      18.9
+    ],
+    "first_seen": "2025-10-15T09:00:00",
+    "last_seen": "2025-12-12T14:30:00"
+  },
+  "172.16.0.100": {
+    "domains": [
+      "mail.com"
+    ],
+    "scores": [
+      95,
+      93,
+      97
+    ],
+    "human_behaviors": 3,
+    "bot_behaviors": 0,
+    "timing_samples": [
+      10.5,
+      14.2,
+      9.8
+    ],
+    "first_seen": "2025-11-01T10:30:00",
+    "last_seen": "2025-12-11T16:45:00"
+  },
+  "93.45.123.87": {
+    "domains": [
+      "example.org"
+    ],
+    "scores": [
+      78,
+      82,
+      80,
+      85,
+      83
+    ],
+    "human_behaviors": 5,
+    "bot_behaviors": 1,
+    "timing_samples": [
+      20.1,
+      16.8,
+      22.5,
+      18.3,
+      19.7
+    ],
+    "first_seen": "2025-09-20T08:15:00",
+    "last_seen": "2025-12-10T11:20:00"
+  }
+}

@@ -1,49 +1,44 @@
 # GoCheck Detection Algorithm
 
-This document describes the **aggressive, high-confidence** methodology used by GoCheck to distinguish automated bot activity from genuine human interactions in GoPhish campaigns.
+This document describes the **intelligent, adaptive** methodology used by GoCheck to distinguish automated bot activity from genuine human interactions in GoPhish campaigns.
 
-## Philosophy: "When in Doubt, It's a Bot"
+## Philosophy: "Smart Detection, Not Aggressive Rejection"
 
-### Why Aggressive Detection?
+### Why Intelligent Detection?
 
-In **phishing awareness training**, the goal is to accurately measure human susceptibility to phishing attacks. False positives (counting bots as humans) completely invalidate campaign results by:
+In **phishing awareness training**, the goal is to accurately measure human susceptibility to phishing attacks while avoiding false positives that flag legitimate users as bots. The challenge is distinguishing between:
 
-- Inflating success metrics with automated scanner activity
-- Misrepresenting actual employee vulnerability
-- Wasting training resources on non-existent issues
-- Undermining trust in security metrics
+- **Security scanners** (immediate, automated, cloud-based)
+- **VPN users** (legitimate employees accessing email through corporate gateways)
+- **Email clients** (Outlook, Apple Mail opening links)
+- **Real human behavior** (variable timing, legitimate ISPs)
 
-**Therefore, GoCheck prioritizes precision over recall**: It's better to miss some edge-case humans than to count a single bot as a successful phishing attempt.
+**GoCheck's approach**: Use context-aware scoring with dynamic whitelisting to adapt to legitimate enterprise patterns while catching actual bots.
 
 ## Design Principles
 
-1. **High bar for human classification** - Only clear, strong evidence results in "genuine human" status
-2. **Strict thresholds** - Score ≥80 required for confirmed human
-3. **Aggressive penalties** - Suspicious indicators receive harsh penalties
-4. **No benefit of the doubt** - Ambiguous cases are classified as bots
-5. **Multi-factor validation** - Multiple strong signals required for human classification
+1. **Context-aware classification** - VPN behavior is evaluated based on timing and domain patterns
+2. **Dynamic whitelisting** - Learn which IPs are legitimate for specific email domains
+3. **Timing intelligence** - Distinguish send→open (hours) from open→click (seconds)
+4. **Email client support** - Recognize legitimate email client access patterns
+5. **Multi-factor validation** - Multiple signals combine for accurate classification
 
 ## Scoring System
 
-Each IP group starts with a base score of **100 points**. Various factors apply penalties:
+Each IP group starts with a base score of **100 points**. Various factors apply penalties and bonuses:
 
-- **80-100 points**: ✅ **Confirmed genuine human** - Safe to count as campaign success
-- **60-79 points**: ⚠️ **Likely human - review recommended** - Probable human but verify manually
-- **40-59 points**: 🤖 **Suspicious - likely bot** - Do NOT count as success
-- **0-39 points**: 🔴 **Definite bot/scanner** - Automated activity
-
-### Key Difference from Typical Systems
-
-Most detection systems use 70+ as "human". GoCheck requires **80+** for confirmed human status, with 60-79 marked for review. This ensures high confidence in human classifications.
+- **70-100 points**: ✅ **Genuine human** - Legitimate user interaction
+- **40-69 points**: ⚠️ **Suspicious** - Review recommended
+- **0-39 points**: 🤖 **Bot/Scanner** - Automated activity
 
 ## Detection Factors
 
 ### 1. IP Analysis (0-100 penalty)
 
-The system performs geolocation and organization lookup for each IP address with **aggressive classification**.
+The system performs geolocation and organization lookup with **intelligent classification**.
 
 #### Foreign IPs (-100 penalty)
-Any IP outside Italy receives maximum penalty. This is configurable for different regions.
+Any IP outside Italy receives maximum penalty (configurable for other regions).
 
 ```python
 if ip_info.get('countryCode') != 'IT':
@@ -51,283 +46,433 @@ if ip_info.get('countryCode') != 'IT':
 ```
 
 #### Security Vendors (-95 penalty)
-Known security scanner IPs from vendors like:
-- Proofpoint
-- Mimecast
-- Barracuda
-- Microsoft Defender
-- Cisco IronPort
+Known security scanner IPs from:
+- Proofpoint, Mimecast, Barracuda
+- Microsoft Defender, Cisco IronPort
+- Sophos, Fortinet, Trend Micro
 
 #### Cloud Providers (-80 penalty)
 IP ranges from:
-- AWS
-- Google Cloud
-- Microsoft Azure
-- DigitalOcean
-- Hetzner
+- AWS, Google Cloud, Microsoft Azure
+- DigitalOcean, Hetzner, OVH
+- Linode, Vultr, Scaleway
 
 #### Datacenter/Hosting (-75 penalty)
-Hosting providers and datacenters that commonly host scanning services.
+Hosting providers commonly used by scanning services.
 
-#### VPN/Proxy (-70 penalty)
-Detected through:
-- Organization name keywords
-- IP-API proxy flag
-- Known VPN provider ranges
+#### VPN/Proxy (40 penalty, adaptive)
 
-#### IP Lookup Failure (-60 penalty)
-When IP geolocation fails or times out.
+**New intelligent approach:**
+
+**First-time VPN**: -40 points (moderate penalty)
+```python
+if 'vpn' in combined or 'proxy' in combined:
+    return True, 'vpn', 40, "VPN/Proxy (pending validation)"
+```
+
+**Whitelisted VPN**: -15 points only
+```python
+if self._is_ip_whitelisted(ip, email_domain):
+    return True, 'vpn_whitelisted', 15, f"VPN/Proxy (whitelisted for {email_domain})"
+```
+
+**VPN with human behavior**: +25 bonus
+```python
+if ip_type == 'vpn' and not is_bot_timing and score >= 50:
+    score += 25  # Reward human-like behavior from VPN
+```
+
+**Whitelisting criteria:**
+- IP seen ≥2 times for same domain
+- Consistent human-like behavior (timing, UA, clicks)
+- More human behaviors than bot behaviors
+
+**Example:**
+```
+mail.com users → 126.12.4.21 (Corporate Outlook VPN)
+First time:  -40 penalty, but +25 human behavior = 85/100 ✓
+Second time: -15 penalty (whitelisted) = 95/100 ✓
+```
 
 #### Unknown Type (-30 penalty)
 IPs that resolve but don't match known categories.
 
 #### Legitimate ISPs (0 penalty)
-Residential and business ISPs from major telecom providers receive no penalty.
+Residential and business ISPs from major telecom providers.
 
 Examples: Telecom Italia, Vodafone, Wind Tre, Fastweb
 
 ### 2. Timing Analysis (0-95 penalty)
 
-The system analyzes time intervals between consecutive events with **very strict thresholds**.
+**Key innovation**: Separate analysis for **send→open** vs **open→click**.
 
-#### Sub-second timing (-95 penalty)
-```
-Email Opened → Clicked Link: 250ms
-```
-Events occurring within 1 second are **definitively automated**. No human can read and click that fast. This is an absolute bot signature.
+#### Send → Open Timing
 
-#### 1-3 seconds (-80 penalty)
-```
-Email Opened → Clicked Link: 2.1s
-```
-Highly suspicious. Even if technically possible, legitimate users don't act this quickly. Likely automated.
+**Humans open emails hours after receiving them:**
 
-#### 3-5 seconds (-65 penalty)
-```
-Email Opened → Clicked Link: 4.2s
-```
-Very fast behavior that's extremely unlikely for legitimate users reading email content.
+```python
+if sent_time and events_list[0]['message'] == EVENT_OPENED:
+    send_to_open = (events_list[0]['time'] - sent_time).total_seconds()
 
-#### 5-10 seconds (-45 penalty)
+    if send_to_open < 2:      # Scanner opens immediately
+        penalty = 95 (BOT)
+    elif send_to_open < 10:   # Very fast, suspicious
+        penalty = 70 (SUSPICIOUS)
+    else:                      # Normal human delay
+        penalty = 0 (NORMAL)
 ```
-Email Opened → Clicked Link: 7.3s
-```
-Fast but technically plausible for a user who instantly recognizes a familiar link without reading.
 
-#### 10-20 seconds (-20 penalty)
+**Examples:**
 ```
-Email Opened → Clicked Link: 15.5s
+15:40 sent → 15:40:01 opened = BOT (1s)
+15:40 sent → 15:40:08 opened = Suspicious (8s)
+15:40 sent → 17:20 opened   = Normal human (100 minutes) ✓
 ```
-Quick but reasonable for a short email. Minor penalty.
 
-#### >30 seconds (0 penalty)
+#### Open → Click Timing
+
+**Humans read before clicking (3-30s typical):**
+
+```python
+if event1 == EVENT_OPENED and event2 == EVENT_CLICKED:
+    if time_diff < 1:         # Instant click
+        penalty = 95 (BOT)
+    elif time_diff < 3:       # Very fast
+        penalty = 60 (SUSPICIOUS)
+    elif time_diff <= 30:     # Normal human range
+        penalty = 0 (NORMAL)
+    else:                      # Re-reading email
+        penalty = 0 (NORMAL)
 ```
-Email Opened → Clicked Link: 2m 15s
+
+**Examples:**
 ```
-Normal human timing patterns. Users read emails before acting.
+Opened → 0.5s → Clicked  = BOT
+Opened → 2s → Clicked    = Suspicious
+Opened → 15s → Clicked   = Normal human ✓
+Opened → 2min → Clicked  = Re-reading email ✓
+```
 
-### 3. User Agent Analysis (0-85 penalty)
+#### Multiple Opens (re-reading)
 
-User agent strings are analyzed with **strict validation**.
+```python
+if event1 == EVENT_OPENED and event2 == EVENT_OPENED:
+    if time_diff < 2:         # Rapid re-opens
+        penalty = 80 (BOT)
+    else:                      # Human re-reading
+        penalty = 0 (NORMAL)
+```
 
-#### Bot/Crawler Keywords (-85 penalty)
+**Example:**
+```
+Test scenario: Email sent 15:40, opened 17:20, opened again 17:22, opened 17:24
+Result: Normal human behavior (re-reading) ✓
+```
+
+### 3. User Agent Analysis (0-80 penalty)
+
+**Improved email client recognition:**
+
+#### Bot/Crawler Keywords (-80 penalty)
 User agents containing:
 - "bot", "crawler", "spider"
 - "scan", "check", "monitor"
 - "validation", "test", "probe"
 
-Example: `Mozilla/5.0 SecurityBot/1.0`
-
-#### Security Tool Keywords (-80 penalty)
+#### Security Tool Keywords (-70 penalty)
 User agents containing:
 - "security", "protection", "safe"
 - "sandbox", "analyzer", "scanner"
 
-Example: `Mimecast-Security-Scanner/2.0`
+#### Missing User Agent (-30 penalty)
+No user agent suggests automated access.
 
-#### Missing User Agent (-40 penalty)
-No user agent provided suggests automated access or misconfigured client.
+#### Email Clients (0 penalty) ✅ NEW
+**Legitimate access patterns:**
+```python
+if any(client in ua_lower for client in ['outlook', 'thunderbird', 'mail', 'msoffice', 'apple mail']):
+    return 0, "Email client (legitimate)"
+```
 
-**Increased from -30 to -40**: Legitimate browsers always send user agents. Missing UA is highly suspicious.
-
-#### Anomalous User Agent (-35 penalty)
-User agent that doesn't match any known pattern.
-
-#### Email Clients (-15 penalty)
-Outlook, Thunderbird, Apple Mail receive minor penalty.
+Outlook, Thunderbird, Apple Mail are now treated as legitimate human access.
 
 #### Standard Browsers (0 penalty)
-Recognized browsers:
-- Chrome, Firefox, Safari
-- Edge, Opera
+Chrome, Firefox, Safari, Edge, Opera
 
-Example: `Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0`
+#### Anomalous User Agent (-25 penalty)
+User agent that doesn't match known patterns.
 
-Only standard, well-formed browser user agents receive no penalty.
-
-### 4. Behavioral Patterns (+/- 10-20 points)
+### 4. Behavioral Patterns (+10 points)
 
 #### Positive Signals
 - **Clicked Link (+10)**: Shows continued engagement
-- User demonstrates multi-step interaction patterns
 
-#### Negative Signals
-- **No activity after opening**: Possible automated scan
+## Dynamic Whitelist System
+
+### How It Works
+
+GoCheck learns which IPs are legitimate for specific email domains:
+
+```python
+# Data structure per IP
+ip_whitelist[ip] = {
+    'domains': set(['mail.com', 'company.com']),
+    'scores': [85, 90, 88],
+    'human_behaviors': 5,
+    'bot_behaviors': 0
+}
+```
+
+### Whitelisting Process
+
+1. **First interaction**: IP receives standard penalty (-40 for VPN)
+2. **Behavior analysis**: Timing and actions evaluated
+3. **Score calculation**: If score ≥60 and no bot timing → human-like
+4. **Whitelist update**: Record behavior for this IP+domain pair
+5. **Second interaction**: If ≥2 human behaviors for this domain → whitelisted
+6. **Reduced penalty**: Whitelisted IPs get -15 instead of -40
+
+### Whitelist Criteria
+
+```python
+def _is_ip_whitelisted(ip, email_domain):
+    # Must have domain association
+    if email_domain not in whitelist_entry['domains']:
+        return False
+
+    # Must have ≥2 human-like interactions
+    if whitelist_entry['human_behaviors'] < 2:
+        return False
+
+    # Human behaviors must outweigh bot behaviors
+    if whitelist_entry['bot_behaviors'] > whitelist_entry['human_behaviors']:
+        return False
+
+    return True
+```
+
+### Example: Corporate VPN Gateway
+
+```
+Company: ACME Corp
+Domain: acme.com
+VPN Gateway: 192.168.100.50 (Outlook server)
+
+User 1: alice@acme.com
+  - Opens from 192.168.100.50 (VPN)
+  - Opened 2h after send
+  - Clicked after 18s
+  - Score: 100 - 40 (VPN) + 25 (human) + 10 (click) = 95 ✓
+  - Whitelist updated: human_behaviors = 1
+
+User 2: bob@acme.com
+  - Opens from 192.168.100.50 (VPN)
+  - Opened 1.5h after send
+  - Clicked after 12s
+  - Score: 100 - 40 (VPN) + 25 (human) + 10 (click) = 95 ✓
+  - Whitelist updated: human_behaviors = 2
+  - ✅ IP now whitelisted for acme.com
+
+User 3: charlie@acme.com
+  - Opens from 192.168.100.50 (VPN) ← Same IP
+  - IP is whitelisted for acme.com
+  - Penalty reduced: -15 instead of -40
+  - Score: 100 - 15 + 25 + 10 = 120 (capped to 100) ✓
+```
 
 ## Multi-IP Scenarios
 
-A single email target may have interactions from multiple IPs:
+A single email may have interactions from multiple IPs:
 
 ```
 user@company.com
-  IP 1: 52.18.134.87 (AWS) - Score: 10 (Bot)
-  IP 2: 151.18.45.123 (Telecom) - Score: 85 (Human)
+  IP 1: 52.18.134.87 (AWS) - Score: 5 (Bot)
+  IP 2: 192.168.1.50 (VPN) - Score: 85 (Human)
 ```
 
 ### Classification Logic
 
-1. **Separate analysis**: Each IP is scored independently
-2. **Bot identification**: IPs with score < 40 are classified as bots
-3. **Human identification**: IPs with score ≥ 70 are classified as humans
-4. **Final determination**: If ANY human IP exists, the email is marked as "human clicked"
+1. **Separate analysis**: Each IP scored independently
+2. **Bot identification**: IPs with score < 40 are bots
+3. **Human identification**: IPs with score ≥ 70 are humans
+4. **Final determination**: If ANY human IP exists → "human clicked"
 
-This approach ensures that legitimate user clicks are counted even when security scanners also accessed the email.
+## Real-World Examples
 
-## Real-World Example
-
-### Scenario: Security Gateway + Real User
+### Example 1: Corporate VPN Outlook
 
 ```
-Timeline for john.doe@company.com:
+Email: john@company.com
+IP: 172.16.0.50 (Corporate VPN)
+UA: Microsoft Outlook/16.0
 
-09:15:23.000  Email Sent
-09:15:23.250  Email Opened    IP: 52.18.134.87 (AWS)
-09:15:23.480  Clicked Link    IP: 52.18.134.87 (AWS)
-11:30:15.000  Email Opened    IP: 151.18.45.123 (Telecom Italia)
-11:35:22.000  Clicked Link    IP: 151.18.45.123 (Telecom Italia)
+Timeline:
+  09:00:00  Email Sent
+  11:30:00  Email Opened (2.5h after send)
+  11:30:15  Clicked Link (15s after open)
+
+Analysis:
+  Base: 100
+  - VPN (first time): -40
+  - Send→Open (2.5h): 0 (normal)
+  - Open→Click (15s): 0 (normal human)
+  - UA Outlook: 0 (legitimate)
+  + Human behavior: +25
+  + Clicked: +10
+  = 95/100 → Genuine User ✓
+
+Next time same IP+domain: whitelisted, only -15 penalty
 ```
 
-### Analysis
+### Example 2: Security Scanner
 
-**IP Group 1: 52.18.134.87**
-- Organization: Amazon AWS (-70)
-- Timing: 230ms between events (-90)
-- User Agent: "SecurityBot/1.0" (-80)
-- **Final Score: 0/100** → Bot/Scanner
+```
+Email: target@company.com
+IP: 1.2.3.4 (Proofpoint)
+UA: ProofpointScanner/1.0
 
-**IP Group 2: 151.18.45.123**
-- Organization: Telecom Italia (0)
-- Timing: 5m 7s average (0)
-- User Agent: Chrome/120 (0)
-- Behavior: Clicked link (+10)
-- **Final Score: 85/100** → Genuine User
+Timeline:
+  10:00:00.000  Email Sent
+  10:00:00.800  Email Opened (0.8s after send)
+  10:00:01.200  Clicked Link (0.4s after open)
 
-**Campaign Result**: ✅ **Real user clicked** (despite bot scanner activity)
+Analysis:
+  Base: 100
+  - Security scanner: -95
+  - Send→Open (0.8s): -95 (instant bot)
+  - Open→Click (0.4s): -95 (instant bot)
+  - UA security tool: -70
+  = 0/100 → Bot/Scanner ✓
+```
+
+### Example 3: Email Client Multiple Opens
+
+```
+Email: alice@domain.com
+IP: 93.45.78.12 (Telecom Italia)
+UA: Apple Mail/16.0
+
+Timeline:
+  15:40:00  Email Sent
+  17:20:00  Email Opened (100min after send)
+  17:22:00  Email Opened again (re-reading)
+  17:25:30  Clicked Link (5.5min after first open)
+
+Analysis:
+  Base: 100
+  - ISP Telecom: 0 (legitimate)
+  - Send→Open (100min): 0 (normal)
+  - Multiple opens (2min apart): 0 (re-reading)
+  - Open→Click (5.5min): 0 (thinking/reading)
+  - UA Apple Mail: 0 (legitimate)
+  + Clicked: +10
+  = 110 (capped to 100) → Genuine User ✓
+```
+
+### Example 4: Fast But Human
+
+```
+Email: bob@company.com
+IP: 151.18.45.67 (Vodafone IT)
+UA: Chrome/120.0
+
+Timeline:
+  14:00:00  Email Sent
+  14:30:00  Email Opened (30min after send)
+  14:30:05  Clicked Link (5s after open)
+
+Analysis:
+  Base: 100
+  - ISP Vodafone: 0 (legitimate)
+  - Send→Open (30min): 0 (normal)
+  - Open→Click (5s): -40 (fast but not bot)
+  - UA Chrome: 0 (legitimate)
+  + Clicked: +10
+  = 70/100 → Genuine User (borderline) ✓
+```
 
 ## Algorithm Advantages
 
-1. **Aggressive accuracy**: Prioritizes precision over recall - better to miss edge cases than count bots
-2. **High-confidence thresholds**: Score ≥80 required for "confirmed human" classification
-3. **Multi-factor validation**: No single weak factor can override strong bot signals
-4. **IP-based separation**: Distinguishes bot scanners from real users on same email
-5. **Transparent scoring**: Each penalty is documented, auditable, and adjustable
-6. **No ML required**: Deterministic, explainable rules that security teams can understand
-7. **Conservative approach**: "When in doubt, it's a bot" philosophy protects metric integrity
+1. **Context-aware**: Distinguishes VPN gateways from cloud scanners
+2. **Adaptive learning**: Whitelist system learns legitimate patterns
+3. **Timing intelligence**: Separate send→open and open→click analysis
+4. **Email client support**: Recognizes legitimate email client access
+5. **Multi-factor validation**: Combines IP, timing, UA, and behavior
+6. **Transparent scoring**: Documented, auditable, adjustable rules
+7. **Enterprise-friendly**: Handles corporate VPNs and email gateways
 
-## Limitations & Trade-offs
+## Key Improvements Over Previous Version
 
-1. **False negatives acceptable**: Some legitimate users with VPNs or unusual patterns will be marked as bots
-   - **Decision**: This is acceptable - better than counting bots as humans
-   
-2. **Regional specificity**: Currently optimized for Italian campaigns
-   - **Solution**: Easily configurable for other regions
-   
-3. **VPN users penalized**: Legitimate VPN users receive heavy penalties
-   - **Decision**: In corporate phishing training, VPN usage during email access is rare enough to be suspicious
-   
-4. **Shared IPs**: Multiple users behind same corporate gateway may be grouped
-   - **Mitigation**: User agent and timing differences still distinguish individuals
-   
-5. **Sophisticated bots**: Advanced bots with human-like timing and residential proxies could evade detection
-   - **Acceptance**: These are extremely rare and expensive; most phishing campaigns face basic scanners
-
-## Philosophy vs Traditional Approaches
-
-### Traditional "Conservative" Approach (BAD for phishing)
+### Before (Aggressive)
 ```
-Score 70+ = Human ✓
-In doubt? → Assume human
-Goal: Don't miss any real users
+VPN users: -70 penalty → often flagged as bots ❌
+Email clients: -10 penalty → suspicious ❌
+Timing: Any fast action → bot ❌
+Whitelist: None → every IP judged equally ❌
 ```
-**Problem**: Includes bots in success metrics, invalidates campaign results
 
-### GoCheck "Aggressive" Approach (CORRECT for phishing)
+### After (Intelligent)
 ```
-Score 80+ = Confirmed human ✓
-Score 60-79 = Review required ⚠️
-Score <60 = Bot 🤖
-In doubt? → Assume bot
-Goal: Only count verified humans
+VPN users: -40 → -15 (whitelisted) → genuine ✅
+Email clients: 0 penalty → legitimate ✅
+Timing: send→open (hours OK) vs open→click (30s OK) ✅
+Whitelist: Learn per-domain patterns ✅
 ```
-**Benefit**: Accurate metrics, trustworthy campaign results, proper training focus
-
-## Future Improvements
-
-- Machine learning model for pattern recognition
-- Behavioral fingerprinting beyond timing
-- Browser automation detection (Selenium, Puppeteer)
-- Historical pattern analysis
-- Adaptive thresholds based on campaign type
 
 ## Configuration
 
-All thresholds are configurable in the source code. **Current aggressive values:**
+Current intelligent thresholds:
 
 ```python
 # Timing thresholds (seconds)
-DEFINITE_BOT_TIMING = 1      # <1s = definite bot
-HIGHLY_SUSPICIOUS_TIMING = 3  # 1-3s = highly suspicious
-VERY_FAST_TIMING = 5          # 3-5s = very fast (NEW)
-FAST_TIMING = 10              # 5-10s = fast
-QUICK_TIMING = 20             # 10-20s = quick
-NORMAL_HUMAN_TIMING = 30      # >30s = normal human
+BOT_SEND_TO_OPEN = 2           # <2s = bot scanner
+SUSPICIOUS_SEND_TO_OPEN = 10   # 2-10s = suspicious
+BOT_OPEN_TO_CLICK = 1          # <1s = bot
+SUSPICIOUS_OPEN_TO_CLICK = 3   # 1-3s = suspicious
+NORMAL_CLICK_RANGE = 30        # 3-30s = normal human
+MULTIPLE_OPEN_BOT = 2          # <2s between opens = bot
 
 # Score thresholds
-CONFIRMED_HUMAN_THRESHOLD = 80  # Was 70 - now stricter
-LIKELY_HUMAN_THRESHOLD = 60     # Was 40 - now stricter
-SUSPICIOUS_THRESHOLD = 40       # Below this = definite bot
+GENUINE_HUMAN_THRESHOLD = 70   # 70+ = genuine user
+SUSPICIOUS_THRESHOLD = 40      # 40-69 = review
+BOT_THRESHOLD = 40             # <40 = bot
 
 # IP penalties
-SECURITY_SCANNER_PENALTY = 95   # Was 90
-CLOUD_PROVIDER_PENALTY = 80     # Was 70
-DATACENTER_PENALTY = 75         # Was 65
-VPN_PENALTY = 70                # Was 60
-UNKNOWN_IP_PENALTY = 60         # Was 50
-IP_LOOKUP_FAILED_PENALTY = 60   # Was 50
+SECURITY_SCANNER_PENALTY = 95
+CLOUD_PROVIDER_PENALTY = 80
+DATACENTER_PENALTY = 75
+VPN_PENALTY = 40               # Reduced from 70
+VPN_WHITELISTED_PENALTY = 15   # NEW
+IP_LOOKUP_FAILED_PENALTY = 60
 
 # User Agent penalties
-BOT_UA_PENALTY = 85             # Was 80
-SECURITY_TOOL_UA_PENALTY = 80   # Was 70
-MISSING_UA_PENALTY = 40         # Was 30
-ANOMALOUS_UA_PENALTY = 35       # Was 25
-EMAIL_CLIENT_PENALTY = 15       # Was 10
+BOT_UA_PENALTY = 80
+SECURITY_TOOL_UA_PENALTY = 70
+MISSING_UA_PENALTY = 30
+ANOMALOUS_UA_PENALTY = 25
+EMAIL_CLIENT_PENALTY = 0       # Changed from 10
 
-# Behavioral bonuses (reduced)
-CLICKED_LINK_BONUS = 5          # Was 10
+# Behavioral bonuses
+CLICKED_LINK_BONUS = 10
+VPN_HUMAN_BEHAVIOR_BONUS = 25  # NEW
 ```
 
-### Adjusting for Your Environment
+## Limitations & Trade-offs
 
-**More aggressive (stricter):**
-- Increase CONFIRMED_HUMAN_THRESHOLD to 85
-- Increase penalties by 5-10 points
-- Reduce CLICKED_LINK_BONUS to 0
+1. **Whitelist is per-session**: Not persisted between runs (can be added)
+2. **Requires ≥2 interactions**: First VPN user gets higher penalty
+3. **Domain-specific**: Whitelist tied to email domain
+4. **Learning phase**: First campaign may have higher VPN penalties
 
-**Less aggressive (more permissive):**
-- Reduce CONFIRMED_HUMAN_THRESHOLD to 75
-- Reduce penalties by 5-10 points
-- Not recommended for phishing training
+## Future Improvements
+
+- Persistent whitelist (JSON/DB storage)
+- Machine learning pattern recognition
+- Browser fingerprinting
+- Historical trend analysis
+- Configurable per-campaign thresholds
+- API integration for real-time scoring
 
 ---
 
-For questions or suggestions about the algorithm, please open an issue on GitHub.
+For questions or suggestions, please open an issue on GitHub.
