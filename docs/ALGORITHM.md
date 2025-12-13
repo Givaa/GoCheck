@@ -18,10 +18,13 @@ In **phishing awareness training**, the goal is to accurately measure human susc
 ## Design Principles
 
 1. **Context-aware classification** - VPN behavior is evaluated based on timing and domain patterns
-2. **Dynamic whitelisting** - Learn which IPs are legitimate for specific email domains
-3. **Timing intelligence** - Distinguish send→open (hours) from open→click (seconds)
+2. **Dynamic whitelisting** - Learn which IPs are legitimate for specific email domains (persisted to JSON)
+3. **Timing intelligence** - Distinguish send→open (hours) from open→click (seconds), uses LAST open before click
 4. **Email client support** - Recognize legitimate email client access patterns
 5. **Multi-factor validation** - Multiple signals combine for accurate classification
+6. **Event deduplication** - Remove duplicate events (same IP+message within 2 seconds)
+7. **Robust error handling** - Structured logging, proper exception handling, rate limit management
+8. **Configurable constants** - All thresholds and penalties defined as named constants
 
 ## Scoring System
 
@@ -33,16 +36,71 @@ Each IP group starts with a base score of **100 points**. Various factors apply 
 
 ## Detection Factors
 
+## Event Processing Pipeline
+
+Before analysis begins, events undergo preprocessing:
+
+### Event Deduplication
+
+GoCheck removes duplicate events that occur within a short time window to avoid skewing the analysis:
+
+```python
+DUPLICATE_EVENT_WINDOW = 2  # seconds
+
+# Deduplication criteria (all must match):
+1. Same email address
+2. Same IP address
+3. Same event type (opened/clicked)
+4. Within 2 seconds of each other
+```
+
+**Example:**
+```
+15:40:00.123  user@company.com  192.168.1.1  opened  → KEPT
+15:40:01.456  user@company.com  192.168.1.1  opened  → REMOVED (duplicate within 2s)
+15:40:30.789  user@company.com  192.168.1.1  opened  → KEPT (>2s gap, legitimate re-open)
+```
+
+**What is NOT removed:**
+- Different IPs (multi-device access)
+- Different event types (open vs click)
+- Events >2 seconds apart (legitimate re-reading)
+
+This ensures that:
+✅ Rapid bot re-scanning is filtered out
+✅ Legitimate human re-reading is preserved
+✅ Multi-IP scenarios are fully analyzed
+
+## Detection Factors
+
 ### 1. IP Analysis (0-100 penalty)
 
 The system performs geolocation and organization lookup with **intelligent classification**.
 
+**Configuration constants:**
+```python
+SECURITY_SCANNER_PENALTY = 95
+CLOUD_PROVIDER_PENALTY = 80
+DATACENTER_PENALTY = 75
+VPN_PENALTY = 40
+VPN_WHITELISTED_PENALTY = 15
+IP_LOOKUP_FAILED_PENALTY = 60
+UNKNOWN_IP_PENALTY = 30
+FOREIGN_IP_PENALTY = 100
+```
+
 #### Foreign IPs (-100 penalty)
-Any IP outside Italy receives maximum penalty (configurable for other regions).
+IPs outside allowed countries receive maximum penalty (configurable via `--countries` flag).
 
 ```python
-if ip_info.get('countryCode') != 'IT':
-    return False, 'foreign', 100, f"Foreign IP: {country}"
+# Default: Italy only
+allowed_countries = ['IT']
+
+# Multi-country support
+allowed_countries = ['IT', 'US', 'GB']
+
+if ip_info.get('countryCode') not in self.allowed_countries:
+    return False, 'foreign', FOREIGN_IP_PENALTY, f"Foreign IP: {country}"
 ```
 
 #### Security Vendors (-95 penalty)
@@ -104,7 +162,19 @@ Examples: Telecom Italia, Vodafone, Wind Tre, Fastweb
 
 ### 2. Timing Analysis (0-95 penalty)
 
-**Key innovation**: Separate analysis for **send→open** vs **open→click**.
+**Key innovations**:
+1. Separate analysis for **send→open** vs **open→click**
+2. Uses **LAST open before click** (not first) to accurately measure reading time
+
+**Configuration constants:**
+```python
+BOT_SEND_TO_OPEN = 2           # <2s = bot scanner
+SUSPICIOUS_SEND_TO_OPEN = 10   # 2-10s = suspicious
+BOT_OPEN_TO_CLICK = 1          # <1s = bot
+SUSPICIOUS_OPEN_TO_CLICK = 3   # 1-3s = suspicious
+NORMAL_CLICK_RANGE = 30        # 3-30s = normal human
+MULTIPLE_OPEN_BOT = 2          # <2s between opens = bot
+```
 
 #### Send → Open Timing
 
@@ -133,15 +203,24 @@ if sent_time and events_list[0]['message'] == EVENT_OPENED:
 
 **Humans read before clicking (3-30s typical):**
 
+**IMPORTANT**: GoCheck uses the **LAST open before click**, not the first open. This correctly measures the actual reading time.
+
 ```python
+# Find LAST open before click
+last_open_before_click = None
+for event in reversed(events_list):
+    if event['time'] < click_time and event['message'] == EVENT_OPENED:
+        last_open_before_click = event
+        break
+
 if event1 == EVENT_OPENED and event2 == EVENT_CLICKED:
-    if time_diff < 1:         # Instant click
+    if time_diff < BOT_OPEN_TO_CLICK:           # <1s = Instant click
         penalty = 95 (BOT)
-    elif time_diff < 3:       # Very fast
+    elif time_diff < SUSPICIOUS_OPEN_TO_CLICK:  # 1-3s = Very fast
         penalty = 60 (SUSPICIOUS)
-    elif time_diff <= 30:     # Normal human range
+    elif time_diff <= NORMAL_CLICK_RANGE:       # 3-30s = Normal human range
         penalty = 0 (NORMAL)
-    else:                      # Re-reading email
+    else:                                        # >30s = Re-reading email
         penalty = 0 (NORMAL)
 ```
 
@@ -173,6 +252,15 @@ Result: Normal human behavior (re-reading) ✓
 
 **Improved email client recognition:**
 
+**Configuration constants:**
+```python
+BOT_UA_PENALTY = 80            # Bot/crawler keywords
+SECURITY_TOOL_UA_PENALTY = 70  # Security tool keywords
+MISSING_UA_PENALTY = 30        # No user agent
+ANOMALOUS_UA_PENALTY = 25      # Unknown user agent
+EMAIL_CLIENT_PENALTY = 0       # Email clients (legitimate)
+```
+
 #### Bot/Crawler Keywords (-80 penalty)
 User agents containing:
 - "bot", "crawler", "spider"
@@ -202,26 +290,64 @@ Chrome, Firefox, Safari, Edge, Opera
 #### Anomalous User Agent (-25 penalty)
 User agent that doesn't match known patterns.
 
-### 4. Behavioral Patterns (+10 points)
+### 4. Behavioral Patterns (Bonuses)
+
+**Configuration constants:**
+```python
+CLICKED_LINK_BONUS = 10        # User clicked link
+VPN_HUMAN_BEHAVIOR_BONUS = 25  # VPN with human behavior
+```
 
 #### Positive Signals
 - **Clicked Link (+10)**: Shows continued engagement
+- **VPN with human behavior (+25)**: VPN/proxy with human-like timing and score ≥50
 
 ## Dynamic Whitelist System
 
 ### How It Works
 
-GoCheck learns which IPs are legitimate for specific email domains:
+GoCheck learns which IPs are legitimate for specific email domains and **persists this knowledge** to a JSON file for future runs.
 
+**Configuration constants:**
 ```python
-# Data structure per IP
+WHITELIST_EXPIRY_DAYS = 90              # Expire old entries
+WHITELIST_MIN_SCORE = 60                # Minimum score for whitelist
+WHITELIST_MIN_INTERACTIONS = 2          # Minimum interactions for whitelist
+WHITELIST_VARIANCE_THRESHOLD = 5.0      # Variance threshold for bot detection
+```
+
+**Data structure per IP:**
+```python
+# In-memory structure
 ip_whitelist[ip] = {
     'domains': set(['mail.com', 'company.com']),
     'scores': [85, 90, 88],
     'human_behaviors': 5,
-    'bot_behaviors': 0
+    'bot_behaviors': 0,
+    'timing_samples': [12.3, 8.7, 15.2, 18.9],
+    'first_seen': datetime(2025, 10, 15, 9, 0, 0),
+    'last_seen': datetime(2025, 12, 12, 14, 30, 0)
+}
+
+# Persisted to JSON (whitelist.json)
+{
+  "192.168.100.50": {
+    "domains": ["mail.com", "company.com"],
+    "scores": [85, 90, 88],
+    "human_behaviors": 5,
+    "bot_behaviors": 0,
+    "timing_samples": [12.3, 8.7, 15.2, 18.9],
+    "first_seen": "2025-10-15T09:00:00",
+    "last_seen": "2025-12-12T14:30:00"
+  }
 }
 ```
+
+**Whitelist persistence:**
+- Automatically loaded at startup from `whitelist.json` (or custom path via `--whitelist`)
+- Automatically saved after analysis (unless `--no-auto-save` specified)
+- Entries older than 90 days are automatically expired during save
+- Manual control: `analyzer.save_whitelist()` / `analyzer.load_whitelist()`
 
 ### Whitelisting Process
 
@@ -241,12 +367,25 @@ def _is_ip_whitelisted(ip, email_domain):
         return False
 
     # Must have ≥2 human-like interactions
-    if whitelist_entry['human_behaviors'] < 2:
+    if whitelist_entry['human_behaviors'] < WHITELIST_MIN_INTERACTIONS:
         return False
 
     # Human behaviors must outweigh bot behaviors
     if whitelist_entry['bot_behaviors'] > whitelist_entry['human_behaviors']:
         return False
+
+    # CRITICAL: Variance check to detect bots with identical timing
+    if len(whitelist_entry['timing_samples']) >= 3:
+        try:
+            variance = statistics.variance(whitelist_entry['timing_samples'])
+            if variance < WHITELIST_VARIANCE_THRESHOLD:
+                # All values identical = bot with fixed timing - REJECT
+                logger.info(f"IP {ip} rejected: all timing values identical (bot)")
+                return False
+        except statistics.StatisticsError:
+            # Error calculating variance = reject to be safe
+            logger.info(f"IP {ip} rejected: variance calculation failed")
+            return False
 
     return True
 ```
@@ -394,36 +533,79 @@ Analysis:
 ## Algorithm Advantages
 
 1. **Context-aware**: Distinguishes VPN gateways from cloud scanners
-2. **Adaptive learning**: Whitelist system learns legitimate patterns
-3. **Timing intelligence**: Separate send→open and open→click analysis
+2. **Adaptive learning**: Whitelist system learns legitimate patterns and persists them
+3. **Timing intelligence**: Separate send→open and open→click analysis, uses LAST open
 4. **Email client support**: Recognizes legitimate email client access
 5. **Multi-factor validation**: Combines IP, timing, UA, and behavior
-6. **Transparent scoring**: Documented, auditable, adjustable rules
+6. **Transparent scoring**: Documented, auditable, adjustable rules via named constants
 7. **Enterprise-friendly**: Handles corporate VPNs and email gateways
+8. **Event deduplication**: Removes duplicate bot scans while preserving human re-reading
+9. **Robust error handling**: Structured logging (verbose mode), proper exception handling
+10. **Configurable**: Multi-country support, custom whitelist paths, auto-save options
+11. **Whitelist security**: Variance analysis detects bots with fixed timing patterns
+12. **Automatic maintenance**: Whitelist entries expire after 90 days
 
-## Key Improvements Over Previous Version
+## Key Features
 
-### Before (Aggressive)
+### Configuration & Code Quality
 ```
-VPN users: -70 penalty → often flagged as bots ❌
-Email clients: -10 penalty → suspicious ❌
-Timing: Any fast action → bot ❌
-Whitelist: None → every IP judged equally ❌
+✅ All thresholds defined as named constants for easy tuning
+✅ Structured logging with verbose mode control
+✅ Proper exception handling throughout the codebase
+✅ Intelligent rate limiting with automatic backoff
+✅ Multi-country support via --countries flag
 ```
 
-### After (Intelligent)
+### Event Processing
 ```
-VPN users: -40 → -15 (whitelisted) → genuine ✅
-Email clients: 0 penalty → legitimate ✅
-Timing: send→open (hours OK) vs open→click (30s OK) ✅
-Whitelist: Learn per-domain patterns ✅
+✅ Event deduplication (same IP+message within 2s)
+✅ Uses LAST open before click for accurate reading time measurement
+✅ Preserves legitimate re-reading behavior while filtering bot scans
+```
+
+### Whitelist System
+```
+✅ Persistent storage (JSON file with auto-load/save)
+✅ Automatic expiry (90 days old entries removed)
+✅ Variance analysis to reject bots with identical timing patterns
+✅ Domain-specific learning (IP whitelisted per email domain)
+```
+
+### Scoring & Analysis
+```
+✅ Raw score tracking (in addition to capped score)
+✅ Adaptive VPN penalty (40 first time, 15 when whitelisted)
+✅ Email clients recognized as legitimate (0 penalty)
+✅ VPN human behavior bonus (+25 points)
+✅ Multi-factor validation combining IP, timing, UA, and behavior
 ```
 
 ## Configuration
 
-Current intelligent thresholds:
+### Command Line Options
+
+```bash
+python gocheck/GoCheck.py -i events.csv [OPTIONS]
+
+Options:
+  -i, --input PATH              Input CSV file (required)
+  -o, --output PATH             Output directory (default: current directory)
+  -v, --verbose                 Enable detailed logging
+  --countries CODE [CODE ...]   Allowed country codes (default: IT)
+  --whitelist PATH              Whitelist JSON path (default: ./whitelist.json)
+  --no-auto-save                Disable automatic whitelist saving
+```
+
+### Configuration Constants
+
+All thresholds are defined as named constants at the top of the source code:
 
 ```python
+# IP API Configuration
+IP_API_FIELDS = 'status,message,country,countryCode,region,city,isp,org,as,mobile,proxy,hosting,query'
+IP_API_RATE_LIMIT = 45         # Requests per minute (free tier)
+IP_API_RATE_WINDOW = 60        # Time window in seconds
+
 # Timing thresholds (seconds)
 BOT_SEND_TO_OPEN = 2           # <2s = bot scanner
 SUSPICIOUS_SEND_TO_OPEN = 10   # 2-10s = suspicious
@@ -431,47 +613,61 @@ BOT_OPEN_TO_CLICK = 1          # <1s = bot
 SUSPICIOUS_OPEN_TO_CLICK = 3   # 1-3s = suspicious
 NORMAL_CLICK_RANGE = 30        # 3-30s = normal human
 MULTIPLE_OPEN_BOT = 2          # <2s between opens = bot
+DUPLICATE_EVENT_WINDOW = 2     # Events within 2s considered duplicates
 
 # Score thresholds
 GENUINE_HUMAN_THRESHOLD = 70   # 70+ = genuine user
 SUSPICIOUS_THRESHOLD = 40      # 40-69 = review
 BOT_THRESHOLD = 40             # <40 = bot
 
-# IP penalties
-SECURITY_SCANNER_PENALTY = 95
-CLOUD_PROVIDER_PENALTY = 80
-DATACENTER_PENALTY = 75
-VPN_PENALTY = 40               # Reduced from 70
-VPN_WHITELISTED_PENALTY = 15   # NEW
-IP_LOOKUP_FAILED_PENALTY = 60
+# IP classification penalties
+SECURITY_SCANNER_PENALTY = 95  # Proofpoint, Mimecast, etc.
+CLOUD_PROVIDER_PENALTY = 80    # AWS, Azure, GCP
+DATACENTER_PENALTY = 75        # Hosting providers
+VPN_PENALTY = 40               # First-time VPN/proxy
+VPN_WHITELISTED_PENALTY = 15   # Whitelisted VPN/proxy
+IP_LOOKUP_FAILED_PENALTY = 60  # IP lookup failed
+UNKNOWN_IP_PENALTY = 30        # Unknown IP type
+FOREIGN_IP_PENALTY = 100       # Outside allowed countries
 
 # User Agent penalties
-BOT_UA_PENALTY = 80
-SECURITY_TOOL_UA_PENALTY = 70
-MISSING_UA_PENALTY = 30
-ANOMALOUS_UA_PENALTY = 25
-EMAIL_CLIENT_PENALTY = 0       # Changed from 10
+BOT_UA_PENALTY = 80            # Bot/crawler/spider keywords
+SECURITY_TOOL_UA_PENALTY = 70  # Security scanner keywords
+MISSING_UA_PENALTY = 30        # No user agent provided
+ANOMALOUS_UA_PENALTY = 25      # Unrecognized user agent
+EMAIL_CLIENT_PENALTY = 0       # Email clients (Outlook, Apple Mail, etc.)
 
 # Behavioral bonuses
-CLICKED_LINK_BONUS = 10
-VPN_HUMAN_BEHAVIOR_BONUS = 25  # NEW
+CLICKED_LINK_BONUS = 10        # User clicked link
+VPN_HUMAN_BEHAVIOR_BONUS = 25  # VPN with human-like behavior
+
+# Whitelist configuration
+WHITELIST_EXPIRY_DAYS = 90              # Expire entries older than 90 days
+WHITELIST_MIN_SCORE = 60                # Minimum score to be added to whitelist
+WHITELIST_MIN_INTERACTIONS = 2          # Minimum interactions to activate whitelist
+WHITELIST_VARIANCE_THRESHOLD = 5.0      # Min variance for timing (detect bots)
 ```
 
 ## Limitations & Trade-offs
 
-1. **Whitelist is per-session**: Not persisted between runs (can be added)
-2. **Requires ≥2 interactions**: First VPN user gets higher penalty
-3. **Domain-specific**: Whitelist tied to email domain
-4. **Learning phase**: First campaign may have higher VPN penalties
+1. **Requires ≥2 interactions**: First VPN user gets higher penalty (necessary for learning)
+2. **Domain-specific**: Whitelist tied to email domain (by design for security)
+3. **Learning phase**: First campaign may have higher VPN penalties (improves over time)
+4. **IP lookup dependency**: Requires internet connection to ip-api.com
+5. **Rate limiting**: 45 requests/minute (free tier) - managed automatically with backoff
+6. **Whitelist decay**: Entries expire after 90 days (prevents stale data)
 
 ## Future Improvements
 
-- Persistent whitelist (JSON/DB storage)
 - Machine learning pattern recognition
 - Browser fingerprinting
 - Historical trend analysis
-- Configurable per-campaign thresholds
-- API integration for real-time scoring
+- Per-campaign threshold overrides (currently global)
+- Real-time GoPhish API integration
+- Dashboard UI for visualization
+- Export to SIEM formats
+- Custom IP classification rules
+- Geofencing policies
 
 ---
 

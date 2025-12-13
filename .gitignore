@@ -183,3 +183,4 @@ cython_debug/
 
 bin/
 .DS_Store
+.vscode/

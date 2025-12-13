@@ -10,14 +10,17 @@ GoCheck analyzes GoPhish campaign events to accurately distinguish automated sca
 
 ## ✨ Key Features
 
-- 🧠 **Intelligent VPN Detection** - Dynamic whitelisting learns legitimate corporate VPN patterns (3+ interactions)
-- ⏱️ **Smart Timing Analysis** - Distinguishes send→open (hours OK) from open→click (1-30s)
+- 🧠 **Intelligent VPN Detection** - Dynamic whitelisting learns legitimate corporate VPN patterns (2+ interactions)
+- ⏱️ **Smart Timing Analysis** - Distinguishes send→open (hours OK) from open→click (1-30s), uses LAST open before click
 - 📧 **Email Client Support** - Recognizes Outlook, Apple Mail, Thunderbird as legitimate access
 - 🌍 **IP Intelligence** - Geolocation, ISP classification, cloud provider detection
 - 🎯 **Multi-IP Tracking** - Separates bot scans from real user clicks on same email
-- 📊 **Comprehensive Reports** - Clean CSV exports with human-only interactions
-- 💻 **Full-Featured CLI** - Command-line interface with verbose mode
-- 💾 **Persistent Learning** - Whitelist saved automatically, improves over time
+- 📊 **Comprehensive Reports** - Clean CSV exports with human-only interactions, includes raw scores
+- 💻 **Full-Featured CLI** - Command-line interface with verbose mode and configurable parameters
+- 💾 **Persistent Learning** - Whitelist saved/loaded automatically, expires after 90 days
+- 🔍 **Event Deduplication** - Removes duplicate events (same IP+message within 2s)
+- 🛡️ **Robust Error Handling** - Structured logging, proper exception handling, rate limit management
+- ⚙️ **Configurable** - Multi-country support, custom whitelist paths, auto-save options
 
 ## 🚀 Quick Start
 
@@ -46,8 +49,17 @@ python gocheck/GoCheck.py -i events.csv
 # Custom output directory
 python gocheck/GoCheck.py -i events.csv -o reports/
 
-# Verbose mode (see detailed scoring)
+# Verbose mode (see detailed scoring and logs)
 python gocheck/GoCheck.py -i events.csv -v
+
+# Custom country filtering (multiple countries)
+python gocheck/GoCheck.py -i events.csv --countries IT US GB
+
+# Custom whitelist path
+python gocheck/GoCheck.py -i events.csv --whitelist custom_whitelist.json
+
+# Disable auto-save whitelist
+python gocheck/GoCheck.py -i events.csv --no-auto-save
 
 # Show help
 python gocheck/GoCheck.py --help
@@ -58,15 +70,29 @@ python gocheck/GoCheck.py --help
 ```python
 from gocheck.GoCheck import GoPhishAnalyzer
 
-# Analyze campaign
+# Basic usage
 analyzer = GoPhishAnalyzer('raw_events.csv')
-results = analyzer.analyze_campaign(verbose=True)
+results = analyzer.analyze_campaign()
+
+# Advanced configuration
+analyzer = GoPhishAnalyzer(
+    'raw_events.csv',
+    allowed_countries=['IT', 'US', 'GB'],  # Multi-country support
+    whitelist_path='custom_whitelist.json',  # Custom whitelist path
+    auto_save_whitelist=True,  # Auto-save after analysis
+    verbose=True  # Enable detailed logging
+)
+results = analyzer.analyze_campaign()
 
 # Generate human-only report
 human_report = analyzer.generate_human_report(results)
 
 # Access whitelist data
 print(analyzer.ip_whitelist)
+
+# Manual whitelist operations
+analyzer.save_whitelist()
+analyzer.load_whitelist()
 ```
 
 ## 🎯 How It Works
@@ -269,14 +295,17 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 🐛 Known Issues & Limitations
 
 - **IP lookup** requires internet connection (uses ip-api.com)
-- **Rate limiting**: ~45 requests/minute (free tier)
-- **Whitelist persistence**: In-memory only (not saved between runs)
-- **Regional optimization**: Currently tuned for Italian campaigns (easily configurable)
+- **Rate limiting**: 45 requests/minute (free tier) - automatically managed with exponential backoff
+- **Whitelist decay**: Entries older than 90 days are automatically expired
+- **Regional optimization**: Default country is IT, but supports multiple countries via `--countries` flag
 
 ## 🗺️ Roadmap
 
-- [ ] Persistent whitelist (JSON/DB storage)
-- [ ] Multi-region configuration profiles
+- [x] Persistent whitelist (JSON storage) ✅
+- [x] Multi-region configuration profiles ✅
+- [x] Event deduplication ✅
+- [x] Improved rate limiting ✅
+- [x] Structured logging ✅
 - [ ] Machine learning-based pattern detection
 - [ ] REST API endpoint
 - [ ] Docker container
@@ -285,15 +314,33 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 🔧 Configuration
 
-All thresholds are configurable in the source code:
+### Command Line Options
+
+```bash
+python gocheck/GoCheck.py --help
+
+Options:
+  -i, --input PATH          Input CSV file (required)
+  -o, --output PATH         Output directory (default: current directory)
+  -v, --verbose             Enable detailed logging
+  --countries CODE [CODE ...]  Allowed country codes (default: IT)
+  --whitelist PATH          Whitelist JSON path (default: ./whitelist.json)
+  --no-auto-save            Disable automatic whitelist saving
+```
+
+### Configuration Constants
+
+All thresholds are defined as constants in the source code:
 
 ```python
-# Timing thresholds
+# Timing thresholds (seconds)
 BOT_SEND_TO_OPEN = 2           # <2s = bot scanner
 SUSPICIOUS_SEND_TO_OPEN = 10   # 2-10s = suspicious
 BOT_OPEN_TO_CLICK = 1          # <1s = bot
 SUSPICIOUS_OPEN_TO_CLICK = 3   # 1-3s = suspicious
 NORMAL_CLICK_RANGE = 30        # 3-30s = normal human
+MULTIPLE_OPEN_BOT = 2          # <2s between opens = bot
+DUPLICATE_EVENT_WINDOW = 2     # Events within 2s = duplicates
 
 # Score thresholds
 GENUINE_HUMAN_THRESHOLD = 70   # 70+ = genuine user
@@ -301,10 +348,35 @@ SUSPICIOUS_THRESHOLD = 40      # 40-69 = review
 BOT_THRESHOLD = 40             # <40 = bot
 
 # IP penalties
+SECURITY_SCANNER_PENALTY = 95  # Known security vendors
+CLOUD_PROVIDER_PENALTY = 80    # AWS, Azure, GCP
+DATACENTER_PENALTY = 75        # Hosting/datacenter
 VPN_PENALTY = 40               # First-time VPN
 VPN_WHITELISTED_PENALTY = 15   # Whitelisted VPN
-CLOUD_PROVIDER_PENALTY = 80
-SECURITY_SCANNER_PENALTY = 95
+IP_LOOKUP_FAILED_PENALTY = 60  # IP lookup failed
+UNKNOWN_IP_PENALTY = 30        # Unknown IP type
+FOREIGN_IP_PENALTY = 100       # Non-allowed country
+
+# User Agent penalties
+BOT_UA_PENALTY = 80            # Bot/crawler keywords
+SECURITY_TOOL_UA_PENALTY = 70  # Security tool keywords
+MISSING_UA_PENALTY = 30        # No user agent
+ANOMALOUS_UA_PENALTY = 25      # Unknown user agent
+EMAIL_CLIENT_PENALTY = 0       # Email clients (legitimate)
+
+# Bonuses
+CLICKED_LINK_BONUS = 10        # User clicked link
+VPN_HUMAN_BEHAVIOR_BONUS = 25  # VPN with human behavior
+
+# Rate limiting
+IP_API_RATE_LIMIT = 45         # Requests per minute
+IP_API_RATE_WINDOW = 60        # Time window in seconds
+
+# Whitelist
+WHITELIST_EXPIRY_DAYS = 90     # Expire old entries
+WHITELIST_MIN_SCORE = 60       # Minimum score for whitelist
+WHITELIST_MIN_INTERACTIONS = 2 # Minimum interactions for whitelist
+WHITELIST_VARIANCE_THRESHOLD = 5.0  # Variance threshold for bot detection
 ```
 
 ## 📄 License
