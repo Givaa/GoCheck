@@ -385,7 +385,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👤 Author
 
-- GitHub: [@holygivaa](https://github.com/holygivaa)
+- GitHub: [@Givaa](https://github.com/Givaa)
 
 ## 🙏 Acknowledgments
 
