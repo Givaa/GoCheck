@@ -425,7 +425,7 @@ This tool is designed for legitimate security awareness training and authorized 
 
 Made with ❤️ by @Givaa
 
-**"We erase what tries to replace us."**
+**"I’m good at reading people. My secret? I look for the worst in them."** -Elliot Alderson, Mr. Robot
 
 If you find this tool useful, please consider giving it a ⭐
 
