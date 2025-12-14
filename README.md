@@ -10,13 +10,14 @@ GoCheck analyzes GoPhish campaign events to accurately distinguish automated sca
 
 ## ✨ Key Features
 
-- 🧠 **Intelligent VPN Detection** - Dynamic whitelisting learns legitimate corporate VPN patterns (2+ interactions)
+- 🧠 **Intelligent VPN Detection** - Dynamic whitelisting learns legitimate corporate VPN patterns (3+ interactions with timing variance analysis)
 - ⏱️ **Smart Timing Analysis** - Distinguishes send→open (hours OK) from open→click (1-30s), uses LAST open before click
 - 📧 **Email Client Support** - Recognizes Outlook, Apple Mail, Thunderbird as legitimate access
 - 🌍 **IP Intelligence** - Geolocation, ISP classification, cloud provider detection
 - 🎯 **Multi-IP Tracking** - Separates bot scans from real user clicks on same email
 - 📊 **Comprehensive Reports** - Clean CSV exports with human-only interactions, includes raw scores
 - 💻 **Full-Featured CLI** - Command-line interface with verbose mode and configurable parameters
+- 📈 **Progress Bar** - Real-time visual feedback with ETA during analysis (optional tqdm support)
 - 💾 **Persistent Learning** - Whitelist saved/loaded automatically, expires after 90 days
 - 🔍 **Event Deduplication** - Removes duplicate events (same IP+message within 2s)
 - 🛡️ **Robust Error Handling** - Structured logging, proper exception handling, rate limit management
@@ -140,24 +141,34 @@ GoCheck uses an **intelligent, context-aware** scoring system that adapts to ent
 
 ### Dynamic Whitelist System
 
-GoCheck learns which IPs are legitimate for specific email domains:
+GoCheck learns which IPs are legitimate for specific email domains using timing variance analysis:
 
 ```python
 # Example: Corporate VPN Gateway
 mail.com users → 192.168.1.50 (VPN)
 
-User 1: First interaction
+User 1: First interaction (timing: 12.3s)
   - Score: 100 - 40 (VPN) + 25 (human timing) = 85 ✓
-  - Whitelist: human_behaviors = 1
+  - Whitelist: human_behaviors = 1, timing_samples = [12.3]
 
-User 2: Second interaction
+User 2: Second interaction (timing: 8.7s)
   - Score: 100 - 40 (VPN) + 25 (human timing) = 85 ✓
-  - Whitelist: human_behaviors = 2
-  - ✅ IP now whitelisted for mail.com
+  - Whitelist: human_behaviors = 2, timing_samples = [12.3, 8.7]
 
-User 3: Uses whitelisted IP
+User 3: Third interaction (timing: 15.2s)
+  - Score: 100 - 40 (VPN) + 25 (human timing) = 85 ✓
+  - Whitelist: human_behaviors = 3, timing_variance = 3.3s
+  - ✅ IP now whitelisted for mail.com (3+ interactions, variance > 2s)
+
+User 4: Uses whitelisted IP
   - Score: 100 - 15 (whitelisted!) + 25 = 110 (capped to 100) ✓
 ```
+
+**Whitelist Criteria:**
+- Minimum 3 human-like interactions (increased from 2)
+- Timing variance ≥ 2 seconds (bots have uniform timing)
+- Human behaviors > bot behaviors
+- Not expired (90-day decay)
 
 ### Scoring Thresholds
 
@@ -275,8 +286,19 @@ Analysis:
 - Python 3.8+
 - pandas
 - requests
+- tqdm (optional, for progress bar - works without it)
 
 See [requirements.txt](requirements.txt) for complete dependencies.
+
+### Optional Dependencies
+
+**Progress Bar (tqdm):**
+```bash
+# Install tqdm for visual progress feedback
+pip install tqdm
+
+# The tool works without tqdm, falling back to silent mode
+```
 
 ## 🤝 Contributing
 
@@ -373,10 +395,9 @@ IP_API_RATE_LIMIT = 45         # Requests per minute
 IP_API_RATE_WINDOW = 60        # Time window in seconds
 
 # Whitelist
-WHITELIST_EXPIRY_DAYS = 90     # Expire old entries
-WHITELIST_MIN_SCORE = 60       # Minimum score for whitelist
-WHITELIST_MIN_INTERACTIONS = 2 # Minimum interactions for whitelist
-WHITELIST_VARIANCE_THRESHOLD = 5.0  # Variance threshold for bot detection
+WHITELIST_EXPIRY_DAYS = 90               # Expire old entries
+WHITELIST_MIN_HUMAN_BEHAVIORS = 3        # Minimum human behaviors for whitelist
+WHITELIST_TIMING_VARIANCE_MIN = 2.0      # Minimum timing variance (seconds)
 ```
 
 ## 📄 License

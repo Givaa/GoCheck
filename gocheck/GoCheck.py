@@ -19,6 +19,16 @@ import statistics
 import random
 import logging
 
+# Optional tqdm import - fallback to dummy progress bar if not available
+try:
+    from tqdm import tqdm
+    TQDM_AVAILABLE = True
+except ImportError:
+    TQDM_AVAILABLE = False
+    # Dummy tqdm that just returns the iterable
+    def tqdm(iterable, **kwargs):
+        return iterable
+
 # Configure logging
 logger = logging.getLogger(__name__)
 
@@ -79,7 +89,7 @@ class Colors:
     BLACK = '\033[30m'
     DEFAULT = '\033[39m'  # Default foreground color (adapts to terminal theme)
 
-HACKER_QUOTES = [
+QUOTES = [
     "We erase what tries to replace us.",
     "In a world of algorithms, human intuition is the ultimate exploit.",
     "Machines learn patterns. Humans break them.",
@@ -99,7 +109,7 @@ HACKER_QUOTES = [
 
 def print_banner():
     """Print GoCheck banner with random hacker quote."""
-    quote = random.choice(HACKER_QUOTES)
+    quote = random.choice(QUOTES)
 
     banner = f"""
 {Colors.DEFAULT}{Colors.BOLD}
@@ -987,30 +997,43 @@ class GoPhishAnalyzer:
         }
     
     def analyze_campaign(self, verbose=False):
-        """Execute complete campaign analysis."""
+        """Execute complete campaign analysis with progress bar."""
         results = []
         if verbose:
             print(f"\n{'='*80}")
             print(f"GOPHISH CAMPAIGN ANALYSIS - Real User Detection")
             print(f"{'='*80}\n")
-        
+
         grouped = self.df.groupby('email')
-        
+
         if verbose:
             print(f"Emails analyzed: {len(grouped)}")
             print(f"Total events: {len(self.df)}\n")
-        
-        for email, events in grouped:
+
+        # Progress bar for email analysis
+        email_list = list(grouped)
+        pbar_emails = tqdm(
+            email_list,
+            desc=f"{Colors.DEFAULT}Analyzing emails{Colors.ENDC}",
+            unit="email",
+            disable=verbose,  # Disable if verbose (to avoid conflicts with detailed output)
+            bar_format='{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]'
+        )
+
+        for email, events in pbar_emails:
+            if TQDM_AVAILABLE and not verbose:
+                pbar_emails.set_postfix_str(f"{email[:30]}...")
+
             result = self.analyze_email(email, events)
             results.append(result)
-            
+
             if verbose:
                 print(f"\n{'─'*80}")
                 print(f"Email: {email}")
                 print(f"Final score: {result['final_score']}/100")
                 print(f"Classification: {result['final_classification']}")
                 print(f"Unique IPs detected: {result['num_ips']}")
-            
+
             for i, ip_analysis in enumerate(result['ip_analyses'], 1):
                 if verbose:
                     print(f"\n   {'─'*70}")
@@ -1018,7 +1041,7 @@ class GoPhishAnalyzer:
                     print(f"   Score: {ip_analysis['score']}/100 | Type: {ip_analysis['type']}")
                     print(f"   Events: {', '.join(ip_analysis['events'])}")
                     print(f"   Period: {ip_analysis['first_event']} -> {ip_analysis['last_event']}")
-                
+
                     if ip_analysis['details']:
                         print(f"   Details:")
                         for detail in ip_analysis['details']:

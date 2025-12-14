@@ -141,7 +141,8 @@ if ip_type == 'vpn' and not is_bot_timing and score >= 50:
 ```
 
 **Whitelisting criteria:**
-- IP seen ≥2 times for same domain
+- IP seen ≥3 times for same domain (increased from 2)
+- Timing variance ≥ 2 seconds (bots have uniform timing)
 - Consistent human-like behavior (timing, UA, clicks)
 - More human behaviors than bot behaviors
 
@@ -310,10 +311,9 @@ GoCheck learns which IPs are legitimate for specific email domains and **persist
 
 **Configuration constants:**
 ```python
-WHITELIST_EXPIRY_DAYS = 90              # Expire old entries
-WHITELIST_MIN_SCORE = 60                # Minimum score for whitelist
-WHITELIST_MIN_INTERACTIONS = 2          # Minimum interactions for whitelist
-WHITELIST_VARIANCE_THRESHOLD = 5.0      # Variance threshold for bot detection
+WHITELIST_EXPIRY_DAYS = 90               # Expire old entries
+WHITELIST_MIN_HUMAN_BEHAVIORS = 3        # Minimum human behaviors for whitelist
+WHITELIST_TIMING_VARIANCE_MIN = 2.0      # Minimum timing variance (seconds)
 ```
 
 **Data structure per IP:**
@@ -354,8 +354,8 @@ ip_whitelist[ip] = {
 1. **First interaction**: IP receives standard penalty (-40 for VPN)
 2. **Behavior analysis**: Timing and actions evaluated
 3. **Score calculation**: If score ≥60 and no bot timing → human-like
-4. **Whitelist update**: Record behavior for this IP+domain pair
-5. **Second interaction**: If ≥2 human behaviors for this domain → whitelisted
+4. **Whitelist update**: Record behavior for this IP+domain pair with timing sample
+5. **Third interaction**: If ≥3 human behaviors for this domain AND timing variance ≥2s → whitelisted
 6. **Reduced penalty**: Whitelisted IPs get -15 instead of -40
 
 ### Whitelist Criteria
@@ -650,7 +650,7 @@ WHITELIST_VARIANCE_THRESHOLD = 5.0      # Min variance for timing (detect bots)
 
 ## Limitations & Trade-offs
 
-1. **Requires ≥2 interactions**: First VPN user gets higher penalty (necessary for learning)
+1. **Requires ≥3 interactions**: First VPN users get higher penalty (necessary for learning and variance analysis)
 2. **Domain-specific**: Whitelist tied to email domain (by design for security)
 3. **Learning phase**: First campaign may have higher VPN penalties (improves over time)
 4. **IP lookup dependency**: Requires internet connection to ip-api.com

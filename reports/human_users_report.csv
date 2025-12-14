@@ -1,30 +1,62 @@
 email,human_opened,human_clicked,human_score,details,human_ip
-alessia.barbieri@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-andrea.moretti@azienda.it,YES,YES,100,"Actions: opened email, clicked link",93.40.78.234
-anna.ferrari@azienda.it,YES,NO,100,Actions: opened email,87.12.234.56
-antonio.gentile@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-camilla.rinaldi@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-chiara.conti@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-davide.mancini@azienda.it,YES,YES,100,"Actions: opened email, clicked link",87.23.156.78
-elena.costa@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-federica.greco@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-francesca.marino@azienda.it,YES,YES,100,"Actions: opened email, clicked link",151.25.78.45
-gabriele.santoro@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-giorgia.de_santis@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-giulia.verdi@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-laura.ricci@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-lorenzo.marchetti@azienda.it,NO,YES,100,Actions: clicked link,151.78.45.123
-luca.bianchi@azienda.it,YES,YES,100,"Actions: opened email, clicked link",93.45.123.87
-marco.esposito@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-mario.rossi@azienda.it,YES,YES,100,"Actions: opened email, clicked link",151.18.45.123
-martina.lombardi@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-matteo.fontana@azienda.it,YES,YES,100,"Actions: opened email, clicked link",151.34.89.120
-paolo.romano@azienda.it,YES,YES,100,"Actions: opened email, clicked link",79.23.156.78
-riccardo.pellegrini@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-roberto.gallo@azienda.it,YES,YES,100,"Actions: opened email, clicked link",79.18.234.90
-sara.colombo@azienda.it,YES,NO,100,Actions: opened email,151.67.89.123
-silvia.de_luca@azienda.it,YES,NO,100,Actions: opened email,93.67.123.55
-simone.villa@azienda.it,YES,NO,100,Actions: opened email,79.45.123.90
-sofia.monti@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
-tommaso.caruso@azienda.it,YES,YES,100,"Actions: opened email, clicked link",93.34.156.89
-valentina.russo@azienda.it,NO,NO,0,Bot/scanner only detected,N/A
+alberto.orlando@division.it,NO,NO,0,Bot/scanner only detected,N/A
+alessandra.vitale@cloud.it,YES,YES,100,"Actions: opened email, clicked link",79.23.89.167
+alessia.leone@unit.it,YES,YES,100,"Actions: opened email, clicked link",79.34.156.201
+alessia.lombardi@network.it,NO,NO,0,Bot/scanner only detected,N/A
+andrea.moretti@org.it,YES,NO,100,Actions: opened email,151.26.78.199
+anna.ferrari@corp.it,YES,YES,100,"Actions: opened email, clicked link",79.23.145.90
+antonio.santoro@innovation.it,NO,NO,0,Bot/scanner only detected,N/A
+aurora.sanna@platform.it,YES,YES,100,"Actions: opened email, clicked link",93.36.211.134
+beatrice.de.santis@hub.it,YES,YES,100,"Actions: opened email, clicked link",151.76.89.211
+camilla.pellegrini@production.it,YES,YES,100,"Actions: opened email, clicked link",82.61.123.178
+cecilia.messina@division.it,YES,YES,100,"Actions: opened email, clicked link",87.5.123.98
+chiara.bruno@startup.it,NO,NO,0,Bot/scanner only detected,N/A
+chiara.ferraro@business.it,YES,YES,100,"Actions: opened email, clicked link",151.28.167.89
+cristina.monti@sales.it,YES,YES,100,"Actions: opened email, clicked link",93.45.123.77
+daniele.ferri@retail.it,NO,NO,0,Bot/scanner only detected,N/A
+davide.villa@solutions.it,YES,YES,100,"Actions: opened email, clicked link",151.55.234.88
+denise.ferrara@center.it,YES,YES,100,"Actions: opened email, clicked link",82.53.167.211
+diego.giuliani@enterprise.it,NO,NO,0,Bot/scanner only detected,N/A
+edoardo.rossetti@corp.it,NO,NO,0,Bot/scanner only detected,N/A
+elena.conti@mycompany.it,YES,YES,100,"Actions: opened email, clicked link",82.84.123.67
+elisa.rinaldi@venture.it,YES,YES,100,"Actions: opened email, clicked link",87.23.67.145
+emanuele.vitali@group.it,NO,NO,0,Bot/scanner only detected,N/A
+federico.gentile@digital.it,YES,NO,100,Actions: opened email,87.12.45.199
+filippo.cattaneo@lab.it,NO,NO,0,Bot/scanner only detected,N/A
+francesca.greco@firm.it,YES,YES,100,"Actions: opened email, clicked link",93.42.10.156
+francesco.testa@office.it,NO,NO,0,Bot/scanner only detected,N/A
+gabriele.parisi@group.it,NO,NO,0,Bot/scanner only detected,N/A
+giacomo.farina@factory.it,NO,NO,0,Bot/scanner only detected,N/A
+giorgia.palumbo@system.it,YES,YES,100,"Actions: opened email, clicked link",151.24.123.98
+giovanni.verdi@example.com,NO,NO,0,Bot/scanner only detected,N/A
+giulia.costa@platform.it,NO,NO,0,Bot/scanner only detected,N/A
+greta.lombardo@sector.it,YES,YES,100,"Actions: opened email, clicked link",79.12.234.156
+irene.ferretti@dept.it,YES,YES,100,"Actions: opened email, clicked link",151.45.123.90
+jacopo.silvestri@unit.it,NO,NO,0,Bot/scanner only detected,N/A
+laura.bianchi@company.it,YES,YES,100,"Actions: opened email, clicked link",151.18.25.78
+lorenzo.mancini@admin.it,NO,NO,0,Bot/scanner only detected,N/A
+luca.galli@services.it,YES,YES,100,"Actions: opened email, clicked link",79.54.201.123
+marco.colombo@business.it,NO,NO,0,Bot/scanner only detected,N/A
+mario.rossi@azienda.it,YES,YES,100,"Actions: opened email, clicked link",93.35.50.120
+martina.battaglia@web.it,YES,YES,100,"Actions: opened email, clicked link",93.34.78.156
+massimo.mariani@branch.it,NO,NO,0,Bot/scanner only detected,N/A
+matteo.fontana@enterprise.it,YES,YES,100,"Actions: opened email, clicked link",93.40.123.44
+monica.riva@brand.it,YES,YES,100,"Actions: opened email, clicked link",79.56.234.121
+nicola.fabbri@logistics.it,NO,NO,0,Bot/scanner only detected,N/A
+nicole.basile@team.it,YES,YES,100,"Actions: opened email, clicked link",93.41.89.234
+paolo.russo@tech.it,NO,NO,0,Bot/scanner only detected,N/A
+pietro.gatti@agency.it,NO,NO,0,Bot/scanner only detected,N/A
+rachele.morelli@consulting.it,YES,YES,100,"Actions: opened email, clicked link",93.43.178.90
+riccardo.amato@finance.it,NO,NO,0,Bot/scanner only detected,N/A
+roberto.ricci@domain.com,NO,NO,0,Bot/scanner only detected,N/A
+samuel.rizzi@media.it,YES,NO,100,Actions: opened email,87.19.56.178
+sara.martini@consulting.it,NO,NO,0,Bot/scanner only detected,N/A
+serena.marchetti@dept.it,YES,YES,100,"Actions: opened email, clicked link",93.37.201.88
+silvia.marino@office.it,YES,NO,100,Actions: opened email,151.67.88.201
+simone.barbieri@media.it,YES,YES,100,"Actions: opened email, clicked link",151.38.67.234
+sofia.negri@solutions.it,YES,YES,100,"Actions: opened email, clicked link",79.28.89.201
+stefano.de.luca@tech.it,NO,NO,0,Bot/scanner only detected,N/A
+thomas.caruso@services.it,YES,YES,100,"Actions: opened email, clicked link",151.52.123.167
+tommaso.barone@partner.it,NO,NO,0,Bot/scanner only detected,N/A
+valentina.romano@agency.it,NO,NO,0,Bot/scanner only detected,N/A
+veronica.caputo@store.it,YES,YES,100,"Actions: opened email, clicked link",82.51.89.234

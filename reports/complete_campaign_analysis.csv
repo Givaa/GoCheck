@@ -1,36 +1,64 @@
-email,ip,ip_score,ip_classification,ip_type,is_bot,events,final_email_score,final_classification
-alessia.barbieri@azienda.it,40.74.123.56,0,Foreign IP,foreign,True,Email Opened | Clicked Link,20,Bot/scanner only
-alessia.barbieri@azienda.it,93.56.234.78,20,Bot/Scanner,legitimate_isp,True,Email Opened | Email Opened | Email Opened | Email Opened | Email Opened | Email Opened | Clicked Link | Clicked Link | Clicked Link | Clicked Link | Clicked Link | Clicked Link | Email Opened,20,Bot/scanner only
-andrea.moretti@azienda.it,93.40.78.234,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
-anna.ferrari@azienda.it,104.197.32.12,0,Foreign IP,foreign,True,Email Opened,100,Bot scanner + Real user
-anna.ferrari@azienda.it,87.12.234.56,100,Genuine user,legitimate_isp,False,Email Opened,100,Bot scanner + Real user
-antonio.gentile@azienda.it,87.67.234.45,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
-camilla.rinaldi@azienda.it,87.45.123.78,0,Foreign IP,foreign,True,Email Opened,0,Bot/scanner only
-chiara.conti@azienda.it,104.197.32.12,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
-davide.mancini@azienda.it,87.23.156.78,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
-elena.costa@azienda.it,35.158.127.45,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
-federica.greco@azienda.it,52.18.134.87,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
-francesca.marino@azienda.it,151.25.78.45,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
-gabriele.santoro@azienda.it,79.89.234.56,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
-giorgia.de_santis@azienda.it,104.197.32.12,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
-giulia.verdi@azienda.it,35.158.127.45,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
-laura.ricci@azienda.it,35.158.127.45,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
-lorenzo.marchetti@azienda.it,141.11.36.74,40,Suspicious,vpn,False,Email Opened,100,Real user only
-lorenzo.marchetti@azienda.it,151.78.45.123,100,Genuine user,legitimate_isp,False,Clicked Link,100,Real user only
-luca.bianchi@azienda.it,93.45.123.87,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
-marco.esposito@azienda.it,52.18.134.87,0,Foreign IP,foreign,True,Email Opened,0,Bot/scanner only
-mario.rossi@azienda.it,52.18.134.87,0,Foreign IP,foreign,True,Email Opened | Clicked Link,100,Bot scanner + Real user
-mario.rossi@azienda.it,151.18.45.123,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Bot scanner + Real user
-martina.lombardi@azienda.it,35.158.127.45,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
-matteo.fontana@azienda.it,151.34.89.120,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
-paolo.romano@azienda.it,40.74.123.56,0,Foreign IP,foreign,True,Email Opened | Clicked Link,100,Bot scanner + Real user
-paolo.romano@azienda.it,79.23.156.78,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Bot scanner + Real user
-riccardo.pellegrini@azienda.it,52.18.134.87,0,Foreign IP,foreign,True,Email Opened,0,Bot/scanner only
-roberto.gallo@azienda.it,52.18.134.87,0,Foreign IP,foreign,True,Email Opened | Clicked Link,100,Bot scanner + Real user
-roberto.gallo@azienda.it,79.18.234.90,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Bot scanner + Real user
-sara.colombo@azienda.it,151.67.89.123,100,Genuine user,legitimate_isp,False,Email Opened,100,Real user only
-silvia.de_luca@azienda.it,93.67.123.55,100,Genuine user,legitimate_isp,False,Email Opened,100,Real user only
-simone.villa@azienda.it,79.45.123.90,100,Genuine user,legitimate_isp,False,Email Opened,100,Real user only
-sofia.monti@azienda.it,40.74.123.56,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
-tommaso.caruso@azienda.it,93.34.156.89,100,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
-valentina.russo@azienda.it,104.197.32.12,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+email,ip,ip_score,ip_raw_score,ip_classification,ip_type,is_bot,events,final_email_score,final_classification
+alberto.orlando@division.it,104.47.62.33,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+alessandra.vitale@cloud.it,79.23.89.167,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+alessia.leone@unit.it,79.34.156.201,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+alessia.lombardi@network.it,40.112.72.205,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+andrea.moretti@org.it,151.26.78.199,100,100,Genuine user,legitimate_isp,False,Email Opened,100,Real user only
+anna.ferrari@corp.it,79.23.145.90,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+antonio.santoro@innovation.it,104.18.32.67,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+aurora.sanna@platform.it,93.36.211.134,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+beatrice.de.santis@hub.it,151.76.89.211,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+camilla.pellegrini@production.it,82.61.123.178,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+cecilia.messina@division.it,87.5.123.98,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+chiara.bruno@startup.it,162.158.89.234,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+chiara.ferraro@business.it,151.28.167.89,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+cristina.monti@sales.it,93.45.123.77,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+daniele.ferri@retail.it,151.101.2.132,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+davide.villa@solutions.it,151.55.234.88,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+denise.ferrara@center.it,82.53.167.211,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+diego.giuliani@enterprise.it,8.8.8.8,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+edoardo.rossetti@corp.it,104.16.132.229,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+elena.conti@mycompany.it,82.84.123.67,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+elisa.rinaldi@venture.it,87.23.67.145,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+emanuele.vitali@group.it,157.55.39.122,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+federico.gentile@digital.it,87.12.45.199,100,100,Genuine user,legitimate_isp,False,Email Opened,100,Real user only
+filippo.cattaneo@lab.it,167.89.123.45,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+francesca.greco@firm.it,93.42.10.156,100,110,Genuine user,legitimate_isp,False,Email Opened | Email Opened | Clicked Link,100,Real user only
+francesco.testa@office.it,142.251.35.78,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+gabriele.parisi@group.it,13.33.88.231,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+giacomo.farina@factory.it,185.243.218.60,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+giorgia.palumbo@system.it,151.24.123.98,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+giovanni.verdi@example.com,54.239.28.123,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+giulia.costa@platform.it,34.102.136.180,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+greta.lombardo@sector.it,79.12.234.156,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+irene.ferretti@dept.it,151.45.123.90,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+jacopo.silvestri@unit.it,54.192.168.32,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+laura.bianchi@company.it,198.51.100.45,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,100,Bot scanner + Real user
+laura.bianchi@company.it,151.18.25.78,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Bot scanner + Real user
+lorenzo.mancini@admin.it,20.42.73.45,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+luca.galli@services.it,79.54.201.123,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+marco.colombo@business.it,203.0.113.88,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+mario.rossi@azienda.it,93.35.50.120,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+martina.battaglia@web.it,93.34.78.156,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+massimo.mariani@branch.it,23.21.227.69,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+matteo.fontana@enterprise.it,93.40.123.44,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+monica.riva@brand.it,79.56.234.121,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+nicola.fabbri@logistics.it,44.228.128.34,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+nicole.basile@team.it,93.41.89.234,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+paolo.russo@tech.it,185.220.101.45,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+pietro.gatti@agency.it,52.46.128.34,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+rachele.morelli@consulting.it,40.76.4.15,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,100,Bot scanner + Real user
+rachele.morelli@consulting.it,93.43.178.90,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Bot scanner + Real user
+riccardo.amato@finance.it,185.70.40.25,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+roberto.ricci@domain.com,13.107.42.14,0,0,Foreign IP,foreign,True,Clicked Link | Email Opened,0,Bot/scanner only
+samuel.rizzi@media.it,87.19.56.178,100,100,Genuine user,legitimate_isp,False,Email Opened,100,Real user only
+sara.martini@consulting.it,172.217.14.78,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+serena.marchetti@dept.it,93.37.201.88,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+silvia.marino@office.it,151.67.88.201,100,100,Genuine user,legitimate_isp,False,Email Opened,100,Real user only
+simone.barbieri@media.it,151.38.67.234,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+sofia.negri@solutions.it,79.28.89.201,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+stefano.de.luca@tech.it,52.84.124.56,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+thomas.caruso@services.it,151.52.123.167,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
+tommaso.barone@partner.it,185.125.190.39,0,0,Foreign IP,foreign,True,Email Opened | Clicked Link,0,Bot/scanner only
+valentina.romano@agency.it,192.0.2.56,0,0,Bot/Scanner,unknown,True,Clicked Link | Email Opened,0,Bot/scanner only
+veronica.caputo@store.it,82.51.89.234,100,110,Genuine user,legitimate_isp,False,Email Opened | Clicked Link,100,Real user only
