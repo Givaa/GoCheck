@@ -413,6 +413,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [GoPhish](https://getgophish.com/) - The awesome phishing framework
 - [ip-api.com](https://ip-api.com/) - IP geolocation service
 - Security research community
+- Claude Code for optimizations
 
 ## ⚠️ Disclaimer
 
