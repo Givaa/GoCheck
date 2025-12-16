@@ -624,6 +624,11 @@ class HTMLReportGenerator:
             elif step.get('details'):
                 details_html = f'<p style="margin-left: 20px; margin-top: 5px;">{step["details"]}</p>'
 
+            # Add User Agent display if present
+            ua_html = ''
+            if step.get('user_agent'):
+                ua_html = f'<div style="margin-left: 20px; margin-top: 8px; padding: 8px; background: #f3f4f6; border-radius: 4px; font-family: monospace; font-size: 0.85em; word-wrap: break-word; color: #374151;"><strong>User Agent:</strong> {step["user_agent"]}</div>'
+
             penalty_html = f'<span style="color: #ef4444; font-weight: bold;"> (-{step["penalty"]} points)</span>' if step.get('penalty', 0) > 0 else ''
             decision_html = f'<p style="margin-left: 20px; color: #ef4444; font-weight: bold;">{step["decision"]}</p>' if step.get('decision') else ''
 
@@ -638,6 +643,7 @@ class HTMLReportGenerator:
                 <div style="padding: 10px; margin: 5px 0; background: #f9fafb; border-left: 3px solid {'#10b981' if status_class == 'success' else '#f59e0b' if status_class == 'warning' else '#ef4444'}; border-radius: 4px;">
                     <strong>{step['icon']} {step['name']}</strong>{penalty_html}
                     {details_html}
+                    {ua_html}
                     {bonuses_html}
                     {decision_html}
                 </div>
