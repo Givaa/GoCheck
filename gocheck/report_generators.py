@@ -900,13 +900,20 @@ Based on the analysis results:
             # Generate breakdown markdown
             breakdown_md = self._generate_breakdown_markdown(breakdown) if breakdown else ''
 
+            # Format details section (avoiding backslash in f-string)
+            details_section = ""
+            if details:
+                newline = "\n"
+                details_formatted = f"{newline}  ".join(f"- {detail}" for detail in details)
+                details_section = f"- **Details**:{newline}  {details_formatted}"
+
             lines.append(f'''#### IP #{i}: {ip} {bot_indicator}
 
 - **Classification**: {classification}
 - **Type**: {ip_type}
 - **Score**: {score}/100
 - **Events**: {', '.join(events)}
-{f"- **Details**:\\n  " + "\\n  ".join(f"- {detail}" for detail in details) if details else ""}
+{details_section}
 
 {breakdown_md}
 ''')
