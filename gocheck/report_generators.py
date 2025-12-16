@@ -309,6 +309,12 @@ class HTMLReportGenerator:
             font-size: 0.85em;
         }}
 
+        .event:hover {{
+            background: #bfdbfe;
+            color: #1e3a8a;
+            cursor: default;
+        }}
+
         @media (max-width: 768px) {{
             .stats-grid {{
                 grid-template-columns: 1fr;

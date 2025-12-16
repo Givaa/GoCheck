@@ -1190,7 +1190,20 @@ class GoPhishAnalyzer:
     def analyze_email(self, email, email_events):
         """
         Analyze all events for a single target email.
+        Handles emails with no events (only sent, no open/click).
         """
+        # Handle emails with no events (only Email Sent, no interactions)
+        if email_events.empty:
+            return {
+                'email': email,
+                'final_score': 0,
+                'final_classification': "No response",
+                'has_bot': False,
+                'has_human': False,
+                'ip_analyses': [],
+                'num_ips': 0
+            }
+
         ip_groups = self.group_events_by_ip(email_events)
         sent_time = self._get_sent_time(email)
 
@@ -1240,24 +1253,39 @@ class GoPhishAnalyzer:
         self.out.section("GOPHISH CAMPAIGN ANALYSIS - Real User Detection",
                         min_level=VerbosityLevel.VERBOSE)
 
-        grouped = self.df.groupby('email')
+        # Get all sent emails from df_with_sent to include emails with no events
+        sent_emails = self.df_with_sent[self.df_with_sent['message'] == self.EVENT_SENT]['email'].unique()
 
-        self.out.info(f"Emails to analyze: {len(grouped)}", min_level=VerbosityLevel.VERBOSE)
+        # Get emails with events
+        grouped = self.df.groupby('email')
+        emails_with_events = set(grouped.groups.keys())
+
+        # Combine: all sent emails (includes those with no events)
+        all_emails = set(sent_emails)
+
+        self.out.info(f"Emails sent: {len(all_emails)}", min_level=VerbosityLevel.VERBOSE)
+        self.out.info(f"Emails with events: {len(emails_with_events)}", min_level=VerbosityLevel.VERBOSE)
         self.out.info(f"Total events: {len(self.df)}", min_level=VerbosityLevel.VERBOSE)
 
-        # Progress bar for email analysis
-        email_list = list(grouped)
+        # Progress bar for email analysis - iterate over ALL sent emails
         pbar_emails = tqdm(
-            email_list,
+            sorted(all_emails),
             desc=f"{Colors.DEFAULT}Analyzing emails{Colors.ENDC}",
             unit="email",
             disable=not self.out.should_show_progressbar(),  # Show only in QUIET/NORMAL modes
             bar_format='{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]'
         )
 
-        for email, events in pbar_emails:
+        for email in pbar_emails:
             if TQDM_AVAILABLE and self.out.should_show_progressbar():
                 pbar_emails.set_postfix_str(f"{email[:30]}...")
+
+            # Get events for this email (may be empty if only sent event exists)
+            if email in emails_with_events:
+                events = grouped.get_group(email)
+            else:
+                # Email was sent but has no events (no open, click, etc.)
+                events = pd.DataFrame()
 
             result = self.analyze_email(email, events)
             results.append(result)
@@ -1357,9 +1385,42 @@ class GoPhishAnalyzer:
         )
 
 
+def extract_client_name(results):
+    """
+    Extract client name from email domains.
+    Uses the most common domain from the results.
+    Examples: user@gmail.com -> gmail, user@company.com -> company
+    """
+    if not results or len(results) == 0:
+        return "campaign"
+
+    # Count domain occurrences
+    from collections import Counter
+    domains = []
+    for r in results:
+        email = r.get('email', '')
+        if '@' in email:
+            domain = email.split('@')[1].lower()
+            # Extract main part before .com, .it, etc.
+            domain_parts = domain.split('.')
+            if len(domain_parts) >= 2:
+                client_name = domain_parts[0]  # e.g., 'gmail' from 'gmail.com'
+            else:
+                client_name = domain
+            domains.append(client_name)
+
+    if not domains:
+        return "campaign"
+
+    # Get most common domain
+    counter = Counter(domains)
+    most_common_client = counter.most_common(1)[0][0]
+    return most_common_client
+
+
 def main():
     """Main function for standalone execution."""
-    
+
     parser = argparse.ArgumentParser(
         description=f'{Colors.DEFAULT}{Colors.BOLD}GoPhish Campaign Analyzer{Colors.ENDC} - Distinguish bots from real users',
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -1565,22 +1626,26 @@ def main():
         # Whitelist is auto-saved after analysis (auto_save_whitelist=True)
         out.file_saved("Whitelist auto-saved", whitelist_path)
 
-        # Generate additional reports if requested
+        # Extract client name from email domains
+        client_name = extract_client_name(results)
+        out.info(f"Detected client: {client_name}", min_level=VerbosityLevel.VERBOSE)
+
+        # Generate additional reports if requested (using client name)
         if args.all_reports or args.html:
-            html_file = os.path.join(args.output_dir, 'campaign_report.html')
-            html_gen = HTMLReportGenerator(results, human_report, campaign_name="GoPhish Campaign Analysis")
+            html_file = os.path.join(args.output_dir, f'{client_name}_report.html')
+            html_gen = HTMLReportGenerator(results, human_report, campaign_name=f"{client_name.title()} Campaign Analysis")
             html_gen.generate(html_file)
             out.file_saved("HTML report", html_file)
 
         if args.all_reports or args.json:
-            json_file = os.path.join(args.output_dir, 'campaign_report.json')
-            json_gen = JSONReportGenerator(results, human_report, campaign_name="GoPhish Campaign Analysis")
+            json_file = os.path.join(args.output_dir, f'{client_name}_report.json')
+            json_gen = JSONReportGenerator(results, human_report, campaign_name=f"{client_name.title()} Campaign Analysis")
             json_gen.generate(json_file)
             out.file_saved("JSON report", json_file)
 
         if args.all_reports or args.markdown:
-            md_file = os.path.join(args.output_dir, 'campaign_report.md')
-            md_gen = MarkdownReportGenerator(results, human_report, campaign_name="GoPhish Campaign Analysis")
+            md_file = os.path.join(args.output_dir, f'{client_name}_report.md')
+            md_gen = MarkdownReportGenerator(results, human_report, campaign_name=f"{client_name.title()} Campaign Analysis")
             md_gen.generate(md_file)
             out.file_saved("Markdown report", md_file)
 
