@@ -10,16 +10,26 @@ GoCheck analyzes GoPhish campaign events to accurately distinguish automated sca
 
 ## ✨ Key Features
 
+### 🔬 Analysis Engine
 - 🧠 **Intelligent VPN Detection** - Dynamic whitelisting learns legitimate corporate VPN patterns (3+ interactions with timing variance analysis)
 - ⏱️ **Smart Timing Analysis** - Distinguishes send→open (hours OK) from open→click (1-30s), uses LAST open before click
 - 📧 **Email Client Support** - Recognizes Outlook, Apple Mail, Thunderbird as legitimate access
 - 🌍 **IP Intelligence** - Geolocation, ISP classification, cloud provider detection
 - 🎯 **Multi-IP Tracking** - Separates bot scans from real user clicks on same email
-- 📊 **Comprehensive Reports** - Clean CSV exports with human-only interactions, includes raw scores
-- 💻 **Full-Featured CLI** - Command-line interface with verbose mode and configurable parameters
-- 📈 **Progress Bar** - Real-time visual feedback with ETA during analysis (optional tqdm support)
 - 💾 **Persistent Learning** - Whitelist saved/loaded automatically, expires after 90 days
 - 🔍 **Event Deduplication** - Removes duplicate events (same IP+message within 2s)
+
+### 📊 Reporting & Output
+- 📄 **Interactive HTML Reports** - Beautiful, sortable, filterable dashboard with charts and detailed breakdowns
+- 📋 **JSON Output** - Machine-readable structured data for integration with other tools
+- 📝 **Markdown Reports** - Human-friendly documentation with collapsible details
+- 📁 **Enhanced CSV Exports** - Human-only interactions and complete analysis with raw scores
+- 🎨 **Multi-Level Verbosity** - Four verbosity levels (-v, -vv, -vvv, -vvvv) for perfect output control
+
+### 💻 User Experience
+- 🖥️ **Full-Featured CLI** - Command-line interface with intuitive options
+- 📈 **Progress Bar** - Real-time visual feedback with ETA during analysis (optional tqdm support)
+- 🎯 **Clean Output** - Organized, color-coded output that's easy to understand
 - 🛡️ **Robust Error Handling** - Structured logging, proper exception handling, rate limit management
 - ⚙️ **Configurable** - Multi-country support, custom whitelist paths, auto-save options
 
@@ -44,14 +54,26 @@ python gocheck/GoCheck.py -i raw_events.csv
 ### Command Line Interface
 
 ```bash
-# Basic analysis
+# Basic analysis (quiet mode)
 python gocheck/GoCheck.py -i events.csv
 
 # Custom output directory
 python gocheck/GoCheck.py -i events.csv -o reports/
 
-# Verbose mode (see detailed scoring and logs)
-python gocheck/GoCheck.py -i events.csv -v
+# Verbosity levels
+python gocheck/GoCheck.py -i events.csv -v      # Normal: show campaign stats
+python gocheck/GoCheck.py -i events.csv -vv     # Verbose: + email details
+python gocheck/GoCheck.py -i events.csv -vvv    # Debug: + IP analysis, timing
+python gocheck/GoCheck.py -i events.csv -vvvv   # Trace: + API calls, network details
+
+# Generate reports
+python gocheck/GoCheck.py -i events.csv --html          # Interactive HTML dashboard
+python gocheck/GoCheck.py -i events.csv --json          # Machine-readable JSON
+python gocheck/GoCheck.py -i events.csv --markdown      # Human-friendly Markdown
+python gocheck/GoCheck.py -i events.csv --all-reports   # Generate all formats
+
+# Complete analysis with all features
+python gocheck/GoCheck.py -i events.csv -o reports/ -vv --all-reports
 
 # Custom country filtering (multiple countries)
 python gocheck/GoCheck.py -i events.csv --countries IT US GB

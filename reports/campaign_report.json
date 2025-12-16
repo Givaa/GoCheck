@@ -1,0 +1,2223 @@
+{
+  "campaign_name": "GoPhish Campaign Analysis",
+  "generated_at": "2025-12-16T11:04:10.154056",
+  "generator": "GoCheck v2.2.0",
+  "statistics": {
+    "total_targets": 61,
+    "real_users_only": 32,
+    "bots_only": 27,
+    "mixed": 2,
+    "average_score": 55.74,
+    "human_interactions": {
+      "opened": 34,
+      "opened_percentage": 55.74,
+      "clicked": 30,
+      "clicked_percentage": 49.18
+    }
+  },
+  "results": [
+    {
+      "email": "alberto.orlando@division.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "104.47.62.33",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:39",
+          "last_event": "2025-01-15T09:00:39"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "alessandra.vitale@cloud.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "79.23.89.167",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 102.2min after send",
+            "Slow: open->click in 142.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T10:42:34",
+          "last_event": "2025-01-15T10:44:56"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "alessia.leone@unit.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "79.34.156.201",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 175.9min after send",
+            "Slow: open->click in 98.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T11:56:34",
+          "last_event": "2025-01-15T11:58:12"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "alessia.lombardi@network.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "40.112.72.205",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: Ireland"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:20",
+          "last_event": "2025-01-15T09:00:20"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "andrea.moretti@org.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "151.26.78.199",
+          "score": 100,
+          "raw_score": 100,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 52.4min after send"
+          ],
+          "events": [
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:52:34",
+          "last_event": "2025-01-15T09:52:34"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "anna.ferrari@corp.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "79.23.145.90",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 154.9min after send",
+            "Slow: open->click in 76.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T11:34:56",
+          "last_event": "2025-01-15T11:36:12"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "antonio.santoro@innovation.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "104.18.32.67",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: Canada"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:23",
+          "last_event": "2025-01-15T09:00:23"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "aurora.sanna@platform.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "93.36.211.134",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 355.9min after send",
+            "Slow: open->click in 98.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T14:56:45",
+          "last_event": "2025-01-15T14:58:23"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "beatrice.de.santis@hub.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "151.76.89.211",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 115.0min after send",
+            "Slow: open->click in 109.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T10:55:34",
+          "last_event": "2025-01-15T10:57:23"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "camilla.pellegrini@production.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "82.61.123.178",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 333.7min after send",
+            "Slow: open->click in 98.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T14:34:23",
+          "last_event": "2025-01-15T14:36:01"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "cecilia.messina@division.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "87.5.123.98",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 442.4min after send",
+            "Slow: open->click in 142.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T16:23:12",
+          "last_event": "2025-01-15T16:25:34"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "chiara.bruno@startup.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "162.158.89.234",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:12",
+          "last_event": "2025-01-15T09:00:12"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "chiara.ferraro@business.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "151.28.167.89",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 224.7min after send",
+            "Slow: open->click in 98.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T12:45:34",
+          "last_event": "2025-01-15T12:47:12"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "cristina.monti@sales.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "93.45.123.77",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 394.4min after send",
+            "Slow: open->click in 87.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T15:34:56",
+          "last_event": "2025-01-15T15:36:23"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "daniele.ferri@retail.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "151.101.2.132",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: Canada"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:31",
+          "last_event": "2025-01-15T09:00:31"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "davide.villa@solutions.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "151.55.234.88",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 285.1min after send",
+            "Slow: open->click in 92.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T13:45:23",
+          "last_event": "2025-01-15T13:46:55"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "denise.ferrara@center.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "82.53.167.211",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 164.6min after send",
+            "Slow: open->click in 142.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T11:45:23",
+          "last_event": "2025-01-15T11:47:45"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "diego.giuliani@enterprise.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "8.8.8.8",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:55",
+          "last_event": "2025-01-15T09:00:55"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "edoardo.rossetti@corp.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "104.16.132.229",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: Canada"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:51",
+          "last_event": "2025-01-15T09:00:51"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "elena.conti@mycompany.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "82.84.123.67",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 432.6min after send",
+            "Slow: open->click in 98.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T16:12:45",
+          "last_event": "2025-01-15T16:14:23"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "elisa.rinaldi@venture.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "87.23.67.145",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 464.6min after send",
+            "Slow: open->click in 142.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T16:45:12",
+          "last_event": "2025-01-15T16:47:34"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "emanuele.vitali@group.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "157.55.39.122",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:25",
+          "last_event": "2025-01-15T09:00:25"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "federico.gentile@digital.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "87.12.45.199",
+          "score": 100,
+          "raw_score": 100,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 370.1min after send"
+          ],
+          "events": [
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T15:10:23",
+          "last_event": "2025-01-15T15:10:23"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "filippo.cattaneo@lab.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "167.89.123.45",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:45",
+          "last_event": "2025-01-15T09:00:45"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "francesca.greco@firm.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "93.42.10.156",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 45.4min after send",
+            "Slow: open->click in 86.0s (re-reading email)",
+            "Re-opened email after 29.0s",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:45:33",
+          "last_event": "2025-01-15T09:47:28"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "francesco.testa@office.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "142.251.35.78",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:47",
+          "last_event": "2025-01-15T09:00:47"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "gabriele.parisi@group.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "13.33.88.231",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:53",
+          "last_event": "2025-01-15T09:00:53"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "giacomo.farina@factory.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "185.243.218.60",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: Norway"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:41",
+          "last_event": "2025-01-15T09:00:41"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "giorgia.palumbo@system.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "151.24.123.98",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 135.3min after send",
+            "Slow: open->click in 108.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T11:15:45",
+          "last_event": "2025-01-15T11:17:33"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "giovanni.verdi@example.com",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "54.239.28.123",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:03",
+          "last_event": "2025-01-15T09:00:03"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "giulia.costa@platform.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "34.102.136.180",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:18",
+          "last_event": "2025-01-15T09:00:18"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "greta.lombardo@sector.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "79.12.234.156",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 251.8min after send",
+            "Slow: open->click in 142.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T13:12:34",
+          "last_event": "2025-01-15T13:14:56"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "irene.ferretti@dept.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "151.45.123.90",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 88.0min after send",
+            "Slow: open->click in 98.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T10:28:45",
+          "last_event": "2025-01-15T10:30:23"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "jacopo.silvestri@unit.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "54.192.168.32",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: India"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:49",
+          "last_event": "2025-01-15T09:00:49"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "laura.bianchi@company.it",
+      "final_score": 100,
+      "final_classification": "Bot scanner + Real user",
+      "has_bot": true,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "198.51.100.45",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: Romania"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:02",
+          "last_event": "2025-01-15T09:00:02"
+        },
+        {
+          "ip": "151.18.25.78",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 83.2min after send",
+            "Slow: open->click in 141.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T10:23:12",
+          "last_event": "2025-01-15T10:25:33"
+        }
+      ],
+      "num_ips": 2
+    },
+    {
+      "email": "lorenzo.mancini@admin.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "20.42.73.45",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:37",
+          "last_event": "2025-01-15T09:00:37"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "luca.galli@services.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "79.54.201.123",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 148.3min after send",
+            "Slow: open->click in 131.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T11:28:34",
+          "last_event": "2025-01-15T11:30:45"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "marco.colombo@business.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "203.0.113.88",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:06",
+          "last_event": "2025-01-15T09:00:07"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "mario.rossi@azienda.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "93.35.50.120",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 15.4min after send",
+            "Slow: open->click in 142.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:15:23",
+          "last_event": "2025-01-15T09:17:45"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "martina.battaglia@web.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "93.34.78.156",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 356.0min after send",
+            "Slow: open->click in 98.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T14:56:23",
+          "last_event": "2025-01-15T14:58:01"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "massimo.mariani@branch.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "23.21.227.69",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:43",
+          "last_event": "2025-01-15T09:00:43"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "matteo.fontana@enterprise.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "93.40.123.44",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 75.5min after send",
+            "Slow: open->click in 147.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T10:15:45",
+          "last_event": "2025-01-15T10:18:12"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "monica.riva@brand.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "79.56.234.121",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 312.2min after send",
+            "Slow: open->click in 87.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T14:12:45",
+          "last_event": "2025-01-15T14:14:12"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "nicola.fabbri@logistics.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "44.228.128.34",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:33",
+          "last_event": "2025-01-15T09:00:33"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "nicole.basile@team.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "93.41.89.234",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 382.4min after send",
+            "Slow: open->click in 142.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T15:23:12",
+          "last_event": "2025-01-15T15:25:34"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "paolo.russo@tech.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "185.220.101.45",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: Germany"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:04",
+          "last_event": "2025-01-15T09:00:17"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "pietro.gatti@agency.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "52.46.128.34",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:57",
+          "last_event": "2025-01-15T09:00:57"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "rachele.morelli@consulting.it",
+      "final_score": 100,
+      "final_classification": "Bot scanner + Real user",
+      "has_bot": true,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "40.76.4.15",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:01:00",
+          "last_event": "2025-01-15T09:01:00"
+        },
+        {
+          "ip": "93.43.178.90",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 153.4min after send",
+            "Slow: open->click in 142.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T11:34:23",
+          "last_event": "2025-01-15T11:36:45"
+        }
+      ],
+      "num_ips": 2
+    },
+    {
+      "email": "riccardo.amato@finance.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "185.70.40.25",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: Switzerland"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:29",
+          "last_event": "2025-01-15T09:00:29"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "roberto.ricci@domain.com",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "13.107.42.14",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: Canada"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:09",
+          "last_event": "2025-01-15T09:00:09"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "samuel.rizzi@media.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "87.19.56.178",
+          "score": 100,
+          "raw_score": 100,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 404.2min after send"
+          ],
+          "events": [
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T15:45:12",
+          "last_event": "2025-01-15T15:45:12"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "sara.martini@consulting.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "172.217.14.78",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:15",
+          "last_event": "2025-01-15T09:00:16"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "serena.marchetti@dept.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "93.37.201.88",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 191.8min after send",
+            "Slow: open->click in 142.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T12:12:23",
+          "last_event": "2025-01-15T12:14:45"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "silvia.marino@office.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "151.67.88.201",
+          "score": 100,
+          "raw_score": 100,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 322.1min after send"
+          ],
+          "events": [
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T14:22:10",
+          "last_event": "2025-01-15T14:22:10"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "simone.barbieri@media.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "151.38.67.234",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 213.4min after send",
+            "Slow: open->click in 87.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T12:33:45",
+          "last_event": "2025-01-15T12:35:12"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "sofia.negri@solutions.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "79.28.89.201",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 71.4min after send",
+            "Slow: open->click in 153.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T10:12:23",
+          "last_event": "2025-01-15T10:14:56"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "stefano.de.luca@tech.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "52.84.124.56",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United States"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:27",
+          "last_event": "2025-01-15T09:00:27"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "thomas.caruso@services.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "151.52.123.167",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 322.8min after send",
+            "Slow: open->click in 87.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T14:23:45",
+          "last_event": "2025-01-15T14:25:12"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "tommaso.barone@partner.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "185.125.190.39",
+          "score": 0,
+          "type": "foreign",
+          "is_bot": true,
+          "classification": "Foreign IP",
+          "details": [
+            "Foreign IP: United Kingdom"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T09:00:35",
+          "last_event": "2025-01-15T09:00:35"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "valentina.romano@agency.it",
+      "final_score": 0,
+      "final_classification": "Bot/scanner only",
+      "has_bot": true,
+      "has_human": false,
+      "ip_analyses": [
+        {
+          "ip": "192.0.2.56",
+          "score": 0,
+          "raw_score": 0,
+          "type": "unknown",
+          "is_bot": true,
+          "classification": "Bot/Scanner",
+          "details": [
+            "IP: IP lookup failed - insufficient data (-30)",
+            "User Agent: Bot/Crawler detected (-80)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Clicked Link",
+            "Email Opened"
+          ],
+          "first_event": "2025-01-15T09:00:14",
+          "last_event": "2025-01-15T09:00:14"
+        }
+      ],
+      "num_ips": 1
+    },
+    {
+      "email": "veronica.caputo@store.it",
+      "final_score": 100,
+      "final_classification": "Real user only",
+      "has_bot": false,
+      "has_human": true,
+      "ip_analyses": [
+        {
+          "ip": "82.51.89.234",
+          "score": 100,
+          "raw_score": 110,
+          "type": "legitimate_isp",
+          "is_bot": false,
+          "classification": "Genuine user",
+          "details": [
+            "Normal: opened 262.8min after send",
+            "Slow: open->click in 153.0s (re-reading email)",
+            "Clicked link (+10)"
+          ],
+          "events": [
+            "Email Opened",
+            "Clicked Link"
+          ],
+          "first_event": "2025-01-15T13:23:12",
+          "last_event": "2025-01-15T13:25:45"
+        }
+      ],
+      "num_ips": 1
+    }
+  ],
+  "human_report": [
+    {
+      "email": "alberto.orlando@division.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "alessandra.vitale@cloud.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "79.23.89.167"
+    },
+    {
+      "email": "alessia.leone@unit.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "79.34.156.201"
+    },
+    {
+      "email": "alessia.lombardi@network.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "andrea.moretti@org.it",
+      "human_opened": "YES",
+      "human_clicked": "NO",
+      "human_score": 100,
+      "details": "Actions: opened email",
+      "human_ip": "151.26.78.199"
+    },
+    {
+      "email": "anna.ferrari@corp.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "79.23.145.90"
+    },
+    {
+      "email": "antonio.santoro@innovation.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "aurora.sanna@platform.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "93.36.211.134"
+    },
+    {
+      "email": "beatrice.de.santis@hub.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "151.76.89.211"
+    },
+    {
+      "email": "camilla.pellegrini@production.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "82.61.123.178"
+    },
+    {
+      "email": "cecilia.messina@division.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "87.5.123.98"
+    },
+    {
+      "email": "chiara.bruno@startup.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "chiara.ferraro@business.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "151.28.167.89"
+    },
+    {
+      "email": "cristina.monti@sales.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "93.45.123.77"
+    },
+    {
+      "email": "daniele.ferri@retail.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "davide.villa@solutions.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "151.55.234.88"
+    },
+    {
+      "email": "denise.ferrara@center.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "82.53.167.211"
+    },
+    {
+      "email": "diego.giuliani@enterprise.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "edoardo.rossetti@corp.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "elena.conti@mycompany.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "82.84.123.67"
+    },
+    {
+      "email": "elisa.rinaldi@venture.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "87.23.67.145"
+    },
+    {
+      "email": "emanuele.vitali@group.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "federico.gentile@digital.it",
+      "human_opened": "YES",
+      "human_clicked": "NO",
+      "human_score": 100,
+      "details": "Actions: opened email",
+      "human_ip": "87.12.45.199"
+    },
+    {
+      "email": "filippo.cattaneo@lab.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "francesca.greco@firm.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "93.42.10.156"
+    },
+    {
+      "email": "francesco.testa@office.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "gabriele.parisi@group.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "giacomo.farina@factory.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "giorgia.palumbo@system.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "151.24.123.98"
+    },
+    {
+      "email": "giovanni.verdi@example.com",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "giulia.costa@platform.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "greta.lombardo@sector.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "79.12.234.156"
+    },
+    {
+      "email": "irene.ferretti@dept.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "151.45.123.90"
+    },
+    {
+      "email": "jacopo.silvestri@unit.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "laura.bianchi@company.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "151.18.25.78"
+    },
+    {
+      "email": "lorenzo.mancini@admin.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "luca.galli@services.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "79.54.201.123"
+    },
+    {
+      "email": "marco.colombo@business.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "mario.rossi@azienda.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "93.35.50.120"
+    },
+    {
+      "email": "martina.battaglia@web.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "93.34.78.156"
+    },
+    {
+      "email": "massimo.mariani@branch.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "matteo.fontana@enterprise.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "93.40.123.44"
+    },
+    {
+      "email": "monica.riva@brand.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "79.56.234.121"
+    },
+    {
+      "email": "nicola.fabbri@logistics.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "nicole.basile@team.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "93.41.89.234"
+    },
+    {
+      "email": "paolo.russo@tech.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "pietro.gatti@agency.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "rachele.morelli@consulting.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "93.43.178.90"
+    },
+    {
+      "email": "riccardo.amato@finance.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "roberto.ricci@domain.com",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "samuel.rizzi@media.it",
+      "human_opened": "YES",
+      "human_clicked": "NO",
+      "human_score": 100,
+      "details": "Actions: opened email",
+      "human_ip": "87.19.56.178"
+    },
+    {
+      "email": "sara.martini@consulting.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "serena.marchetti@dept.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "93.37.201.88"
+    },
+    {
+      "email": "silvia.marino@office.it",
+      "human_opened": "YES",
+      "human_clicked": "NO",
+      "human_score": 100,
+      "details": "Actions: opened email",
+      "human_ip": "151.67.88.201"
+    },
+    {
+      "email": "simone.barbieri@media.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "151.38.67.234"
+    },
+    {
+      "email": "sofia.negri@solutions.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "79.28.89.201"
+    },
+    {
+      "email": "stefano.de.luca@tech.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "thomas.caruso@services.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "151.52.123.167"
+    },
+    {
+      "email": "tommaso.barone@partner.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "valentina.romano@agency.it",
+      "human_opened": "NO",
+      "human_clicked": "NO",
+      "human_score": 0,
+      "details": "Bot/scanner only detected",
+      "human_ip": "N/A"
+    },
+    {
+      "email": "veronica.caputo@store.it",
+      "human_opened": "YES",
+      "human_clicked": "YES",
+      "human_score": 100,
+      "details": "Actions: opened email, clicked link",
+      "human_ip": "82.51.89.234"
+    }
+  ]
+}

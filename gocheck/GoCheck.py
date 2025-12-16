@@ -19,6 +19,14 @@ import statistics
 import random
 import logging
 
+# Import OutputManager and Report Generators (handle both package and direct execution)
+try:
+    from .output_manager import OutputManager, VerbosityLevel, Colors
+    from .report_generators import HTMLReportGenerator, JSONReportGenerator, MarkdownReportGenerator
+except ImportError:
+    from output_manager import OutputManager, VerbosityLevel, Colors
+    from report_generators import HTMLReportGenerator, JSONReportGenerator, MarkdownReportGenerator
+
 # Optional tqdm import - fallback to dummy progress bar if not available
 try:
     from tqdm import tqdm
@@ -28,9 +36,6 @@ except ImportError:
     # Dummy tqdm that just returns the iterable
     def tqdm(iterable, **kwargs):
         return iterable
-
-# Configure logging
-logger = logging.getLogger(__name__)
 
 # API Configuration Constants
 IP_API_FIELDS = 16969727  # Bitmask for ip-api.com fields: country, ISP, org, AS, proxy, hosting, geolocation
@@ -76,18 +81,7 @@ WHITELIST_MIN_HUMAN_BEHAVIORS = 3
 WHITELIST_TIMING_VARIANCE_MIN = 2.0  # Seconds
 WHITELIST_DECAY_DAYS = 90
 
-# ANSI color codes
-class Colors:
-    HEADER = '\033[95m'
-    BLUE = '\033[94m'
-    CYAN = '\033[96m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    RED = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    BLACK = '\033[30m'
-    DEFAULT = '\033[39m'  # Default foreground color (adapts to terminal theme)
+# Colors are now imported from output_manager
 
 QUOTES = [
     "We erase what tries to replace us.",
@@ -133,7 +127,8 @@ class GoPhishAnalyzer:
     EVENT_ERROR = 'Error Sending Email'
     EVENT_PROXY = 'Proxied request'
 
-    def __init__(self, csv_path, allowed_countries=None, whitelist_path=None, auto_save_whitelist=True, verbose=False):
+    def __init__(self, csv_path, allowed_countries=None, whitelist_path=None, auto_save_whitelist=True,
+                 verbosity=VerbosityLevel.QUIET, output_manager=None):
         """
         Initialize analyzer with GoPhish events CSV file.
 
@@ -142,28 +137,20 @@ class GoPhishAnalyzer:
             allowed_countries: List of allowed country codes (default: ['IT'])
             whitelist_path: Path to load/save whitelist JSON (default: None, uses './whitelist.json')
             auto_save_whitelist: Automatically save whitelist after analysis (default: True)
-            verbose: Enable verbose logging (default: False)
+            verbosity: Verbosity level (0-4) (default: VerbosityLevel.QUIET)
+            output_manager: OutputManager instance (default: None, creates new one)
         """
-        # Configure logging
-        self.verbose = verbose
-        if verbose:
-            logging.basicConfig(
-                level=logging.DEBUG,
-                format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-            )
-        else:
-            # Suppress all logs when not in verbose mode
-            logging.basicConfig(
-                level=logging.CRITICAL + 1,  # Higher than CRITICAL to hide everything
-                format='%(levelname)s: %(message)s'
-            )
+        # Setup output manager
+        self.out = output_manager or OutputManager(verbosity)
+        self.logger = self.out.get_logger(__name__)
 
         # Configuration
         self.allowed_countries = allowed_countries or ['IT']
         self.whitelist_path = whitelist_path or './whitelist.json'
         self.auto_save_whitelist = auto_save_whitelist
 
-        logger.info(f"Initializing GoPhish Analyzer for countries: {self.allowed_countries}")
+        self.out.info(f"Initializing GoPhish Analyzer for countries: {self.allowed_countries}",
+                     min_level=VerbosityLevel.DEBUG)
 
         self.df = pd.read_csv(
             csv_path,
@@ -200,7 +187,8 @@ class GoPhishAnalyzer:
         if os.path.exists(self.whitelist_path):
             loaded = self.load_whitelist(self.whitelist_path)
             if loaded:
-                logger.info(f"Loaded whitelist from {self.whitelist_path}")
+                self.logger.info(f"Loaded whitelist from {self.whitelist_path}")
+                self.out.debug(f"Loaded whitelist from {self.whitelist_path}")
 
         # Track API calls for rate limiting
         self.last_api_call = None
@@ -328,7 +316,7 @@ class GoPhishAnalyzer:
                     time_diff = (row['time'] - prev_row['time']).total_seconds()
                     if 0 < time_diff < 2:
                         is_duplicate = True
-                        logger.debug(f"Duplicate event removed: {row['email']} - {row['message']} - {time_diff:.2f}s apart")
+                        self.logger.debug(f"Duplicate event removed: {row['email']} - {row['message']} - {time_diff:.2f}s apart")
 
             duplicates_mask.append(is_duplicate)
             if not is_duplicate:
@@ -337,7 +325,8 @@ class GoPhishAnalyzer:
         df = df[~pd.Series(duplicates_mask, index=df.index)]
         df = df.drop(columns=['_temp_ip'])
 
-        logger.info(f"Removed {sum(duplicates_mask)} duplicate events")
+        self.logger.info(f"Removed {sum(duplicates_mask)} duplicate events")
+        self.out.debug(f"Removed {sum(duplicates_mask)} duplicate events")
         return df
 
     def parse_details(self, details_str):
@@ -382,12 +371,13 @@ class GoPhishAnalyzer:
         Uses cache to reduce API calls and implements proper rate limiting.
         """
         if not ip or ip == '':
-            logger.debug(f"Empty IP address provided")
+            self.logger.debug(f"Empty IP address provided")
             return None
 
         # Return cached result
         if ip in self.ip_cache:
-            logger.debug(f"IP {ip} found in cache")
+            self.logger.debug(f"IP {ip} found in cache")
+            self.out.trace(f"IP {ip} found in cache")
             return self.ip_cache[ip]
 
         # Rate limiting: ensure minimum time between API calls
@@ -395,12 +385,14 @@ class GoPhishAnalyzer:
             elapsed = time.time() - self.last_api_call
             if elapsed < IP_API_RATE_LIMIT:
                 sleep_time = IP_API_RATE_LIMIT - elapsed
-                logger.debug(f"Rate limiting: sleeping {sleep_time:.2f}s before API call")
+                self.logger.debug(f"Rate limiting: sleeping {sleep_time:.2f}s before API call")
+                self.out.trace(f"Rate limiting: sleeping {sleep_time:.2f}s")
                 time.sleep(sleep_time)
 
         # Make API call
         try:
-            logger.debug(f"Fetching IP info for {ip} from ip-api.com")
+            self.logger.debug(f"Fetching IP info for {ip} from ip-api.com")
+            self.out.api_call(ip, "Fetching", "from ip-api.com")
             response = requests.get(
                 f'http://ip-api.com/json/{ip}?fields={IP_API_FIELDS}',
                 timeout=IP_API_TIMEOUT
@@ -411,23 +403,29 @@ class GoPhishAnalyzer:
                 try:
                     data = response.json()
                     self.ip_cache[ip] = data
-                    logger.debug(f"IP {ip}: {data.get('org', 'Unknown')} - {data.get('country', 'Unknown')}")
+                    self.logger.debug(f"IP {ip}: {data.get('org', 'Unknown')} - {data.get('country', 'Unknown')}")
+                    self.out.api_call(ip, "Success", f"{data.get('org', 'Unknown')} - {data.get('country', 'Unknown')}")
                     return data
                 except json.JSONDecodeError as e:
-                    logger.warning(f"Invalid JSON response for IP {ip}: {e}")
+                    self.logger.warning(f"Invalid JSON response for IP {ip}: {e}")
+                    self.out.warning(f"Invalid JSON response for IP {ip}", min_level=VerbosityLevel.DEBUG)
                     return None
             else:
-                logger.warning(f"API returned status {response.status_code} for IP {ip}")
+                self.logger.warning(f"API returned status {response.status_code} for IP {ip}")
+                self.out.warning(f"API returned status {response.status_code} for IP {ip}", min_level=VerbosityLevel.DEBUG)
                 return None
 
         except requests.Timeout:
-            logger.warning(f"Timeout fetching IP info for {ip}")
+            self.logger.warning(f"Timeout fetching IP info for {ip}")
+            self.out.warning(f"Timeout fetching IP info for {ip}", min_level=VerbosityLevel.DEBUG)
             return None
         except requests.ConnectionError as e:
-            logger.warning(f"Connection error for IP {ip}: {e}")
+            self.logger.warning(f"Connection error for IP {ip}: {e}")
+            self.out.warning(f"Connection error for IP {ip}", min_level=VerbosityLevel.TRACE)
             return None
         except requests.RequestException as e:
-            logger.warning(f"Request failed for IP {ip}: {e}")
+            self.logger.warning(f"Request failed for IP {ip}: {e}")
+            self.out.warning(f"Request failed for IP {ip}", min_level=VerbosityLevel.TRACE)
             return None
 
         return None
@@ -441,7 +439,7 @@ class GoPhishAnalyzer:
             tuple: (is_allowed_country, ip_type, penalty, description)
         """
         if not ip_info or ip_info.get('status') == 'fail':
-            logger.debug(f"IP classification failed: {ip} - lookup failed")
+            self.logger.debug(f"IP classification failed: {ip} - lookup failed")
             return None, 'unknown', UNKNOWN_IP_PENALTY, "IP lookup failed - insufficient data"
 
         country_code = ip_info.get('countryCode')
@@ -449,7 +447,8 @@ class GoPhishAnalyzer:
         is_allowed_country = country_code in self.allowed_countries
 
         if not is_allowed_country:
-            logger.debug(f"Foreign IP detected: {ip} from {country}")
+            self.logger.debug(f"Foreign IP detected: {ip} from {country}")
+            self.out.debug(f"Foreign IP detected: {ip} from {country}")
             return False, 'foreign', FOREIGN_IP_PENALTY, f"Foreign IP: {country}"
 
         org = ip_info.get('org', '').lower()
@@ -461,35 +460,41 @@ class GoPhishAnalyzer:
 
         # Security vendor (definite bot)
         if any(vendor in combined for vendor in self.security_vendors):
-            logger.info(f"Security scanner detected: {ip} - {org}")
+            self.logger.info(f"Security scanner detected: {ip} - {org}")
+            self.out.debug(f"Security scanner detected: {ip} - {org}")
             return True, 'security_scanner', SECURITY_SCANNER_PENALTY, f"Security scanner: {org}"
 
         # Cloud provider (very likely bot)
         if any(provider in combined for provider in self.cloud_providers):
-            logger.info(f"Cloud provider detected: {ip} - {org}")
+            self.logger.info(f"Cloud provider detected: {ip} - {org}")
+            self.out.debug(f"Cloud provider detected: {ip} - {org}")
             return True, 'cloud', CLOUD_PROVIDER_PENALTY, f"Cloud provider: {org}"
 
         # Datacenter/Hosting (likely automated)
         if any(term in combined for term in ['datacenter', 'hosting', 'server']) or hosting == True:
-            logger.info(f"Datacenter detected: {ip}")
+            self.logger.info(f"Datacenter detected: {ip}")
+            self.out.debug(f"Datacenter detected: {ip}")
             return True, 'datacenter', DATACENTER_PENALTY, "Datacenter"
 
         # VPN/Proxy - check whitelist first
         if 'vpn' in combined or 'proxy' in combined or proxy == True:
             # Check if this IP is whitelisted for this domain
             if ip and email_domain and self._is_ip_whitelisted(ip, email_domain):
-                logger.info(f"Whitelisted VPN detected: {ip} for {email_domain}")
+                self.logger.info(f"Whitelisted VPN detected: {ip} for {email_domain}")
+                self.out.debug(f"Whitelisted VPN: {ip} for {email_domain}")
                 return True, 'vpn_whitelisted', VPN_WHITELISTED_PENALTY, f"VPN/Proxy (whitelisted for {email_domain})"
             # Not whitelisted yet, apply moderate penalty (will be reduced if behavior is human-like)
-            logger.debug(f"VPN detected (not whitelisted): {ip}")
+            self.logger.debug(f"VPN detected (not whitelisted): {ip}")
+            self.out.trace(f"VPN detected (not whitelisted): {ip}")
             return True, 'vpn', VPN_PENALTY, "VPN/Proxy (pending validation)"
 
         # Legitimate business/residential ISP
         if ip_info.get('isp'):
-            logger.debug(f"Legitimate ISP detected: {ip} - {ip_info.get('isp')}")
+            self.logger.debug(f"Legitimate ISP detected: {ip} - {ip_info.get('isp')}")
+            self.out.trace(f"Legitimate ISP: {ip} - {ip_info.get('isp')}")
             return True, 'legitimate_isp', 0, f"ISP: {ip_info.get('isp')}"
 
-        logger.debug(f"Unknown IP type: {ip}")
+        self.logger.debug(f"Unknown IP type: {ip}")
         return True, 'unknown', UNKNOWN_IP_PENALTY, "Unknown type - suspicious"
     
     def analyze_user_agent(self, user_agent):
@@ -501,7 +506,7 @@ class GoPhishAnalyzer:
             tuple: (penalty, description)
         """
         if not user_agent or user_agent == '':
-            logger.debug("User Agent missing")
+            self.logger.debug("User Agent missing")
             return MISSING_UA_PENALTY, "User Agent missing"
 
         ua_lower = user_agent.lower()
@@ -512,7 +517,8 @@ class GoPhishAnalyzer:
             'validation', 'test', 'probe', 'fetch'
         ]
         if any(indicator in ua_lower for indicator in bot_indicators):
-            logger.info(f"Bot UA detected: {user_agent[:50]}")
+            self.logger.info(f"Bot UA detected: {user_agent[:50]}")
+            self.out.debug(f"Bot User Agent detected: {user_agent[:50]}")
             return BOT_UA_PENALTY, "Bot/Crawler detected"
 
         # Security tools
@@ -521,20 +527,23 @@ class GoPhishAnalyzer:
             'sandbox', 'analyzer', 'scanner'
         ]
         if any(indicator in ua_lower for indicator in security_indicators):
-            logger.info(f"Security tool UA detected: {user_agent[:50]}")
+            self.logger.info(f"Security tool UA detected: {user_agent[:50]}")
+            self.out.debug(f"Security tool User Agent: {user_agent[:50]}")
             return SECURITY_TOOL_UA_PENALTY, "Security tool"
 
         # Standard browsers
         if any(browser in ua_lower for browser in ['chrome', 'firefox', 'safari', 'edge', 'opera']):
-            logger.debug(f"Standard browser UA: {user_agent[:50]}")
+            self.logger.debug(f"Standard browser UA: {user_agent[:50]}")
+            self.out.trace(f"Standard browser: {user_agent[:50]}")
             return 0, "Standard browser"
 
         # Email clients - legitimate human access, minimal penalty
         if any(client in ua_lower for client in ['outlook', 'thunderbird', 'mail', 'msoffice', 'apple mail']):
-            logger.debug(f"Email client UA: {user_agent[:50]}")
+            self.logger.debug(f"Email client UA: {user_agent[:50]}")
+            self.out.trace(f"Email client: {user_agent[:50]}")
             return EMAIL_CLIENT_PENALTY, "Email client (legitimate)"
 
-        logger.debug(f"Anomalous UA: {user_agent[:50]}")
+        self.logger.debug(f"Anomalous UA: {user_agent[:50]}")
         return ANOMALOUS_UA_PENALTY, "Anomalous User Agent"
     
     def _is_ip_whitelisted(self, ip, email_domain):
@@ -565,12 +574,12 @@ class GoPhishAnalyzer:
 
         # Must have at least 3 human-like interactions (more restrictive)
         if whitelist_entry['human_behaviors'] < WHITELIST_MIN_HUMAN_BEHAVIORS:
-            logger.debug(f"IP {ip} not whitelisted for {email_domain}: only {whitelist_entry['human_behaviors']} human behaviors")
+            self.logger.debug(f"IP {ip} not whitelisted for {email_domain}: only {whitelist_entry['human_behaviors']} human behaviors")
             return False
 
         # Human behaviors should outweigh bot behaviors
         if whitelist_entry['bot_behaviors'] > whitelist_entry['human_behaviors']:
-            logger.debug(f"IP {ip} not whitelisted for {email_domain}: more bot behaviors than human")
+            self.logger.debug(f"IP {ip} not whitelisted for {email_domain}: more bot behaviors than human")
             return False
 
         # Check timing variance: bots have very uniform timing
@@ -580,14 +589,17 @@ class GoPhishAnalyzer:
                 variance = statistics.stdev(timing_samples)
                 # If variance is too low (< 2 seconds), likely a bot with programmed delays
                 if variance < WHITELIST_TIMING_VARIANCE_MIN:
-                    logger.info(f"IP {ip} rejected from whitelist: timing variance too low ({variance:.2f}s)")
+                    self.logger.info(f"IP {ip} rejected from whitelist: timing variance too low ({variance:.2f}s)")
+                    self.out.debug(f"IP {ip} rejected from whitelist: timing variance too low ({variance:.2f}s)")
                     return False
             except statistics.StatisticsError:
                 # All values identical = bot with fixed timing - REJECT
-                logger.info(f"IP {ip} rejected from whitelist: all timing values identical (bot)")
+                self.logger.info(f"IP {ip} rejected from whitelist: all timing values identical (bot)")
+                self.out.debug(f"IP {ip} rejected from whitelist: uniform timing (bot)")
                 return False
 
-        logger.info(f"IP {ip} whitelisted for {email_domain}")
+        self.logger.info(f"IP {ip} whitelisted for {email_domain}")
+        self.out.whitelist_update(ip, email_domain, "whitelisted")
         return True
 
     def _update_whitelist(self, ip, email_domain, is_human_like, score, timing=None):
@@ -660,7 +672,7 @@ class GoPhishAnalyzer:
                 age = now - data['last_seen']
                 if age.days > WHITELIST_DECAY_DAYS:
                     expired_count += 1
-                    logger.debug(f"Skipping expired whitelist entry: {ip} (age: {age.days} days)")
+                    self.logger.debug(f"Skipping expired whitelist entry: {ip} (age: {age.days} days)")
                     continue
 
             whitelist_serializable[ip] = {
@@ -676,7 +688,8 @@ class GoPhishAnalyzer:
         with open(filepath, 'w') as f:
             json.dump(whitelist_serializable, f, indent=2)
 
-        logger.info(f"Saved whitelist to {filepath}: {len(whitelist_serializable)} entries ({expired_count} expired entries removed)")
+        self.logger.info(f"Saved whitelist to {filepath}: {len(whitelist_serializable)} entries ({expired_count} expired entries removed)")
+        self.out.debug(f"Whitelist saved: {len(whitelist_serializable)} entries ({expired_count} expired)")
 
     def load_whitelist(self, filepath='whitelist.json'):
         """
@@ -689,7 +702,7 @@ class GoPhishAnalyzer:
             bool: True if loaded successfully, False if file doesn't exist
         """
         if not os.path.exists(filepath):
-            logger.debug(f"Whitelist file not found: {filepath}")
+            self.logger.debug(f"Whitelist file not found: {filepath}")
             return False
 
         try:
@@ -704,13 +717,16 @@ class GoPhishAnalyzer:
                     self.ip_whitelist[ip]['first_seen'] = datetime.fromisoformat(entry['first_seen']) if entry['first_seen'] else None
                     self.ip_whitelist[ip]['last_seen'] = datetime.fromisoformat(entry['last_seen']) if entry['last_seen'] else None
 
-            logger.info(f"Loaded {len(data)} whitelist entries from {filepath}")
+            self.logger.info(f"Loaded {len(data)} whitelist entries from {filepath}")
+            self.out.debug(f"Whitelist loaded: {len(data)} entries")
             return True
         except json.JSONDecodeError as e:
-            logger.error(f"Failed to parse whitelist JSON from {filepath}: {e}")
+            self.logger.error(f"Failed to parse whitelist JSON from {filepath}: {e}")
+            self.out.error(f"Failed to parse whitelist JSON from {filepath}")
             return False
         except Exception as e:
-            logger.error(f"Failed to load whitelist from {filepath}: {e}")
+            self.logger.error(f"Failed to load whitelist from {filepath}: {e}")
+            self.out.error(f"Failed to load whitelist from {filepath}")
             return False
 
     def group_events_by_ip(self, email_events):
@@ -936,7 +952,8 @@ class GoPhishAnalyzer:
         else:
             classification = 'Bot/Scanner'
 
-        logger.debug(f"IP {ip} final score: raw={raw_score}, capped={capped_score}, classification={classification}")
+        self.logger.debug(f"IP {ip} final score: raw={raw_score}, capped={capped_score}, classification={classification}")
+        self.out.trace(f"IP {ip} score: {capped_score}/100 ({classification})")
 
         return {
             'ip': ip or 'N/A',
@@ -996,19 +1013,18 @@ class GoPhishAnalyzer:
             'num_ips': len(ip_groups)
         }
     
-    def analyze_campaign(self, verbose=False):
+    def analyze_campaign(self):
         """Execute complete campaign analysis with progress bar."""
         results = []
-        if verbose:
-            print(f"\n{'='*80}")
-            print(f"GOPHISH CAMPAIGN ANALYSIS - Real User Detection")
-            print(f"{'='*80}\n")
+
+        # Print header based on verbosity
+        self.out.section("GOPHISH CAMPAIGN ANALYSIS - Real User Detection",
+                        min_level=VerbosityLevel.VERBOSE)
 
         grouped = self.df.groupby('email')
 
-        if verbose:
-            print(f"Emails analyzed: {len(grouped)}")
-            print(f"Total events: {len(self.df)}\n")
+        self.out.info(f"Emails to analyze: {len(grouped)}", min_level=VerbosityLevel.VERBOSE)
+        self.out.info(f"Total events: {len(self.df)}", min_level=VerbosityLevel.VERBOSE)
 
         # Progress bar for email analysis
         email_list = list(grouped)
@@ -1016,45 +1032,47 @@ class GoPhishAnalyzer:
             email_list,
             desc=f"{Colors.DEFAULT}Analyzing emails{Colors.ENDC}",
             unit="email",
-            disable=verbose,  # Disable if verbose (to avoid conflicts with detailed output)
+            disable=not self.out.should_show_progressbar(),  # Show only in QUIET/NORMAL modes
             bar_format='{desc}: {percentage:3.0f}%|{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]'
         )
 
         for email, events in pbar_emails:
-            if TQDM_AVAILABLE and not verbose:
+            if TQDM_AVAILABLE and self.out.should_show_progressbar():
                 pbar_emails.set_postfix_str(f"{email[:30]}...")
 
             result = self.analyze_email(email, events)
             results.append(result)
 
-            if verbose:
-                print(f"\n{'─'*80}")
-                print(f"Email: {email}")
-                print(f"Final score: {result['final_score']}/100")
-                print(f"Classification: {result['final_classification']}")
-                print(f"Unique IPs detected: {result['num_ips']}")
+            # Show detailed output per email if VERBOSE or higher
+            self.out.email_summary(
+                email,
+                result['final_score'],
+                result['final_classification'],
+                result['num_ips'],
+                min_level=VerbosityLevel.VERBOSE
+            )
 
             for i, ip_analysis in enumerate(result['ip_analyses'], 1):
-                if verbose:
-                    print(f"\n   {'─'*70}")
-                    print(f"   IP #{i}: {ip_analysis['ip']} - {ip_analysis['classification']}")
-                    print(f"   Score: {ip_analysis['score']}/100 | Type: {ip_analysis['type']}")
-                    print(f"   Events: {', '.join(ip_analysis['events'])}")
-                    print(f"   Period: {ip_analysis['first_event']} -> {ip_analysis['last_event']}")
+                self.out.ip_analysis(
+                    i,
+                    ip_analysis['ip'],
+                    ip_analysis['score'],
+                    ip_analysis['classification'],
+                    ip_analysis['type'],
+                    ip_analysis['events'],
+                    min_level=VerbosityLevel.VERBOSE
+                )
 
-                    if ip_analysis['details']:
-                        print(f"   Details:")
-                        for detail in ip_analysis['details']:
-                            print(f"      - {detail}")
+                # Show IP details (timing, user agent) only in DEBUG mode
+                if ip_analysis['details']:
+                    self.out.ip_details(ip_analysis['details'], min_level=VerbosityLevel.DEBUG)
 
-        if verbose:
-            print(f"\n{'='*80}")
-        self._print_summary(results, verbose)
+        self._print_summary(results)
 
         # Auto-save whitelist if enabled
         if self.auto_save_whitelist:
             self.save_whitelist(self.whitelist_path)
-            logger.info(f"Auto-saved whitelist to {self.whitelist_path}")
+            self.logger.info(f"Auto-saved whitelist to {self.whitelist_path}")
 
         return results
     
@@ -1104,25 +1122,20 @@ class GoPhishAnalyzer:
         
         return human_report
     
-    def _print_summary(self, results, verbose=False):
+    def _print_summary(self, results):
         """Print campaign statistics summary."""
         total = len(results)
         only_human = len([r for r in results if r['has_human'] and not r['has_bot']])
         only_bot = len([r for r in results if r['has_bot'] and not r['has_human']])
         both = len([r for r in results if r['has_bot'] and r['has_human']])
-        
-        if verbose:
-            print(f"\nCAMPAIGN SUMMARY:")
-            print(f"   Real users only: {only_human} ({only_human/total*100:.1f}%)")
-            print(f"   Bot/scanner only: {only_bot} ({only_bot/total*100:.1f}%)")
-            print(f"   Bot + Real user: {both} ({both/total*100:.1f}%)")
-            print(f"\n   Total human interactions: {only_human + both} ({(only_human + both)/total*100:.1f}%)")
-        
+
         avg_score = sum(r['final_score'] for r in results) / total if total > 0 else 0
 
-        if verbose:
-            print(f"   Average score: {avg_score:.1f}/100")
-            print(f"\n{'='*80}\n")
+        # Print campaign statistics
+        self.out.campaign_stats(
+            total, only_human, only_bot, both, avg_score,
+            min_level=VerbosityLevel.NORMAL
+        )
 
 
 def main():
@@ -1164,8 +1177,9 @@ def main():
     
     parser.add_argument(
         '-v', '--verbose',
-        action='store_true',
-        help='Show detailed output during analysis'
+        action='count',
+        default=0,
+        help='Increase verbosity (-v: normal, -vv: verbose, -vvv: debug, -vvvv: trace)'
     )
     
     parser.add_argument(
@@ -1197,30 +1211,61 @@ def main():
     )
 
     parser.add_argument(
+        '--html',
+        action='store_true',
+        help='Generate interactive HTML report'
+    )
+
+    parser.add_argument(
+        '--json',
+        action='store_true',
+        help='Generate JSON report for machine-readable output'
+    )
+
+    parser.add_argument(
+        '--markdown',
+        action='store_true',
+        help='Generate Markdown report'
+    )
+
+    parser.add_argument(
+        '--all-reports',
+        action='store_true',
+        help='Generate all report formats (HTML, JSON, Markdown)'
+    )
+
+    parser.add_argument(
         '--version',
         action='version',
-        version=f'{Colors.DEFAULT}GoPhish Analyzer v2.1.0{Colors.ENDC} by @Givaa'
+        version=f'{Colors.DEFAULT}GoPhish Analyzer v2.2.0{Colors.ENDC} by @Givaa'
     )
 
     args = parser.parse_args()
-    
+
+    # Map verbose count to VerbosityLevel
+    verbosity = VerbosityLevel(min(args.verbose, 4))  # Cap at 4 (TRACE)
+
+    # Create output manager
+    out = OutputManager(verbosity)
+
     # Show banner
     if not args.no_banner:
         print_banner()
-    
+
     # Verify input file
     if not os.path.exists(args.input_file):
-        print(f"{Colors.RED}[ERROR]{Colors.ENDC} File not found: {args.input_file}")
+        out.error(f"File not found: {args.input_file}")
         sys.exit(1)
-    
+
     # Create output directory if it doesn't exist
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
-        print(f"{Colors.GREEN}[INFO]{Colors.ENDC} Directory created: {args.output_dir}")
-    
-    print(f"{Colors.BLUE}[INFO]{Colors.ENDC} Starting GoPhish analysis...")
-    print(f"{Colors.YELLOW}[NOTE]{Colors.ENDC} Analysis requires several minutes for remote IP lookups\n")
-    
+        out.info(f"Directory created: {args.output_dir}", min_level=VerbosityLevel.NORMAL)
+
+    out.info("Starting GoPhish analysis...")
+    out.info("Analysis requires several minutes for remote IP lookups", min_level=VerbosityLevel.NORMAL)
+    out.blank_line()
+
     try:
         # Initialize analyzer with new configuration options
         whitelist_path = args.whitelist if args.whitelist else os.path.join(args.output_dir, 'whitelist.json')
@@ -1229,52 +1274,53 @@ def main():
             allowed_countries=args.countries,
             whitelist_path=whitelist_path,
             auto_save_whitelist=not args.no_auto_save,
-            verbose=args.verbose
+            verbosity=verbosity,
+            output_manager=out
         )
 
-        results = analyzer.analyze_campaign(verbose=args.verbose)
+        results = analyzer.analyze_campaign()
         
         # Human report
-        print("\n" + "="*80)
-        print("HUMAN INTERACTIONS REPORT")
-        print("="*80 + "\n")
-        
+        out.section("HUMAN INTERACTIONS REPORT")
+
         human_report = analyzer.generate_human_report(results)
-        
-        print("\n" + "─"*80)
-        print("USERS WHO CLICKED THE LINK")
-        print("─"*80 + "\n")
-        
+
+        out.subsection("USERS WHO CLICKED THE LINK")
+
         clicked_count = 0
         opened_count = 0
-        
+
         for entry in human_report:
             if entry['human_clicked'] == 'YES':
                 clicked_count += 1
-                if args.verbose:
-                    print(f"{Colors.GREEN}✓{Colors.ENDC} {entry['email']}")
-                    print(f"  Opened: {entry['human_opened']}")
-                    print(f"  Clicked: {entry['human_clicked']}")
-                    print(f"  Reliability score: {entry['human_score']}/100")
-                    print(f"  IP: {entry['human_ip']}\n")
-                else:
-                    print(f"{Colors.GREEN}✓{Colors.ENDC} {entry['email']}")
-            
+                out.human_clicked(
+                    entry['email'],
+                    entry['human_opened'],
+                    entry['human_clicked'],
+                    entry['human_score'],
+                    entry['human_ip']
+                )
+
             if entry['human_opened'] == 'YES':
                 opened_count += 1
-        
-        print(f"\n{'─'*80}")
-        print(f"{Colors.BOLD}HUMAN INTERACTION STATISTICS:{Colors.ENDC}")
-        print(f"   {Colors.CYAN}Opened (users):{Colors.ENDC} {opened_count}/{len(human_report)} ({opened_count/len(human_report)*100:.1f}%)")
-        print(f"   {Colors.GREEN}Clicked (users):{Colors.ENDC} {clicked_count}/{len(human_report)} ({clicked_count/len(human_report)*100:.1f}%)")
-        print(f"{'─'*80}\n")
+
+        out.separator()
+        out.print(f"{Colors.BOLD}HUMAN INTERACTION STATISTICS:{Colors.ENDC}")
+        out.key_value("Opened (users)",
+                     f"{opened_count}/{len(human_report)} ({opened_count/len(human_report)*100:.1f}%)",
+                     color=Colors.CYAN, indent=3)
+        out.key_value("Clicked (users)",
+                     f"{clicked_count}/{len(human_report)} ({clicked_count/len(human_report)*100:.1f}%)",
+                     color=Colors.GREEN, indent=3)
+        out.separator()
+        out.blank_line()
         
         # Export CSV
         human_file = os.path.join(args.output_dir, 'human_users_report.csv')
         df_human = pd.DataFrame(human_report)
         df_human.to_csv(human_file, index=False)
-        print(f"{Colors.GREEN}[SAVED]{Colors.ENDC} Human users report: {human_file}")
-        
+        out.file_saved("Human users report", human_file)
+
         # Complete analysis
         full_file = os.path.join(args.output_dir, 'complete_campaign_analysis.csv')
         df_full = []
@@ -1292,19 +1338,41 @@ def main():
                     'final_email_score': r['final_score'],
                     'final_classification': r['final_classification']
                 })
-        
+
         df_output = pd.DataFrame(df_full)
         df_output.to_csv(full_file, index=False)
-        print(f"{Colors.GREEN}[SAVED]{Colors.ENDC} Complete analysis: {full_file}")
+        out.file_saved("Complete analysis", full_file)
 
         # Whitelist is auto-saved after analysis (auto_save_whitelist=True)
-        print(f"{Colors.GREEN}[SAVED]{Colors.ENDC} Whitelist auto-saved: {whitelist_path}")
+        out.file_saved("Whitelist auto-saved", whitelist_path)
 
-        print(f"\n{Colors.BOLD}{Colors.GREEN}Analysis completed successfully!{Colors.ENDC}\n")
+        # Generate additional reports if requested
+        if args.all_reports or args.html:
+            html_file = os.path.join(args.output_dir, 'campaign_report.html')
+            html_gen = HTMLReportGenerator(results, human_report, campaign_name="GoPhish Campaign Analysis")
+            html_gen.generate(html_file)
+            out.file_saved("HTML report", html_file)
+
+        if args.all_reports or args.json:
+            json_file = os.path.join(args.output_dir, 'campaign_report.json')
+            json_gen = JSONReportGenerator(results, human_report, campaign_name="GoPhish Campaign Analysis")
+            json_gen.generate(json_file)
+            out.file_saved("JSON report", json_file)
+
+        if args.all_reports or args.markdown:
+            md_file = os.path.join(args.output_dir, 'campaign_report.md')
+            md_gen = MarkdownReportGenerator(results, human_report, campaign_name="GoPhish Campaign Analysis")
+            md_gen.generate(md_file)
+            out.file_saved("Markdown report", md_file)
+
+        out.blank_line()
+        out.success(f"{Colors.BOLD}Analysis completed successfully!{Colors.ENDC}")
+        out.blank_line()
         
     except Exception as e:
-        print(f"\n{Colors.RED}[ERROR]{Colors.ENDC} Error during analysis: {str(e)}")
-        if args.verbose:
+        out.blank_line()
+        out.error(f"Error during analysis: {str(e)}")
+        if verbosity >= VerbosityLevel.VERBOSE:
             import traceback
             traceback.print_exc()
         sys.exit(1)
