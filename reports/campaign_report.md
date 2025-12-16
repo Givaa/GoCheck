@@ -1,7 +1,7 @@
 # 🛡️ GoPhish Campaign Analysis
 
 **GoCheck Analysis Report**
-Generated on 2025-12-16 11:04:10
+Generated on 2025-12-16 11:26:46
 
 ---
 
@@ -74,6 +74,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### ✅ alessandra.vitale@cloud.it
@@ -92,6 +94,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 102.2min after send\n  - Slow: open->click in 142.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 102.2min after send
+  - Slow: open->click in 142.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -112,6 +162,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 175.9min after send\n  - Slow: open->click in 98.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 175.9min after send
+  - Slow: open->click in 98.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -134,6 +232,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: Ireland
 
 
+
+
 </details>
 
 ### ✅ andrea.moretti@org.it
@@ -152,6 +252,49 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened
 - **Details**:\n  - Normal: opened 52.4min after send
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  WIND Telecomunicazioni S.p.A - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (WIND Telecomunicazioni S.p.A)
+
+**✅ Timing Analysis**
+  - Normal: opened 52.4min after send
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +0 |
+| **Raw Total** | **100** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -172,6 +315,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 154.9min after send\n  - Slow: open->click in 76.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 154.9min after send
+  - Slow: open->click in 76.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -194,6 +385,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: Canada
 
 
+
+
 </details>
 
 ### ✅ aurora.sanna@platform.it
@@ -212,6 +405,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 355.9min after send\n  - Slow: open->click in 98.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  Fastweb SpA - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (Fastweb SpA)
+
+**✅ Timing Analysis**
+  - Normal: opened 355.9min after send
+  - Slow: open->click in 98.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -233,6 +474,54 @@ Generated on 2025-12-16 11:04:10
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 115.0min after send\n  - Slow: open->click in 109.0s (re-reading email)\n  - Clicked link (+10)
 
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  WIND Telecomunicazioni S.p.A - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (WIND Telecomunicazioni S.p.A)
+
+**✅ Timing Analysis**
+  - Normal: opened 115.0min after send
+  - Slow: open->click in 109.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
+
 
 </details>
 
@@ -253,6 +542,54 @@ Generated on 2025-12-16 11:04:10
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 333.7min after send\n  - Slow: open->click in 98.0s (re-reading email)\n  - Clicked link (+10)
 
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  INTERBUSINESS - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (INTERBUSINESS)
+
+**✅ Timing Analysis**
+  - Normal: opened 333.7min after send
+  - Slow: open->click in 98.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
+
 
 </details>
 
@@ -272,6 +609,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 442.4min after send\n  - Slow: open->click in 142.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  INTERBUSINESS - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (INTERBUSINESS)
+
+**✅ Timing Analysis**
+  - Normal: opened 442.4min after send
+  - Slow: open->click in 142.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -294,6 +679,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### ✅ chiara.ferraro@business.it
@@ -312,6 +699,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 224.7min after send\n  - Slow: open->click in 98.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 224.7min after send
+  - Slow: open->click in 98.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -332,6 +767,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 394.4min after send\n  - Slow: open->click in 87.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 394.4min after send
+  - Slow: open->click in 87.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -354,6 +837,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: Canada
 
 
+
+
 </details>
 
 ### ✅ davide.villa@solutions.it
@@ -372,6 +857,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 285.1min after send\n  - Slow: open->click in 92.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  WIND Telecomunicazioni S.p.A - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (WIND Telecomunicazioni S.p.A)
+
+**✅ Timing Analysis**
+  - Normal: opened 285.1min after send
+  - Slow: open->click in 92.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -392,6 +925,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 164.6min after send\n  - Slow: open->click in 142.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  INTERBUSINESS - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (INTERBUSINESS)
+
+**✅ Timing Analysis**
+  - Normal: opened 164.6min after send
+  - Slow: open->click in 142.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -414,6 +995,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### 🤖 edoardo.rossetti@corp.it
@@ -432,6 +1015,8 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 0/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Foreign IP: Canada
+
+
 
 
 </details>
@@ -453,6 +1038,54 @@ Generated on 2025-12-16 11:04:10
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 432.6min after send\n  - Slow: open->click in 98.0s (re-reading email)\n  - Clicked link (+10)
 
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  Tiscali Italia SpA - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (Tiscali Italia SpA)
+
+**✅ Timing Analysis**
+  - Normal: opened 432.6min after send
+  - Slow: open->click in 98.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
+
 
 </details>
 
@@ -472,6 +1105,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 464.6min after send\n  - Slow: open->click in 142.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  INTERBUSINESS - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (INTERBUSINESS)
+
+**✅ Timing Analysis**
+  - Normal: opened 464.6min after send
+  - Slow: open->click in 142.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -494,6 +1175,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### ✅ federico.gentile@digital.it
@@ -512,6 +1195,49 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened
 - **Details**:\n  - Normal: opened 370.1min after send
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  INTERBUSINESS - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (INTERBUSINESS)
+
+**✅ Timing Analysis**
+  - Normal: opened 370.1min after send
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +0 |
+| **Raw Total** | **100** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -534,6 +1260,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### ✅ francesca.greco@firm.it
@@ -552,6 +1280,55 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 45.4min after send\n  - Slow: open->click in 86.0s (re-reading email)\n  - Re-opened email after 29.0s\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  Fastweb IS LM - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (Fastweb IS LM)
+
+**✅ Timing Analysis**
+  - Normal: opened 45.4min after send
+  - Slow: open->click in 86.0s (re-reading email)
+  - Re-opened email after 29.0s
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -574,6 +1351,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### 🤖 gabriele.parisi@group.it
@@ -592,6 +1371,8 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 0/100
 - **Events**: Clicked Link, Email Opened
 - **Details**:\n  - Foreign IP: United States
+
+
 
 
 </details>
@@ -614,6 +1395,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: Norway
 
 
+
+
 </details>
 
 ### ✅ giorgia.palumbo@system.it
@@ -632,6 +1415,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 135.3min after send\n  - Slow: open->click in 108.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  WIND S.p.A - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (WIND S.p.A)
+
+**✅ Timing Analysis**
+  - Normal: opened 135.3min after send
+  - Slow: open->click in 108.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -654,6 +1485,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### 🤖 giulia.costa@platform.it
@@ -672,6 +1505,8 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 0/100
 - **Events**: Clicked Link, Email Opened
 - **Details**:\n  - Foreign IP: United States
+
+
 
 
 </details>
@@ -693,6 +1528,54 @@ Generated on 2025-12-16 11:04:10
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 251.8min after send\n  - Slow: open->click in 142.0s (re-reading email)\n  - Clicked link (+10)
 
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 251.8min after send
+  - Slow: open->click in 142.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
+
 
 </details>
 
@@ -712,6 +1595,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 88.0min after send\n  - Slow: open->click in 98.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  WIND Telecomunicazioni S.p.A - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (WIND Telecomunicazioni S.p.A)
+
+**✅ Timing Analysis**
+  - Normal: opened 88.0min after send
+  - Slow: open->click in 98.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -734,6 +1665,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: India
 
 
+
+
 </details>
 
 ### ⚠️ laura.bianchi@company.it
@@ -753,6 +1686,8 @@ Generated on 2025-12-16 11:04:10
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Foreign IP: Romania
 
+
+
 #### IP #2: 151.18.25.78 👤 **HUMAN**
 
 - **Classification**: Genuine user
@@ -760,6 +1695,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 83.2min after send\n  - Slow: open->click in 141.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 83.2min after send
+  - Slow: open->click in 141.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -782,6 +1765,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### ✅ luca.galli@services.it
@@ -800,6 +1785,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 148.3min after send\n  - Slow: open->click in 131.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 148.3min after send
+  - Slow: open->click in 131.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -822,6 +1855,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### ✅ mario.rossi@azienda.it
@@ -840,6 +1875,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 15.4min after send\n  - Slow: open->click in 142.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 15.4min after send
+  - Slow: open->click in 142.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -860,6 +1943,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 356.0min after send\n  - Slow: open->click in 98.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 356.0min after send
+  - Slow: open->click in 98.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -882,6 +2013,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### ✅ matteo.fontana@enterprise.it
@@ -900,6 +2033,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 75.5min after send\n  - Slow: open->click in 147.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 75.5min after send
+  - Slow: open->click in 147.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -920,6 +2101,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 312.2min after send\n  - Slow: open->click in 87.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  NAS DHCP Pool BERGAMO - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (NAS DHCP Pool BERGAMO)
+
+**✅ Timing Analysis**
+  - Normal: opened 312.2min after send
+  - Slow: open->click in 87.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -942,6 +2171,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### ✅ nicole.basile@team.it
@@ -960,6 +2191,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 382.4min after send\n  - Slow: open->click in 142.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 382.4min after send
+  - Slow: open->click in 142.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -982,6 +2261,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: Germany
 
 
+
+
 </details>
 
 ### 🤖 pietro.gatti@agency.it
@@ -1000,6 +2281,8 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 0/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Foreign IP: United States
+
+
 
 
 </details>
@@ -1021,6 +2304,8 @@ Generated on 2025-12-16 11:04:10
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Foreign IP: United States
 
+
+
 #### IP #2: 93.43.178.90 👤 **HUMAN**
 
 - **Classification**: Genuine user
@@ -1028,6 +2313,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 153.4min after send\n  - Slow: open->click in 142.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  Infrastructure for Fastwebs MVNO services - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (Infrastructure for Fastwebs MVNO services)
+
+**✅ Timing Analysis**
+  - Normal: opened 153.4min after send
+  - Slow: open->click in 142.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -1050,6 +2383,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: Switzerland
 
 
+
+
 </details>
 
 ### 🤖 roberto.ricci@domain.com
@@ -1070,6 +2405,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: Canada
 
 
+
+
 </details>
 
 ### ✅ samuel.rizzi@media.it
@@ -1088,6 +2425,49 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened
 - **Details**:\n  - Normal: opened 404.2min after send
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  INTERBUSINESS - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (INTERBUSINESS)
+
+**✅ Timing Analysis**
+  - Normal: opened 404.2min after send
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +0 |
+| **Raw Total** | **100** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -1110,6 +2490,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### ✅ serena.marchetti@dept.it
@@ -1128,6 +2510,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 191.8min after send\n  - Slow: open->click in 142.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  Fastweb SpA - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (Fastweb SpA)
+
+**✅ Timing Analysis**
+  - Normal: opened 191.8min after send
+  - Slow: open->click in 142.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -1149,6 +2579,49 @@ Generated on 2025-12-16 11:04:10
 - **Events**: Email Opened
 - **Details**:\n  - Normal: opened 322.1min after send
 
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  WIND Telecomunicazioni S.p.A - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (WIND Telecomunicazioni S.p.A)
+
+**✅ Timing Analysis**
+  - Normal: opened 322.1min after send
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +0 |
+| **Raw Total** | **100** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
+
 
 </details>
 
@@ -1169,6 +2642,54 @@ Generated on 2025-12-16 11:04:10
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 213.4min after send\n  - Slow: open->click in 87.0s (re-reading email)\n  - Clicked link (+10)
 
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+   - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP ()
+
+**✅ Timing Analysis**
+  - Normal: opened 213.4min after send
+  - Slow: open->click in 87.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
+
 
 </details>
 
@@ -1188,6 +2709,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 71.4min after send\n  - Slow: open->click in 153.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  NAS DHCP Pool TRIESTE - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (NAS DHCP Pool TRIESTE)
+
+**✅ Timing Analysis**
+  - Normal: opened 71.4min after send
+  - Slow: open->click in 153.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -1210,6 +2779,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United States
 
 
+
+
 </details>
 
 ### ✅ thomas.caruso@services.it
@@ -1228,6 +2799,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 322.8min after send\n  - Slow: open->click in 87.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  WIND Telecomunicazioni S.p.A - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (WIND Telecomunicazioni S.p.A)
+
+**✅ Timing Analysis**
+  - Normal: opened 322.8min after send
+  - Slow: open->click in 87.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>
@@ -1250,6 +2869,8 @@ Generated on 2025-12-16 11:04:10
 - **Details**:\n  - Foreign IP: United Kingdom
 
 
+
+
 </details>
 
 ### 🤖 valentina.romano@agency.it
@@ -1268,6 +2889,48 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 0/100
 - **Events**: Clicked Link, Email Opened
 - **Details**:\n  - IP: IP lookup failed - insufficient data (-30)\n  - User Agent: Bot/Crawler detected (-80)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  Unknown - Unknown
+
+**✅ Country Check**
+  IP from Unknown (allowed)
+
+**⚠️ IP Type Classification** **(-30 points)**
+  Unknown Type (Unknown)
+
+**✅ Timing Analysis**
+
+**❌ User Agent Analysis** **(-80 points)**
+  Bot/Crawler detected
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | -30 |
+| Timing Penalty | 0 |
+| User Agent Penalty | -80 |
+| Bonuses | +10 |
+| **Raw Total** | **0** |
+| **Final Score (capped)** | **0/100** |
+
+**❌ Final Verdict: BOT/SCANNER**
+
+**Why this decision was made:**
+- Score 0/100 < 40 (bot threshold)
+
+*This IP is classified as a BOT because: Score 0/100 < 40 (bot threshold)*
+</details>
 
 
 </details>
@@ -1288,6 +2951,54 @@ Generated on 2025-12-16 11:04:10
 - **Score**: 100/100
 - **Events**: Email Opened, Clicked Link
 - **Details**:\n  - Normal: opened 262.8min after send\n  - Slow: open->click in 153.0s (re-reading email)\n  - Clicked link (+10)
+
+<details>
+<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>
+
+**Analysis Steps:**
+
+**✅ IP Lookup**
+  INTERBUSINESS - Italy
+
+**✅ Country Check**
+  IP from Italy (allowed)
+
+**✅ IP Type Classification**
+  Legitimate ISP (INTERBUSINESS)
+
+**✅ Timing Analysis**
+  - Normal: opened 262.8min after send
+  - Slow: open->click in 153.0s (re-reading email)
+
+**✅ User Agent Analysis**
+  Standard browser
+
+**🎯 Behavior Bonuses**
+  - ✨ Clicked link: **+10 points**
+
+**📊 Score Calculation:**
+
+| Component | Points |
+|-----------|--------|
+| Base Score | 100 |
+| IP Penalty | 0 |
+| Timing Penalty | 0 |
+| User Agent Penalty | 0 |
+| Bonuses | +10 |
+| **Raw Total** | **110** |
+| **Final Score (capped)** | **100/100** |
+
+**✅ Final Verdict: GENUINE HUMAN**
+
+**Why this decision was made:**
+- Legitimate residential/business ISP
+- Natural human timing patterns
+- Standard browser/email client
+- Clicked the link (human behavior)
+- Score 100/100 ≥ 70 (genuine human threshold)
+
+*This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 ≥ 70 (genuine human threshold)*
+</details>
 
 
 </details>

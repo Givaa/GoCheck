@@ -4,839 +4,514 @@
       "cloud.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      142.0,
-      142.0,
-      142.0,
-      142.0,
-      142.0,
       142.0
     ],
-    "first_seen": "2025-12-16T10:51:01.998437",
-    "last_seen": "2025-12-16T11:02:40.919410"
+    "first_seen": "2025-12-16T11:25:17.658284",
+    "last_seen": "2025-12-16T11:25:17.658284"
   },
   "79.34.156.201": {
     "domains": [
       "unit.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      98.0,
-      98.0,
-      98.0,
-      98.0,
-      98.0,
       98.0
     ],
-    "first_seen": "2025-12-16T10:51:03.435972",
-    "last_seen": "2025-12-16T11:02:42.362494"
+    "first_seen": "2025-12-16T11:25:19.087444",
+    "last_seen": "2025-12-16T11:25:19.087444"
   },
   "151.26.78.199": {
     "domains": [
       "org.it"
     ],
     "scores": [
-      100,
-      100,
-      100,
-      100,
-      100,
       100
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [],
-    "first_seen": "2025-12-16T10:51:06.328491",
-    "last_seen": "2025-12-16T11:02:45.263642"
+    "first_seen": "2025-12-16T11:25:21.968666",
+    "last_seen": "2025-12-16T11:25:21.968666"
   },
   "79.23.145.90": {
     "domains": [
       "corp.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      80,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      76.0,
-      76.0,
-      76.0,
-      76.0,
-      76.0,
       76.0
     ],
-    "first_seen": "2025-12-16T10:51:07.765027",
-    "last_seen": "2025-12-16T11:02:46.693414"
+    "first_seen": "2025-12-16T11:25:23.481032",
+    "last_seen": "2025-12-16T11:25:23.481032"
   },
   "93.36.211.134": {
     "domains": [
       "platform.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      98.0,
-      98.0,
-      98.0,
-      98.0,
-      98.0,
       98.0
     ],
-    "first_seen": "2025-12-16T10:51:10.631902",
-    "last_seen": "2025-12-16T11:02:49.592557"
+    "first_seen": "2025-12-16T11:25:26.347825",
+    "last_seen": "2025-12-16T11:25:26.347825"
   },
   "151.76.89.211": {
     "domains": [
       "hub.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      109.0,
-      109.0,
-      109.0,
-      109.0,
-      109.0,
       109.0
     ],
-    "first_seen": "2025-12-16T10:51:12.075973",
-    "last_seen": "2025-12-16T11:02:51.024165"
+    "first_seen": "2025-12-16T11:25:27.774059",
+    "last_seen": "2025-12-16T11:25:27.774059"
   },
   "82.61.123.178": {
     "domains": [
       "production.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      98.0,
-      98.0,
-      98.0,
-      98.0,
-      98.0,
       98.0
     ],
-    "first_seen": "2025-12-16T10:51:13.511146",
-    "last_seen": "2025-12-16T11:02:52.513229"
+    "first_seen": "2025-12-16T11:25:29.199823",
+    "last_seen": "2025-12-16T11:25:29.199823"
   },
   "87.5.123.98": {
     "domains": [
       "division.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      142.0,
-      142.0,
-      142.0,
-      142.0,
-      142.0,
       142.0
     ],
-    "first_seen": "2025-12-16T10:51:14.945467",
-    "last_seen": "2025-12-16T11:02:53.945030"
+    "first_seen": "2025-12-16T11:25:30.631452",
+    "last_seen": "2025-12-16T11:25:30.631452"
   },
   "151.28.167.89": {
     "domains": [
       "business.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      98.0,
-      98.0,
-      98.0,
-      98.0,
-      98.0,
       98.0
     ],
-    "first_seen": "2025-12-16T10:51:17.864079",
-    "last_seen": "2025-12-16T11:02:56.830930"
+    "first_seen": "2025-12-16T11:25:33.509547",
+    "last_seen": "2025-12-16T11:25:33.509547"
   },
   "93.45.123.77": {
     "domains": [
       "sales.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      87.0,
-      87.0,
-      87.0,
-      87.0,
-      87.0,
       87.0
     ],
-    "first_seen": "2025-12-16T10:51:19.296387",
-    "last_seen": "2025-12-16T11:02:58.424205"
+    "first_seen": "2025-12-16T11:25:34.972510",
+    "last_seen": "2025-12-16T11:25:34.972510"
   },
   "151.55.234.88": {
     "domains": [
       "solutions.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      92.0,
-      92.0,
-      92.0,
-      92.0,
-      92.0,
       92.0
     ],
-    "first_seen": "2025-12-16T10:51:22.179364",
-    "last_seen": "2025-12-16T11:03:01.398529"
+    "first_seen": "2025-12-16T11:25:37.842545",
+    "last_seen": "2025-12-16T11:25:37.842545"
   },
   "82.53.167.211": {
     "domains": [
       "center.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      142.0,
-      142.0,
-      142.0,
-      142.0,
-      142.0,
       142.0
     ],
-    "first_seen": "2025-12-16T10:51:23.614019",
-    "last_seen": "2025-12-16T11:03:02.842921"
+    "first_seen": "2025-12-16T11:25:39.277065",
+    "last_seen": "2025-12-16T11:25:39.277065"
   },
   "82.84.123.67": {
     "domains": [
       "mycompany.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      98.0,
-      98.0,
-      98.0,
-      98.0,
-      98.0,
       98.0
     ],
-    "first_seen": "2025-12-16T10:51:27.932098",
-    "last_seen": "2025-12-16T11:03:07.156727"
+    "first_seen": "2025-12-16T11:25:43.587220",
+    "last_seen": "2025-12-16T11:25:43.587220"
   },
   "87.23.67.145": {
     "domains": [
       "venture.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      142.0,
-      142.0,
-      142.0,
-      142.0,
-      142.0,
       142.0
     ],
-    "first_seen": "2025-12-16T10:51:29.372373",
-    "last_seen": "2025-12-16T11:03:08.596210"
+    "first_seen": "2025-12-16T11:25:45.030323",
+    "last_seen": "2025-12-16T11:25:45.030323"
   },
   "87.12.45.199": {
     "domains": [
       "digital.it"
     ],
     "scores": [
-      100,
-      100,
-      100,
-      100,
-      100,
       100
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [],
-    "first_seen": "2025-12-16T10:51:32.236360",
-    "last_seen": "2025-12-16T11:03:11.487871"
+    "first_seen": "2025-12-16T11:25:47.896638",
+    "last_seen": "2025-12-16T11:25:47.896638"
   },
   "93.42.10.156": {
     "domains": [
       "firm.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      86.0,
-      86.0,
-      86.0,
-      86.0,
-      86.0,
       86.0
     ],
-    "first_seen": "2025-12-16T10:51:35.108071",
-    "last_seen": "2025-12-16T11:03:14.359758"
+    "first_seen": "2025-12-16T11:25:50.805173",
+    "last_seen": "2025-12-16T11:25:50.805173"
   },
   "151.24.123.98": {
     "domains": [
       "system.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      108.0,
-      108.0,
-      108.0,
-      108.0,
-      108.0,
       108.0
     ],
-    "first_seen": "2025-12-16T10:51:40.912238",
-    "last_seen": "2025-12-16T11:03:20.216543"
+    "first_seen": "2025-12-16T11:25:57.563075",
+    "last_seen": "2025-12-16T11:25:57.563075"
   },
   "79.12.234.156": {
     "domains": [
       "sector.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      142.0,
-      142.0,
-      142.0,
-      142.0,
-      142.0,
       142.0
     ],
-    "first_seen": "2025-12-16T10:51:45.323801",
-    "last_seen": "2025-12-16T11:03:24.984781"
+    "first_seen": "2025-12-16T11:26:01.919713",
+    "last_seen": "2025-12-16T11:26:01.919713"
   },
   "151.45.123.90": {
     "domains": [
       "dept.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      98.0,
-      98.0,
-      98.0,
-      98.0,
-      98.0,
       98.0
     ],
-    "first_seen": "2025-12-16T10:51:46.767996",
-    "last_seen": "2025-12-16T11:03:26.425127"
+    "first_seen": "2025-12-16T11:26:03.355952",
+    "last_seen": "2025-12-16T11:26:03.355952"
   },
   "151.18.25.78": {
     "domains": [
       "company.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      141.0,
-      141.0,
-      141.0,
-      141.0,
-      141.0,
       141.0
     ],
-    "first_seen": "2025-12-16T10:51:51.067950",
-    "last_seen": "2025-12-16T11:03:30.735538"
+    "first_seen": "2025-12-16T11:26:07.669353",
+    "last_seen": "2025-12-16T11:26:07.669353"
   },
   "79.54.201.123": {
     "domains": [
       "services.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      131.0,
-      131.0,
-      131.0,
-      131.0,
-      131.0,
       131.0
     ],
-    "first_seen": "2025-12-16T10:51:53.947232",
-    "last_seen": "2025-12-16T11:03:33.616953"
+    "first_seen": "2025-12-16T11:26:10.532121",
+    "last_seen": "2025-12-16T11:26:10.532121"
   },
   "93.35.50.120": {
     "domains": [
       "azienda.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      142.0,
-      142.0,
-      142.0,
-      142.0,
-      142.0,
       142.0
     ],
-    "first_seen": "2025-12-16T10:51:56.900911",
-    "last_seen": "2025-12-16T11:03:36.489657"
+    "first_seen": "2025-12-16T11:26:13.388040",
+    "last_seen": "2025-12-16T11:26:13.388040"
   },
   "93.34.78.156": {
     "domains": [
       "web.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      98.0,
-      98.0,
-      98.0,
-      98.0,
-      98.0,
       98.0
     ],
-    "first_seen": "2025-12-16T10:51:58.378463",
-    "last_seen": "2025-12-16T11:03:37.925302"
+    "first_seen": "2025-12-16T11:26:14.814872",
+    "last_seen": "2025-12-16T11:26:14.814872"
   },
   "93.40.123.44": {
     "domains": [
       "enterprise.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      147.0,
-      147.0,
-      147.0,
-      147.0,
-      147.0,
       147.0
     ],
-    "first_seen": "2025-12-16T10:52:01.254582",
-    "last_seen": "2025-12-16T11:03:40.790769"
+    "first_seen": "2025-12-16T11:26:17.667453",
+    "last_seen": "2025-12-16T11:26:17.667453"
   },
   "79.56.234.121": {
     "domains": [
       "brand.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      87.0,
-      87.0,
-      87.0,
-      87.0,
-      87.0,
       87.0
     ],
-    "first_seen": "2025-12-16T10:52:02.697565",
-    "last_seen": "2025-12-16T11:03:42.244209"
+    "first_seen": "2025-12-16T11:26:19.092474",
+    "last_seen": "2025-12-16T11:26:19.092474"
   },
   "93.41.89.234": {
     "domains": [
       "team.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      142.0,
-      142.0,
-      142.0,
-      142.0,
-      142.0,
       142.0
     ],
-    "first_seen": "2025-12-16T10:52:05.572386",
-    "last_seen": "2025-12-16T11:03:45.294765"
+    "first_seen": "2025-12-16T11:26:21.967388",
+    "last_seen": "2025-12-16T11:26:21.967388"
   },
   "93.43.178.90": {
     "domains": [
       "consulting.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      142.0,
-      142.0,
-      142.0,
-      142.0,
-      142.0,
       142.0
     ],
-    "first_seen": "2025-12-16T10:52:11.468749",
-    "last_seen": "2025-12-16T11:03:51.033154"
+    "first_seen": "2025-12-16T11:26:27.782694",
+    "last_seen": "2025-12-16T11:26:27.782694"
   },
   "87.19.56.178": {
     "domains": [
       "media.it"
     ],
     "scores": [
-      100,
-      100,
-      100,
-      100,
-      100,
       100
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [],
-    "first_seen": "2025-12-16T10:52:15.779076",
-    "last_seen": "2025-12-16T11:03:55.496643"
+    "first_seen": "2025-12-16T11:26:32.087989",
+    "last_seen": "2025-12-16T11:26:32.087989"
   },
   "93.37.201.88": {
     "domains": [
       "dept.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      142.0,
-      142.0,
-      142.0,
-      142.0,
-      142.0,
       142.0
     ],
-    "first_seen": "2025-12-16T10:52:18.661963",
-    "last_seen": "2025-12-16T11:03:58.375619"
+    "first_seen": "2025-12-16T11:26:34.970129",
+    "last_seen": "2025-12-16T11:26:34.970129"
   },
   "151.67.88.201": {
     "domains": [
       "office.it"
     ],
     "scores": [
-      100,
-      100,
-      100,
-      100,
-      100,
       100
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [],
-    "first_seen": "2025-12-16T10:52:20.144865",
-    "last_seen": "2025-12-16T11:03:59.811026"
+    "first_seen": "2025-12-16T11:26:36.402773",
+    "last_seen": "2025-12-16T11:26:36.402773"
   },
   "151.38.67.234": {
     "domains": [
       "media.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      87.0,
-      87.0,
-      87.0,
-      87.0,
-      87.0,
       87.0
     ],
-    "first_seen": "2025-12-16T10:52:21.624766",
-    "last_seen": "2025-12-16T11:04:01.246434"
+    "first_seen": "2025-12-16T11:26:37.851774",
+    "last_seen": "2025-12-16T11:26:37.851774"
   },
   "79.28.89.201": {
     "domains": [
       "solutions.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      153.0,
-      153.0,
-      153.0,
-      153.0,
-      153.0,
       153.0
     ],
-    "first_seen": "2025-12-16T10:52:23.071584",
-    "last_seen": "2025-12-16T11:04:02.680185"
+    "first_seen": "2025-12-16T11:26:39.303375",
+    "last_seen": "2025-12-16T11:26:39.303375"
   },
   "151.52.123.167": {
     "domains": [
       "services.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      87.0,
-      87.0,
-      87.0,
-      87.0,
-      87.0,
       87.0
     ],
-    "first_seen": "2025-12-16T10:52:25.957614",
-    "last_seen": "2025-12-16T11:04:05.815985"
+    "first_seen": "2025-12-16T11:26:42.152082",
+    "last_seen": "2025-12-16T11:26:42.152082"
   },
   "192.0.2.56": {
     "domains": [
       "agency.it"
     ],
     "scores": [
-      0,
-      0,
-      0,
-      0,
-      0,
       0
     ],
     "human_behaviors": 0,
-    "bot_behaviors": 6,
+    "bot_behaviors": 1,
     "timing_samples": [],
-    "first_seen": "2025-12-16T10:52:28.833848",
-    "last_seen": "2025-12-16T11:04:08.689840"
+    "first_seen": "2025-12-16T11:26:45.006382",
+    "last_seen": "2025-12-16T11:26:45.006382"
   },
   "82.51.89.234": {
     "domains": [
       "store.it"
     ],
     "scores": [
-      110,
-      110,
-      110,
-      110,
-      110,
       110
     ],
-    "human_behaviors": 6,
+    "human_behaviors": 1,
     "bot_behaviors": 0,
     "timing_samples": [
-      153.0,
-      153.0,
-      153.0,
-      153.0,
-      153.0,
       153.0
     ],
-    "first_seen": "2025-12-16T10:52:30.364879",
-    "last_seen": "2025-12-16T11:04:10.142285"
+    "first_seen": "2025-12-16T11:26:46.477303",
+    "last_seen": "2025-12-16T11:26:46.477303"
   }
 }

@@ -1,6 +1,6 @@
 {
   "campaign_name": "GoPhish Campaign Analysis",
-  "generated_at": "2025-12-16T11:04:10.154056",
+  "generated_at": "2025-12-16T11:26:46.489936",
   "generator": "GoCheck v2.2.0",
   "statistics": {
     "total_targets": 61,
@@ -66,7 +66,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T10:42:34",
-          "last_event": "2025-01-15T10:44:56"
+          "last_event": "2025-01-15T10:44:56",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 102.2min after send",
+                  "Slow: open->click in 142.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0."
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -95,7 +176,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T11:56:34",
-          "last_event": "2025-01-15T11:58:12"
+          "last_event": "2025-01-15T11:58:12",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 175.9min after send",
+                  "Slow: open->click in 98.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -147,7 +309,73 @@
             "Email Opened"
           ],
           "first_event": "2025-01-15T09:52:34",
-          "last_event": "2025-01-15T09:52:34"
+          "last_event": "2025-01-15T09:52:34",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "WIND Telecomunicazioni S.p.A - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (WIND Telecomunicazioni S.p.A)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 52.4min after send"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.3"
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 0,
+              "raw_total": 100,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -176,7 +404,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T11:34:56",
-          "last_event": "2025-01-15T11:36:12"
+          "last_event": "2025-01-15T11:36:12",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 154.9min after send",
+                  "Slow: open->click in 76.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0."
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -231,7 +540,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T14:56:45",
-          "last_event": "2025-01-15T14:58:23"
+          "last_event": "2025-01-15T14:58:23",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Fastweb SpA - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (Fastweb SpA)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 355.9min after send",
+                  "Slow: open->click in 98.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0."
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -260,7 +650,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T10:55:34",
-          "last_event": "2025-01-15T10:57:23"
+          "last_event": "2025-01-15T10:57:23",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "WIND Telecomunicazioni S.p.A - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (WIND Telecomunicazioni S.p.A)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 115.0min after send",
+                  "Slow: open->click in 109.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Vers"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -289,7 +760,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T14:34:23",
-          "last_event": "2025-01-15T14:36:01"
+          "last_event": "2025-01-15T14:36:01",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "INTERBUSINESS - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (INTERBUSINESS)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 333.7min after send",
+                  "Slow: open->click in 98.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 "
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -318,7 +870,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T16:23:12",
-          "last_event": "2025-01-15T16:25:34"
+          "last_event": "2025-01-15T16:25:34",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "INTERBUSINESS - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (INTERBUSINESS)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 442.4min after send",
+                  "Slow: open->click in 142.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Vers"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -373,7 +1006,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T12:45:34",
-          "last_event": "2025-01-15T12:47:12"
+          "last_event": "2025-01-15T12:47:12",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 224.7min after send",
+                  "Slow: open->click in 98.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -402,7 +1116,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T15:34:56",
-          "last_event": "2025-01-15T15:36:23"
+          "last_event": "2025-01-15T15:36:23",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 394.4min after send",
+                  "Slow: open->click in 87.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17."
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -457,7 +1252,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T13:45:23",
-          "last_event": "2025-01-15T13:46:55"
+          "last_event": "2025-01-15T13:46:55",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "WIND Telecomunicazioni S.p.A - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (WIND Telecomunicazioni S.p.A)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 285.1min after send",
+                  "Slow: open->click in 92.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17."
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -486,7 +1362,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T11:45:23",
-          "last_event": "2025-01-15T11:47:45"
+          "last_event": "2025-01-15T11:47:45",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "INTERBUSINESS - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (INTERBUSINESS)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 164.6min after send",
+                  "Slow: open->click in 142.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -567,7 +1524,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T16:12:45",
-          "last_event": "2025-01-15T16:14:23"
+          "last_event": "2025-01-15T16:14:23",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Tiscali Italia SpA - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (Tiscali Italia SpA)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 432.6min after send",
+                  "Slow: open->click in 98.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -596,7 +1634,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T16:45:12",
-          "last_event": "2025-01-15T16:47:34"
+          "last_event": "2025-01-15T16:47:34",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "INTERBUSINESS - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (INTERBUSINESS)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 464.6min after send",
+                  "Slow: open->click in 142.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0."
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -648,7 +1767,73 @@
             "Email Opened"
           ],
           "first_event": "2025-01-15T15:10:23",
-          "last_event": "2025-01-15T15:10:23"
+          "last_event": "2025-01-15T15:10:23",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "INTERBUSINESS - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (INTERBUSINESS)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 370.1min after send"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 "
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 0,
+              "raw_total": 100,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -705,7 +1890,89 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T09:45:33",
-          "last_event": "2025-01-15T09:47:28"
+          "last_event": "2025-01-15T09:47:28",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Fastweb IS LM - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (Fastweb IS LM)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 45.4min after send",
+                  "Slow: open->click in 86.0s (re-reading email)",
+                  "Re-opened email after 29.0s"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -812,7 +2079,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T11:15:45",
-          "last_event": "2025-01-15T11:17:33"
+          "last_event": "2025-01-15T11:17:33",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "WIND S.p.A - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (WIND S.p.A)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 135.3min after send",
+                  "Slow: open->click in 108.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -893,7 +2241,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T13:12:34",
-          "last_event": "2025-01-15T13:14:56"
+          "last_event": "2025-01-15T13:14:56",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 251.8min after send",
+                  "Slow: open->click in 142.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -922,7 +2351,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T10:28:45",
-          "last_event": "2025-01-15T10:30:23"
+          "last_event": "2025-01-15T10:30:23",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "WIND Telecomunicazioni S.p.A - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (WIND Telecomunicazioni S.p.A)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 88.0min after send",
+                  "Slow: open->click in 98.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -993,7 +2503,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T10:23:12",
-          "last_event": "2025-01-15T10:25:33"
+          "last_event": "2025-01-15T10:25:33",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 83.2min after send",
+                  "Slow: open->click in 141.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Vers"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 2
@@ -1048,7 +2639,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T11:28:34",
-          "last_event": "2025-01-15T11:30:45"
+          "last_event": "2025-01-15T11:30:45",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 148.3min after send",
+                  "Slow: open->click in 131.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1103,7 +2775,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T09:15:23",
-          "last_event": "2025-01-15T09:17:45"
+          "last_event": "2025-01-15T09:17:45",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 15.4min after send",
+                  "Slow: open->click in 142.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1132,7 +2885,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T14:56:23",
-          "last_event": "2025-01-15T14:58:01"
+          "last_event": "2025-01-15T14:58:01",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 356.0min after send",
+                  "Slow: open->click in 98.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Vers"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1187,7 +3021,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T10:15:45",
-          "last_event": "2025-01-15T10:18:12"
+          "last_event": "2025-01-15T10:18:12",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 75.5min after send",
+                  "Slow: open->click in 147.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1216,7 +3131,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T14:12:45",
-          "last_event": "2025-01-15T14:14:12"
+          "last_event": "2025-01-15T14:14:12",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "NAS DHCP Pool BERGAMO - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (NAS DHCP Pool BERGAMO)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 312.2min after send",
+                  "Slow: open->click in 87.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1271,7 +3267,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T15:23:12",
-          "last_event": "2025-01-15T15:25:34"
+          "last_event": "2025-01-15T15:25:34",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 382.4min after send",
+                  "Slow: open->click in 142.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17."
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1368,7 +3445,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T11:34:23",
-          "last_event": "2025-01-15T11:36:45"
+          "last_event": "2025-01-15T11:36:45",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Infrastructure for Fastwebs MVNO services - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (Infrastructure for Fastwebs MVNO services)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 153.4min after send",
+                  "Slow: open->click in 142.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 2
@@ -1446,7 +3604,73 @@
             "Email Opened"
           ],
           "first_event": "2025-01-15T15:45:12",
-          "last_event": "2025-01-15T15:45:12"
+          "last_event": "2025-01-15T15:45:12",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "INTERBUSINESS - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (INTERBUSINESS)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 404.2min after send"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 "
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 0,
+              "raw_total": 100,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1501,7 +3725,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T12:12:23",
-          "last_event": "2025-01-15T12:14:45"
+          "last_event": "2025-01-15T12:14:45",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Fastweb SpA - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (Fastweb SpA)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 191.8min after send",
+                  "Slow: open->click in 142.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1527,7 +3832,73 @@
             "Email Opened"
           ],
           "first_event": "2025-01-15T14:22:10",
-          "last_event": "2025-01-15T14:22:10"
+          "last_event": "2025-01-15T14:22:10",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "WIND Telecomunicazioni S.p.A - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (WIND Telecomunicazioni S.p.A)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 322.1min after send"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 0,
+              "raw_total": 100,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1556,7 +3927,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T12:33:45",
-          "last_event": "2025-01-15T12:35:12"
+          "last_event": "2025-01-15T12:35:12",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": " - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP ()",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 213.4min after send",
+                  "Slow: open->click in 87.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1585,7 +4037,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T10:12:23",
-          "last_event": "2025-01-15T10:14:56"
+          "last_event": "2025-01-15T10:14:56",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "NAS DHCP Pool TRIESTE - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (NAS DHCP Pool TRIESTE)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 71.4min after send",
+                  "Slow: open->click in 153.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Sa"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1640,7 +4173,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T14:23:45",
-          "last_event": "2025-01-15T14:25:12"
+          "last_event": "2025-01-15T14:25:12",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "WIND Telecomunicazioni S.p.A - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (WIND Telecomunicazioni S.p.A)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 322.8min after send",
+                  "Slow: open->click in 87.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17."
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1
@@ -1695,7 +4309,84 @@
             "Email Opened"
           ],
           "first_event": "2025-01-15T09:00:14",
-          "last_event": "2025-01-15T09:00:14"
+          "last_event": "2025-01-15T09:00:14",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Unknown - Unknown"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Unknown (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "warning",
+                "icon": "\u26a0\ufe0f",
+                "details": "Unknown Type (Unknown)",
+                "penalty": 30
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "failed",
+                "icon": "\u274c",
+                "details": "Bot/Crawler detected",
+                "penalty": 80,
+                "user_agent": "Barracuda Email Security Scanner v7.4"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": -30,
+              "timing_penalty": 0,
+              "user_agent_penalty": -80,
+              "bonuses": 10,
+              "raw_total": 0,
+              "capped_score": 0
+            },
+            "final_verdict": {
+              "icon": "\u274c",
+              "classification": "BOT/SCANNER",
+              "reasons": [
+                "Score 0/100 < 40 (bot threshold)"
+              ],
+              "conclusion": "This IP is classified as a BOT because: Score 0/100 < 40 (bot threshold)"
+            },
+            "key_factors": [
+              "IP type: Unknown Type (-30 points)",
+              "Suspicious user agent: Bot/Crawler detected"
+            ]
+          }
         }
       ],
       "num_ips": 1
@@ -1724,7 +4415,88 @@
             "Clicked Link"
           ],
           "first_event": "2025-01-15T13:23:12",
-          "last_event": "2025-01-15T13:25:45"
+          "last_event": "2025-01-15T13:25:45",
+          "decision_breakdown": {
+            "steps": [
+              {
+                "step": 1,
+                "name": "IP Lookup",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "INTERBUSINESS - Italy"
+              },
+              {
+                "step": 2,
+                "name": "Country Check",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "IP from Italy (allowed)"
+              },
+              {
+                "step": 3,
+                "name": "IP Type Classification",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Legitimate ISP (INTERBUSINESS)",
+                "penalty": 0
+              },
+              {
+                "step": 4,
+                "name": "Timing Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": [
+                  "Normal: opened 262.8min after send",
+                  "Slow: open->click in 153.0s (re-reading email)"
+                ],
+                "penalty": 0
+              },
+              {
+                "step": 5,
+                "name": "User Agent Analysis",
+                "status": "success",
+                "icon": "\u2705",
+                "details": "Standard browser",
+                "penalty": 0,
+                "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0"
+              },
+              {
+                "step": 6,
+                "name": "Behavior Bonuses",
+                "status": "success",
+                "icon": "\ud83c\udfaf",
+                "bonuses": [
+                  {
+                    "action": "Clicked link",
+                    "points": 10
+                  }
+                ],
+                "total_bonus": 10
+              }
+            ],
+            "score_calculation": {
+              "base_score": 100,
+              "ip_penalty": 0,
+              "timing_penalty": 0,
+              "user_agent_penalty": 0,
+              "bonuses": 10,
+              "raw_total": 110,
+              "capped_score": 100
+            },
+            "final_verdict": {
+              "icon": "\u2705",
+              "classification": "GENUINE HUMAN",
+              "reasons": [
+                "Legitimate residential/business ISP",
+                "Natural human timing patterns",
+                "Standard browser/email client",
+                "Clicked the link (human behavior)",
+                "Score 100/100 \u2265 70 (genuine human threshold)"
+              ],
+              "conclusion": "This IP is classified as HUMAN because: Legitimate residential/business ISP, Natural human timing patterns, Standard browser/email client, Clicked the link (human behavior), Score 100/100 \u2265 70 (genuine human threshold)"
+            },
+            "key_factors": []
+          }
         }
       ],
       "num_ips": 1

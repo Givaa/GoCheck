@@ -955,6 +955,13 @@ class GoPhishAnalyzer:
         self.logger.debug(f"IP {ip} final score: raw={raw_score}, capped={capped_score}, classification={classification}")
         self.out.trace(f"IP {ip} score: {capped_score}/100 ({classification})")
 
+        # Generate decision breakdown for human review
+        decision_breakdown = self._generate_decision_breakdown(
+            ip, ip_info, ip_type, ip_penalty, ua, ua_penalty, ua_desc,
+            timing_penalty, is_bot_timing, timing_details, messages,
+            raw_score, capped_score, is_bot, classification
+        )
+
         return {
             'ip': ip or 'N/A',
             'score': capped_score,
@@ -965,9 +972,221 @@ class GoPhishAnalyzer:
             'details': analysis_details,
             'events': messages,
             'first_event': events_list[0]['time'],
-            'last_event': events_list[-1]['time']
+            'last_event': events_list[-1]['time'],
+            'decision_breakdown': decision_breakdown  # NEW: detailed reasoning
         }
     
+    def _generate_decision_breakdown(self, ip, ip_info, ip_type, ip_penalty, ua, ua_penalty, ua_desc,
+                                     timing_penalty, is_bot_timing, timing_details, messages,
+                                     raw_score, capped_score, is_bot, classification):
+        """
+        Generate detailed breakdown explaining why this decision was made.
+        Returns a structured dictionary with step-by-step reasoning.
+        """
+        breakdown = {
+            'steps': [],
+            'score_calculation': {},
+            'final_verdict': {},
+            'key_factors': []
+        }
+
+        # Step 1: IP Lookup
+        if ip_info:
+            breakdown['steps'].append({
+                'step': 1,
+                'name': 'IP Lookup',
+                'status': 'success',
+                'icon': '✅',
+                'details': f"{ip_info.get('org', 'Unknown')} - {ip_info.get('country', 'Unknown')}"
+            })
+        else:
+            breakdown['steps'].append({
+                'step': 1,
+                'name': 'IP Lookup',
+                'status': 'failed',
+                'icon': '❌',
+                'details': 'IP lookup failed - insufficient data'
+            })
+            breakdown['key_factors'].append('IP lookup failed - automatic bot classification')
+
+        # Step 2: Country Check
+        if ip_type == 'foreign':
+            breakdown['steps'].append({
+                'step': 2,
+                'name': 'Country Check',
+                'status': 'failed',
+                'icon': '❌',
+                'details': f"Foreign IP from {ip_info.get('country', 'Unknown')} (outside allowed countries)",
+                'penalty': ip_penalty,
+                'decision': 'REJECT - Analysis stopped (foreign IPs are always bots)'
+            })
+            breakdown['key_factors'].append(f"Foreign IP - outside allowed countries list")
+            breakdown['final_verdict']['reason'] = 'Foreign IP detected - automatic bot classification'
+        else:
+            country = ip_info.get('country', 'Unknown') if ip_info else 'Unknown'
+            breakdown['steps'].append({
+                'step': 2,
+                'name': 'Country Check',
+                'status': 'success',
+                'icon': '✅',
+                'details': f"IP from {country} (allowed)"
+            })
+
+            # Step 3: IP Type Classification
+            ip_type_emoji = {
+                'legitimate_isp': '✅',
+                'vpn_whitelisted': '✅',
+                'vpn': '⚠️',
+                'cloud': '❌',
+                'datacenter': '❌',
+                'security_scanner': '❌',
+                'unknown': '⚠️'
+            }.get(ip_type, '⚠️')
+
+            ip_type_names = {
+                'legitimate_isp': 'Legitimate ISP',
+                'vpn_whitelisted': 'VPN (Whitelisted)',
+                'vpn': 'VPN (Pending Validation)',
+                'cloud': 'Cloud Provider',
+                'datacenter': 'Datacenter/Hosting',
+                'security_scanner': 'Security Scanner',
+                'unknown': 'Unknown Type'
+            }
+
+            breakdown['steps'].append({
+                'step': 3,
+                'name': 'IP Type Classification',
+                'status': 'success' if ip_penalty == 0 else 'warning' if ip_penalty < 50 else 'failed',
+                'icon': ip_type_emoji,
+                'details': f"{ip_type_names.get(ip_type, ip_type)} ({ip_info.get('org', 'Unknown') if ip_info else 'Unknown'})",
+                'penalty': ip_penalty
+            })
+
+            if ip_penalty > 0:
+                breakdown['key_factors'].append(f"IP type: {ip_type_names.get(ip_type, ip_type)} (-{ip_penalty} points)")
+
+            # Step 4: Timing Analysis
+            timing_icon = '✅' if timing_penalty == 0 else '⚠️' if timing_penalty < 50 else '❌'
+            timing_status = 'success' if timing_penalty == 0 else 'warning' if timing_penalty < 50 else 'failed'
+
+            timing_step = {
+                'step': 4,
+                'name': 'Timing Analysis',
+                'status': timing_status,
+                'icon': timing_icon,
+                'details': timing_details,
+                'penalty': timing_penalty
+            }
+
+            if is_bot_timing:
+                timing_step['verdict'] = 'BOT DETECTED - Automated timing pattern'
+                breakdown['key_factors'].append('Bot-like timing pattern detected')
+
+            breakdown['steps'].append(timing_step)
+
+            # Step 5: User Agent Analysis
+            ua_icon = '✅' if ua_penalty == 0 else '⚠️' if ua_penalty < 50 else '❌'
+            ua_status = 'success' if ua_penalty == 0 else 'warning' if ua_penalty < 50 else 'failed'
+
+            breakdown['steps'].append({
+                'step': 5,
+                'name': 'User Agent Analysis',
+                'status': ua_status,
+                'icon': ua_icon,
+                'details': ua_desc if ua else 'No user agent provided',
+                'penalty': ua_penalty if ua else 25,
+                'user_agent': ua[:100] if ua else None
+            })
+
+            if ua_penalty >= 50:
+                breakdown['key_factors'].append(f"Suspicious user agent: {ua_desc}")
+
+            # Step 6: Behavior Bonuses
+            bonuses = []
+            bonus_total = 0
+            if self.EVENT_CLICKED in messages:
+                bonuses.append({'action': 'Clicked link', 'points': 10})
+                bonus_total += 10
+
+            if ip_type == 'vpn' and not is_bot_timing and raw_score >= 50:
+                bonuses.append({'action': 'VPN with human behavior', 'points': 25})
+                bonus_total += 25
+
+            if bonuses:
+                breakdown['steps'].append({
+                    'step': 6,
+                    'name': 'Behavior Bonuses',
+                    'status': 'success',
+                    'icon': '🎯',
+                    'bonuses': bonuses,
+                    'total_bonus': bonus_total
+                })
+
+        # Score Calculation
+        breakdown['score_calculation'] = {
+            'base_score': 100,
+            'ip_penalty': -ip_penalty if ip_penalty else 0,
+            'timing_penalty': -timing_penalty if timing_penalty else 0,
+            'user_agent_penalty': -(ua_penalty if ua else 25),
+            'bonuses': bonus_total if ip_type != 'foreign' else 0,
+            'raw_total': raw_score,
+            'capped_score': capped_score
+        }
+
+        # Final Verdict
+        if is_bot:
+            verdict_icon = '❌'
+            verdict_text = 'BOT/SCANNER'
+
+            reasons = []
+            if ip_type == 'foreign':
+                reasons.append('Foreign IP (outside allowed countries)')
+            elif ip_type in ['security_scanner', 'cloud', 'datacenter']:
+                reasons.append(f'IP type: {ip_type.replace("_", " ").title()}')
+
+            if is_bot_timing:
+                reasons.append('Automated timing pattern detected')
+
+            if capped_score < BOT_THRESHOLD:
+                reasons.append(f'Score {capped_score}/100 < {BOT_THRESHOLD} (bot threshold)')
+
+            breakdown['final_verdict'] = {
+                'icon': verdict_icon,
+                'classification': verdict_text,
+                'reasons': reasons,
+                'conclusion': f"This IP is classified as a BOT because: {', '.join(reasons)}"
+            }
+        else:
+            verdict_icon = '✅'
+            verdict_text = 'GENUINE HUMAN'
+
+            reasons = []
+            if ip_type == 'legitimate_isp':
+                reasons.append('Legitimate residential/business ISP')
+            elif ip_type == 'vpn_whitelisted':
+                reasons.append('Whitelisted VPN with consistent human behavior')
+
+            if not is_bot_timing and timing_penalty == 0:
+                reasons.append('Natural human timing patterns')
+
+            if ua_penalty == 0:
+                reasons.append('Standard browser/email client')
+
+            if self.EVENT_CLICKED in messages:
+                reasons.append('Clicked the link (human behavior)')
+
+            if capped_score >= GENUINE_HUMAN_THRESHOLD:
+                reasons.append(f'Score {capped_score}/100 ≥ {GENUINE_HUMAN_THRESHOLD} (genuine human threshold)')
+
+            breakdown['final_verdict'] = {
+                'icon': verdict_icon,
+                'classification': verdict_text,
+                'reasons': reasons,
+                'conclusion': f"This IP is classified as HUMAN because: {', '.join(reasons)}"
+            }
+
+        return breakdown
+
     def analyze_email(self, email, email_events):
         """
         Analyze all events for a single target email.

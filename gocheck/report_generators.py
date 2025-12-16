@@ -586,8 +586,12 @@ class HTMLReportGenerator:
             is_bot = ip_analysis['is_bot']
             events = ip_analysis['events']
             ip_details = ip_analysis.get('details', [])
+            breakdown = ip_analysis.get('decision_breakdown', {})
 
             bot_badge = '<span class="badge danger">BOT</span>' if is_bot else '<span class="badge success">HUMAN</span>'
+
+            # Generate decision breakdown HTML
+            breakdown_html = self._generate_breakdown_html(breakdown) if breakdown else ''
 
             details.append(f'''
                                 <div class="ip-block">
@@ -600,9 +604,91 @@ class HTMLReportGenerator:
 {''.join(f'<span class="event">{event}</span>' for event in events)}
                                     </div>
                                     {f'<p style="margin-top: 10px;"><strong>Details:</strong></p><ul style="margin-left: 20px;">{"".join(f"<li>{detail}</li>" for detail in ip_details)}</ul>' if ip_details else ''}
+                                    {breakdown_html}
                                 </div>''')
 
         return '\n'.join(details)
+
+    def _generate_breakdown_html(self, breakdown: Dict) -> str:
+        """Generate HTML for decision breakdown."""
+        if not breakdown:
+            return ''
+
+        steps_html = []
+        for step in breakdown.get('steps', []):
+            status_class = {'success': 'success', 'warning': 'warning', 'failed': 'danger'}.get(step.get('status', 'info'), 'info')
+
+            details_html = ''
+            if isinstance(step.get('details'), list):
+                details_html = '<ul style="margin-left: 20px; margin-top: 5px;">' + ''.join(f'<li>{d}</li>' for d in step['details']) + '</ul>'
+            elif step.get('details'):
+                details_html = f'<p style="margin-left: 20px; margin-top: 5px;">{step["details"]}</p>'
+
+            penalty_html = f'<span style="color: #ef4444; font-weight: bold;"> (-{step["penalty"]} points)</span>' if step.get('penalty', 0) > 0 else ''
+            decision_html = f'<p style="margin-left: 20px; color: #ef4444; font-weight: bold;">{step["decision"]}</p>' if step.get('decision') else ''
+
+            bonuses_html = ''
+            if step.get('bonuses'):
+                bonuses_html = '<ul style="margin-left: 20px; margin-top: 5px;">'
+                for bonus in step['bonuses']:
+                    bonuses_html += f'<li>{bonus["action"]}: <span style="color: #10b981; font-weight: bold;">+{bonus["points"]} points</span></li>'
+                bonuses_html += '</ul>'
+
+            steps_html.append(f'''
+                <div style="padding: 10px; margin: 5px 0; background: #f9fafb; border-left: 3px solid {'#10b981' if status_class == 'success' else '#f59e0b' if status_class == 'warning' else '#ef4444'}; border-radius: 4px;">
+                    <strong>{step['icon']} {step['name']}</strong>{penalty_html}
+                    {details_html}
+                    {bonuses_html}
+                    {decision_html}
+                </div>
+            ''')
+
+        # Score calculation
+        calc = breakdown.get('score_calculation', {})
+        calc_html = f'''
+            <div style="background: #f3f4f6; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                <strong>📊 Score Calculation:</strong>
+                <table style="width: 100%; margin-top: 10px; font-size: 0.9em;">
+                    <tr><td>Base Score:</td><td style="text-align: right;">{calc.get('base_score', 100)}</td></tr>
+                    <tr><td>IP Penalty:</td><td style="text-align: right; color: #ef4444;">{calc.get('ip_penalty', 0)}</td></tr>
+                    <tr><td>Timing Penalty:</td><td style="text-align: right; color: #ef4444;">{calc.get('timing_penalty', 0)}</td></tr>
+                    <tr><td>User Agent Penalty:</td><td style="text-align: right; color: #ef4444;">{calc.get('user_agent_penalty', 0)}</td></tr>
+                    <tr><td>Bonuses:</td><td style="text-align: right; color: #10b981;">+{calc.get('bonuses', 0)}</td></tr>
+                    <tr style="border-top: 2px solid #d1d5db;"><td><strong>Raw Total:</strong></td><td style="text-align: right;"><strong>{calc.get('raw_total', 0)}</strong></td></tr>
+                    <tr><td><strong>Final Score (capped):</strong></td><td style="text-align: right;"><strong>{calc.get('capped_score', 0)}/100</strong></td></tr>
+                </table>
+            </div>
+        '''
+
+        # Final verdict
+        verdict = breakdown.get('final_verdict', {})
+        verdict_html = ''
+        if verdict:
+            verdict_color = '#10b981' if 'HUMAN' in verdict.get('classification', '') else '#ef4444'
+            reasons_html = '<ul style="margin-left: 20px; margin-top: 5px;">' + ''.join(f'<li>{r}</li>' for r in verdict.get('reasons', [])) + '</ul>'
+
+            verdict_html = f'''
+                <div style="background: linear-gradient(135deg, {verdict_color}15 0%, {verdict_color}25 100%); padding: 15px; border-radius: 8px; margin-top: 10px; border: 2px solid {verdict_color};">
+                    <h4 style="color: {verdict_color}; margin: 0 0 10px 0;">{verdict['icon']} Final Verdict: {verdict['classification']}</h4>
+                    <p><strong>Why this decision was made:</strong></p>
+                    {reasons_html}
+                    <p style="margin-top: 10px; font-style: italic; color: #666;">{verdict.get('conclusion', '')}</p>
+                </div>
+            '''
+
+        return f'''
+            <details style="margin-top: 15px; background: white; border: 2px solid #e5e7eb; border-radius: 8px; padding: 15px;">
+                <summary style="cursor: pointer; font-weight: bold; color: #667eea; user-select: none;">
+                    🔍 Click to see Decision Breakdown (Why this classification?)
+                </summary>
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 5px;">Analysis Steps:</h4>
+                    {''.join(steps_html)}
+                    {calc_html}
+                    {verdict_html}
+                </div>
+            </details>
+        '''
 
 
 class JSONReportGenerator:
@@ -807,8 +893,12 @@ Based on the analysis results:
             is_bot = ip_analysis['is_bot']
             events = ip_analysis['events']
             details = ip_analysis.get('details', [])
+            breakdown = ip_analysis.get('decision_breakdown', {})
 
             bot_indicator = '🤖 **BOT**' if is_bot else '👤 **HUMAN**'
+
+            # Generate breakdown markdown
+            breakdown_md = self._generate_breakdown_markdown(breakdown) if breakdown else ''
 
             lines.append(f'''#### IP #{i}: {ip} {bot_indicator}
 
@@ -817,6 +907,68 @@ Based on the analysis results:
 - **Score**: {score}/100
 - **Events**: {', '.join(events)}
 {f"- **Details**:\\n  " + "\\n  ".join(f"- {detail}" for detail in details) if details else ""}
+
+{breakdown_md}
 ''')
+
+        return '\n'.join(lines)
+
+    def _generate_breakdown_markdown(self, breakdown: Dict) -> str:
+        """Generate decision breakdown in Markdown format."""
+        if not breakdown:
+            return ''
+
+        lines = ['<details>', '<summary><strong>🔍 Decision Breakdown - Why this classification?</strong></summary>', '']
+
+        # Steps
+        lines.append('**Analysis Steps:**')
+        lines.append('')
+        for step in breakdown.get('steps', []):
+            penalty_str = f" **(-{step['penalty']} points)**" if step.get('penalty', 0) > 0 else ''
+            lines.append(f"**{step['icon']} {step['name']}**{penalty_str}")
+
+            if isinstance(step.get('details'), list):
+                for detail in step['details']:
+                    lines.append(f"  - {detail}")
+            elif step.get('details'):
+                lines.append(f"  {step['details']}")
+
+            if step.get('bonuses'):
+                for bonus in step['bonuses']:
+                    lines.append(f"  - ✨ {bonus['action']}: **+{bonus['points']} points**")
+
+            if step.get('decision'):
+                lines.append(f"  > ⚠️ {step['decision']}")
+
+            lines.append('')
+
+        # Score calculation
+        calc = breakdown.get('score_calculation', {})
+        if calc:
+            lines.append('**📊 Score Calculation:**')
+            lines.append('')
+            lines.append('| Component | Points |')
+            lines.append('|-----------|--------|')
+            lines.append(f"| Base Score | {calc.get('base_score', 100)} |")
+            lines.append(f"| IP Penalty | {calc.get('ip_penalty', 0)} |")
+            lines.append(f"| Timing Penalty | {calc.get('timing_penalty', 0)} |")
+            lines.append(f"| User Agent Penalty | {calc.get('user_agent_penalty', 0)} |")
+            lines.append(f"| Bonuses | +{calc.get('bonuses', 0)} |")
+            lines.append(f"| **Raw Total** | **{calc.get('raw_total', 0)}** |")
+            lines.append(f"| **Final Score (capped)** | **{calc.get('capped_score', 0)}/100** |")
+            lines.append('')
+
+        # Final verdict
+        verdict = breakdown.get('final_verdict', {})
+        if verdict:
+            lines.append(f"**{verdict['icon']} Final Verdict: {verdict['classification']}**")
+            lines.append('')
+            lines.append('**Why this decision was made:**')
+            for reason in verdict.get('reasons', []):
+                lines.append(f"- {reason}")
+            lines.append('')
+            lines.append(f"*{verdict.get('conclusion', '')}*")
+
+        lines.append('</details>')
 
         return '\n'.join(lines)
