@@ -18,6 +18,8 @@ import os
 import statistics
 import random
 import logging
+import dns.resolver
+import ipaddress
 
 # Import OutputManager and Report Generators (handle both package and direct execution)
 try:
@@ -38,7 +40,7 @@ except ImportError:
         return iterable
 
 # API Configuration Constants
-IP_API_FIELDS = 16969727  # Bitmask for ip-api.com fields: country, ISP, org, AS, proxy, hosting, geolocation
+IP_API_FIELDS = 16973823  # Bitmask for ip-api.com fields: country, ISP, org, AS, proxy, hosting, mobile, geolocation
 IP_API_RATE_LIMIT = 1.35  # Seconds between API calls (45 req/min = 1.33s, using 1.35s for safety)
 IP_API_TIMEOUT = 5  # Seconds
 
@@ -429,27 +431,152 @@ class GoPhishAnalyzer:
             return None
 
         return None
-    
+
+    def check_spf_record(self, ip, email_domain):
+        """
+        Check if an IP address is authorized in the SPF record of the email domain.
+
+        Args:
+            ip: IP address to check
+            email_domain: Domain extracted from recipient email address
+
+        Returns:
+            tuple: (is_in_spf, spf_record, details)
+        """
+        if not ip or not email_domain or ip == 'unknown':
+            self.logger.debug("SPF check skipped: missing IP or email domain")
+            return False, None, "Missing IP or email domain"
+
+        try:
+            self.logger.debug(f"Checking SPF record for domain: {email_domain}")
+            self.out.trace(f"Checking SPF for {email_domain}")
+
+            # Query TXT records for the domain
+            try:
+                answers = dns.resolver.resolve(email_domain, 'TXT')
+            except dns.resolver.NoAnswer:
+                self.logger.debug(f"No TXT records found for {email_domain}")
+                self.out.trace(f"No TXT records for {email_domain}")
+                return False, None, "No TXT records found"
+            except dns.resolver.NXDOMAIN:
+                self.logger.debug(f"Domain does not exist: {email_domain}")
+                self.out.trace(f"Domain not found: {email_domain}")
+                return False, None, "Domain does not exist"
+            except dns.resolver.Timeout:
+                self.logger.warning(f"DNS timeout querying {email_domain}")
+                self.out.trace(f"DNS timeout for {email_domain}")
+                return False, None, "DNS query timeout"
+
+            # Find SPF record
+            spf_record = None
+            for rdata in answers:
+                txt_string = b''.join(rdata.strings).decode('utf-8')
+                if txt_string.startswith('v=spf1'):
+                    spf_record = txt_string
+                    break
+
+            if not spf_record:
+                self.logger.debug(f"No SPF record found for {email_domain}")
+                self.out.trace(f"No SPF record for {email_domain}")
+                return False, None, "No SPF record found"
+
+            self.logger.info(f"SPF record found for {email_domain}: {spf_record[:100]}...")
+            self.out.debug(f"SPF record found: {spf_record[:100]}...")
+
+            # Parse IP address
+            try:
+                ip_obj = ipaddress.ip_address(ip)
+            except ValueError:
+                self.logger.warning(f"Invalid IP address format: {ip}")
+                return False, spf_record, "Invalid IP format"
+
+            # Check if IP is in SPF record (simple check for ip4:/ip6: mechanisms)
+            is_in_spf = False
+            matched_mechanism = None
+
+            # Split SPF record into mechanisms
+            mechanisms = spf_record.split()
+
+            for mechanism in mechanisms:
+                # Check ip4: mechanism
+                if mechanism.startswith('ip4:'):
+                    try:
+                        ip_spec = mechanism[4:]  # Remove 'ip4:' prefix
+
+                        # Handle CIDR notation
+                        if '/' in ip_spec:
+                            network = ipaddress.ip_network(ip_spec, strict=False)
+                            if ip_obj in network:
+                                is_in_spf = True
+                                matched_mechanism = mechanism
+                                break
+                        else:
+                            # Single IP address
+                            if str(ip_obj) == ip_spec:
+                                is_in_spf = True
+                                matched_mechanism = mechanism
+                                break
+                    except (ValueError, ipaddress.AddressValueError):
+                        self.logger.debug(f"Invalid ip4 mechanism: {mechanism}")
+                        continue
+
+                # Check ip6: mechanism
+                elif mechanism.startswith('ip6:'):
+                    try:
+                        ip_spec = mechanism[4:]  # Remove 'ip6:' prefix
+
+                        # Handle CIDR notation
+                        if '/' in ip_spec:
+                            network = ipaddress.ip_network(ip_spec, strict=False)
+                            if ip_obj in network:
+                                is_in_spf = True
+                                matched_mechanism = mechanism
+                                break
+                        else:
+                            # Single IP address
+                            if str(ip_obj) == ip_spec:
+                                is_in_spf = True
+                                matched_mechanism = mechanism
+                                break
+                    except (ValueError, ipaddress.AddressValueError):
+                        self.logger.debug(f"Invalid ip6 mechanism: {mechanism}")
+                        continue
+
+            if is_in_spf:
+                self.logger.info(f"✅ IP {ip} found in SPF record: {matched_mechanism}")
+                self.out.debug(f"✅ SPF match: {ip} in {matched_mechanism}")
+                return True, spf_record, f"IP found in SPF: {matched_mechanism}"
+            else:
+                self.logger.debug(f"IP {ip} not found in SPF record")
+                self.out.trace(f"IP {ip} not in SPF")
+                return False, spf_record, "IP not in SPF record"
+
+        except Exception as e:
+            self.logger.warning(f"SPF check failed for {email_domain}: {e}")
+            self.out.trace(f"SPF check error: {e}")
+            return False, None, f"SPF check error: {str(e)}"
+
     def classify_ip(self, ip_info, email_domain=None, ip=None):
         """
         Classify IP type and calculate penalty for scoring.
         Now considers whitelisting for VPNs that show consistent human behavior.
 
         Returns:
-            tuple: (is_allowed_country, ip_type, penalty, description)
+            tuple: (is_allowed_country, ip_type, penalty, description, is_mobile)
         """
         if not ip_info or ip_info.get('status') == 'fail':
             self.logger.debug(f"IP classification failed: {ip} - lookup failed")
-            return None, 'unknown', UNKNOWN_IP_PENALTY, "IP lookup failed - insufficient data"
+            return None, 'unknown', UNKNOWN_IP_PENALTY, "IP lookup failed - insufficient data", False
 
         country_code = ip_info.get('countryCode')
         country = ip_info.get('country', 'Unknown')
         is_allowed_country = country_code in self.allowed_countries
+        is_mobile = ip_info.get('mobile', False)  # Extract mobile status
 
         if not is_allowed_country:
             self.logger.debug(f"Foreign IP detected: {ip} from {country}")
             self.out.debug(f"Foreign IP detected: {ip} from {country}")
-            return False, 'foreign', FOREIGN_IP_PENALTY, f"Foreign IP: {country}"
+            return False, 'foreign', FOREIGN_IP_PENALTY, f"Foreign IP: {country}", is_mobile
 
         org = ip_info.get('org', '').lower()
         isp = ip_info.get('isp', '').lower()
@@ -462,19 +589,19 @@ class GoPhishAnalyzer:
         if any(vendor in combined for vendor in self.security_vendors):
             self.logger.info(f"Security scanner detected: {ip} - {org}")
             self.out.debug(f"Security scanner detected: {ip} - {org}")
-            return True, 'security_scanner', SECURITY_SCANNER_PENALTY, f"Security scanner: {org}"
+            return True, 'security_scanner', SECURITY_SCANNER_PENALTY, f"Security scanner: {org}", is_mobile
 
         # Cloud provider (very likely bot)
         if any(provider in combined for provider in self.cloud_providers):
             self.logger.info(f"Cloud provider detected: {ip} - {org}")
             self.out.debug(f"Cloud provider detected: {ip} - {org}")
-            return True, 'cloud', CLOUD_PROVIDER_PENALTY, f"Cloud provider: {org}"
+            return True, 'cloud', CLOUD_PROVIDER_PENALTY, f"Cloud provider: {org}", is_mobile
 
         # Datacenter/Hosting (likely automated)
         if any(term in combined for term in ['datacenter', 'hosting', 'server']) or hosting == True:
             self.logger.info(f"Datacenter detected: {ip}")
             self.out.debug(f"Datacenter detected: {ip}")
-            return True, 'datacenter', DATACENTER_PENALTY, "Datacenter"
+            return True, 'datacenter', DATACENTER_PENALTY, "Datacenter", is_mobile
 
         # VPN/Proxy - check whitelist first
         if 'vpn' in combined or 'proxy' in combined or proxy == True:
@@ -482,20 +609,20 @@ class GoPhishAnalyzer:
             if ip and email_domain and self._is_ip_whitelisted(ip, email_domain):
                 self.logger.info(f"Whitelisted VPN detected: {ip} for {email_domain}")
                 self.out.debug(f"Whitelisted VPN: {ip} for {email_domain}")
-                return True, 'vpn_whitelisted', VPN_WHITELISTED_PENALTY, f"VPN/Proxy (whitelisted for {email_domain})"
+                return True, 'vpn_whitelisted', VPN_WHITELISTED_PENALTY, f"VPN/Proxy (whitelisted for {email_domain})", is_mobile
             # Not whitelisted yet, apply moderate penalty (will be reduced if behavior is human-like)
             self.logger.debug(f"VPN detected (not whitelisted): {ip}")
             self.out.trace(f"VPN detected (not whitelisted): {ip}")
-            return True, 'vpn', VPN_PENALTY, "VPN/Proxy (pending validation)"
+            return True, 'vpn', VPN_PENALTY, "VPN/Proxy (pending validation)", is_mobile
 
         # Legitimate business/residential ISP
         if ip_info.get('isp'):
             self.logger.debug(f"Legitimate ISP detected: {ip} - {ip_info.get('isp')}")
             self.out.trace(f"Legitimate ISP: {ip} - {ip_info.get('isp')}")
-            return True, 'legitimate_isp', 0, f"ISP: {ip_info.get('isp')}"
+            return True, 'legitimate_isp', 0, f"ISP: {ip_info.get('isp')}", is_mobile
 
         self.logger.debug(f"Unknown IP type: {ip}")
-        return True, 'unknown', UNKNOWN_IP_PENALTY, "Unknown type - suspicious"
+        return True, 'unknown', UNKNOWN_IP_PENALTY, "Unknown type - suspicious", is_mobile
     
     def analyze_user_agent(self, user_agent):
         """
@@ -871,7 +998,7 @@ class GoPhishAnalyzer:
         High score (70-100) = likely human
         Low score (0-40) = likely bot
 
-        Now with whitelist support and improved timing analysis.
+        Now with whitelist support, improved timing analysis, and SPF validation.
         """
         score = 100
         analysis_details = []
@@ -879,7 +1006,20 @@ class GoPhishAnalyzer:
 
         # IP analysis
         ip_info = self.get_ip_info(ip) if ip and ip != 'unknown' else None
-        is_italian, ip_type, ip_penalty, ip_desc = self.classify_ip(ip_info, email_domain, ip)
+        is_italian, ip_type, ip_penalty, ip_desc, is_mobile = self.classify_ip(ip_info, email_domain, ip)
+
+        # SPF validation check
+        spf_validated = False
+        spf_record = None
+        spf_details = None
+        if ip and ip != 'unknown' and email_domain:
+            is_in_spf, spf_record, spf_details = self.check_spf_record(ip, email_domain)
+            spf_validated = is_in_spf
+
+        # Log mobile detection
+        if is_mobile:
+            self.logger.info(f"Mobile device detected: {ip}")
+            self.out.debug(f"📱 Mobile access from {ip}")
 
         if is_italian is False:
             return {
@@ -922,6 +1062,9 @@ class GoPhishAnalyzer:
             score += 10
             analysis_details.append("Clicked link (+10)")
 
+        # SPF validation: informational only (no score bonus)
+        # SPF indicates organizational authorization, not human vs bot distinction
+
         # VPN whitelist bonus: if VPN but behavior is human-like
         if ip_type == 'vpn' and not is_bot_timing and score >= 50:
             score += 25
@@ -959,7 +1102,8 @@ class GoPhishAnalyzer:
         decision_breakdown = self._generate_decision_breakdown(
             ip, ip_info, ip_type, ip_penalty, ua, ua_penalty, ua_desc,
             timing_penalty, is_bot_timing, timing_details, messages,
-            raw_score, capped_score, is_bot, classification
+            raw_score, capped_score, is_bot, classification,
+            spf_validated, spf_record, spf_details, is_mobile
         )
 
         return {
@@ -968,6 +1112,7 @@ class GoPhishAnalyzer:
             'raw_score': raw_score,  # Added for debugging/analysis
             'type': ip_type,
             'is_bot': is_bot,
+            'is_mobile': is_mobile,  # NEW: mobile device detection
             'classification': classification,
             'details': analysis_details,
             'events': messages,
@@ -978,16 +1123,27 @@ class GoPhishAnalyzer:
     
     def _generate_decision_breakdown(self, ip, ip_info, ip_type, ip_penalty, ua, ua_penalty, ua_desc,
                                      timing_penalty, is_bot_timing, timing_details, messages,
-                                     raw_score, capped_score, is_bot, classification):
+                                     raw_score, capped_score, is_bot, classification,
+                                     spf_validated=False, spf_record=None, spf_details=None, is_mobile=False):
         """
         Generate detailed breakdown explaining why this decision was made.
         Returns a structured dictionary with step-by-step reasoning.
+        Now includes SPF validation and mobile device detection.
         """
         breakdown = {
             'steps': [],
             'score_calculation': {},
             'final_verdict': {},
-            'key_factors': []
+            'key_factors': [],
+            'spf_validation': {
+                'checked': spf_validated is not None,
+                'validated': spf_validated,
+                'record': spf_record,
+                'details': spf_details
+            },
+            'device_info': {
+                'is_mobile': is_mobile
+            }
         }
 
         # Step 1: IP Lookup
@@ -1031,6 +1187,20 @@ class GoPhishAnalyzer:
                 'icon': '✅',
                 'details': f"IP from {country} (allowed)"
             })
+
+            # Step 2.5: Device Type (Mobile detection)
+            device_icon = '📱' if is_mobile else '💻'
+            device_type = 'Mobile Device' if is_mobile else 'Desktop/Other'
+            breakdown['steps'].append({
+                'step': 2.5,
+                'name': 'Device Type',
+                'status': 'info',
+                'icon': device_icon,
+                'details': device_type,
+                'is_mobile': is_mobile
+            })
+            if is_mobile:
+                breakdown['key_factors'].append('Mobile device access detected')
 
             # Step 3: IP Type Classification
             ip_type_emoji = {
@@ -1101,7 +1271,19 @@ class GoPhishAnalyzer:
             if ua_penalty >= 50:
                 breakdown['key_factors'].append(f"Suspicious user agent: {ua_desc}")
 
-            # Step 6: Behavior Bonuses
+            # Step 6: SPF Validation (if performed) - informational only
+            if spf_validated is not None and spf_validated:
+                breakdown['steps'].append({
+                    'step': 6,
+                    'name': 'SPF Validation (Informational)',
+                    'status': 'info',
+                    'icon': '✉️',
+                    'details': spf_details or 'IP found in SPF record (organizational authorization)',
+                    'spf_record': spf_record[:100] + '...' if spf_record and len(spf_record) > 100 else spf_record
+                })
+                breakdown['key_factors'].append('IP authorized in organization SPF record')
+
+            # Step 7: Behavior Bonuses
             bonuses = []
             bonus_total = 0
             if self.EVENT_CLICKED in messages:
@@ -1112,9 +1294,11 @@ class GoPhishAnalyzer:
                 bonuses.append({'action': 'VPN with human behavior', 'points': 25})
                 bonus_total += 25
 
+            # SPF validation removed from bonuses - now informational only
+
             if bonuses:
                 breakdown['steps'].append({
-                    'step': 6,
+                    'step': 7,
                     'name': 'Behavior Bonuses',
                     'status': 'success',
                     'icon': '🎯',
@@ -1150,11 +1334,19 @@ class GoPhishAnalyzer:
             if capped_score < BOT_THRESHOLD:
                 reasons.append(f'Score {capped_score}/100 < {BOT_THRESHOLD} (bot threshold)')
 
+            # Add context info even for bots
+            context_notes = []
+            if is_mobile:
+                context_notes.append('Note: Mobile device detected')
+            if spf_validated:
+                context_notes.append('Note: IP found in SPF record (authorized by organization)')
+
             breakdown['final_verdict'] = {
                 'icon': verdict_icon,
                 'classification': verdict_text,
                 'reasons': reasons,
-                'conclusion': f"This IP is classified as a BOT because: {', '.join(reasons)}"
+                'context': context_notes,
+                'conclusion': f"This IP is classified as a BOT because: {', '.join(reasons)}" + (f"\n\n{' | '.join(context_notes)}" if context_notes else "")
             }
         else:
             verdict_icon = '✅'
@@ -1166,6 +1358,9 @@ class GoPhishAnalyzer:
             elif ip_type == 'vpn_whitelisted':
                 reasons.append('Whitelisted VPN with consistent human behavior')
 
+            if is_mobile:
+                reasons.append('Mobile device access detected')
+
             if not is_bot_timing and timing_penalty == 0:
                 reasons.append('Natural human timing patterns')
 
@@ -1175,14 +1370,22 @@ class GoPhishAnalyzer:
             if self.EVENT_CLICKED in messages:
                 reasons.append('Clicked the link (human behavior)')
 
+            # SPF removed from reasons - shown in Additional Context instead
+
             if capped_score >= GENUINE_HUMAN_THRESHOLD:
                 reasons.append(f'Score {capped_score}/100 ≥ {GENUINE_HUMAN_THRESHOLD} (genuine human threshold)')
+
+            # Add context info for humans too
+            context_notes = []
+            if spf_validated:
+                context_notes.append('Note: IP found in SPF record (authorized by organization)')
 
             breakdown['final_verdict'] = {
                 'icon': verdict_icon,
                 'classification': verdict_text,
                 'reasons': reasons,
-                'conclusion': f"This IP is classified as HUMAN because: {', '.join(reasons)}"
+                'context': context_notes,
+                'conclusion': f"This IP is classified as HUMAN because: {', '.join(reasons)}" + (f"\n\n{' | '.join(context_notes)}" if context_notes else "")
             }
 
         return breakdown

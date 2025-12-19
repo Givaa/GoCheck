@@ -1,6 +1,7 @@
 # Core dependencies
 pandas>=2.0.0
 requests>=2.31.0
+dnspython>=2.4.0  # DNS queries for SPF validation
 
 # Optional dependencies (recommended for better UX)
 tqdm>=4.65.0  # Progress bar for analysis feedback

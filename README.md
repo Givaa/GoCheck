@@ -15,6 +15,8 @@ GoCheck analyzes GoPhish campaign events to accurately distinguish automated sca
 - ⏱️ **Smart Timing Analysis** - Distinguishes send→open (hours OK) from open→click (1-30s), uses LAST open before click
 - 📧 **Email Client Support** - Recognizes Outlook, Apple Mail, Thunderbird as legitimate access
 - 🌍 **IP Intelligence** - Geolocation, ISP classification, cloud provider detection
+- ✉️ **SPF Validation** - DNS SPF record checking to identify IPs authorized by the organization (informational only)
+- 📱 **Mobile Detection** - Identifies mobile device access for better user behavior analysis
 - 🎯 **Multi-IP Tracking** - Separates bot scans from real user clicks on same email
 - 💾 **Persistent Learning** - Whitelist saved/loaded automatically, expires after 90 days
 - 🔍 **Event Deduplication** - Removes duplicate events (same IP+message within 2s)
@@ -157,7 +159,70 @@ GoCheck uses an **intelligent, context-aware** scoring system that adapts to ent
 - **Standard browsers**: 0 points ✓
 - **Missing UA**: -30 points
 
-#### 4. Behavioral Bonuses
+#### 4. SPF Validation (Informational)
+
+**What is SPF?** SPF (Sender Policy Framework) is a DNS record that lists which IPs are authorized to send email for a domain.
+
+When an IP is found in the recipient domain's SPF record, it indicates the IP is authorized by the organization. This could be a mail gateway (Exchange, Gmail), security scanner, or other organizational infrastructure.
+
+**Important:** SPF validation does NOT influence the bot/human score. It's shown as additional context only, because:
+- An IP in SPF can be a legitimate scanner (Exchange Online Protection) or a mail gateway
+- SPF indicates organizational authorization, not whether access is human or automated
+- Useful for understanding if a bot/scanner is legitimate vs potentially malicious
+
+**How it works:**
+1. GoCheck extracts the email domain from recipient address (e.g., `company.com` from `user@company.com`)
+2. Queries DNS TXT records for the domain's SPF record
+3. Checks if the IP is listed in the SPF record (supports `ip4:` and `ip6:` mechanisms with CIDR notation)
+4. Displays the result in "Additional Context" section (no score impact)
+
+**Example:**
+```
+Email: user@company.com
+IP: 40.107.97.23
+SPF Record: v=spf1 ip4:40.107.0.0/16 ip4:52.100.0.0/14 ~all
+
+Result: ✅ IP found in SPF (ip4:40.107.0.0/16)
+Context: Authorized by organization (likely Exchange Online)
+Score Impact: None (informational only)
+```
+
+This helps distinguish authorized organizational infrastructure from unauthorized external scanners.
+
+#### 5. Mobile Device Detection
+
+**What is it?** GoCheck detects if an IP address is associated with a mobile carrier network using ip-api.com's `mobile` field.
+
+**Why it matters:**
+- **User Behavior**: Mobile users typically have different interaction patterns (e.g., opening emails on the go)
+- **Legitimate Access**: High mobile access rates indicate genuine user engagement
+- **Campaign Insights**: Understand which devices your targets use
+- **False Positive Reduction**: Mobile IPs may appear as VPN/proxy but are legitimate
+
+**How it works:**
+1. GoCheck queries ip-api.com with the `mobile` field enabled
+2. The API returns `true` if the IP belongs to a mobile carrier network
+3. Mobile status is displayed in all reports with 📱 icon
+
+**Example:**
+```
+IP: 93.45.123.87 (Mobile ISP - TIM Italy)
+Mobile: ✅ Yes
+User Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 16_0)
+
+Analysis:
+  - IP Type: Legitimate ISP
+  - Device: Mobile 📱
+  - Likely: Genuine user accessing email from smartphone
+```
+
+**Reports Display:**
+- **HTML**: Badge "📱 MOBILE" next to IP address
+- **JSON**: `"is_mobile": true` field in IP analysis
+- **Markdown**: 📱 emoji indicator in IP header
+- **Decision Breakdown**: "Device Type" step showing 📱 Mobile Device or 💻 Desktop/Other
+
+#### 6. Behavioral Bonuses
 - **Clicked link**: +10 points
 - **VPN with human behavior**: +25 points
 
@@ -279,7 +344,46 @@ IP #2: 93.45.78.12 (Telecom Italia)
 Final Result: ✅ Real user clicked (bot activity ignored)
 ```
 
-### Example 3: Re-reading Email (Multiple Opens)
+### Example 3: SPF Validation - Organizational Context
+
+```
+Email: alice@company.com
+IP: 40.107.97.23
+User Agent: Mozilla/5.0 (Windows NT 10.0)
+
+SPF Check:
+  Domain: company.com
+  SPF Record: v=spf1 ip4:40.107.0.0/16 ip4:52.100.0.0/14 include:spf.protection.outlook.com ~all
+  Result: ✅ IP 40.107.97.23 found in ip4:40.107.0.0/16
+
+Timeline:
+  14:00:00.000  Email Sent
+  14:00:00.500  Email Opened (0.5s after send)
+  14:00:01.200  Clicked Link (0.7s after open)
+
+Analysis:
+  Base score: 100
+  - Timing (instant open): -95
+  - Timing (instant click): -95
+  - Cloud provider (Microsoft): -80
+  + Clicked link: +10
+
+  Raw Score: -155 → Capped to 0/100
+
+  Final Verdict: 🤖 Bot/Scanner
+  Reason: Automated timing pattern, cloud provider
+
+  Additional Context:
+  ✅ IP found in SPF record (authorized by organization)
+  Likely: Microsoft Exchange Online Protection scanner
+
+Note: SPF validation indicates this is an AUTHORIZED scanner by the
+      organization, not a malicious external bot. SPF doesn't affect
+      the score because it can't distinguish between mail gateways,
+      security scanners, or email client connections.
+```
+
+### Example 4: Re-reading Email (Multiple Opens)
 
 ```
 Email: alice@domain.com
@@ -308,6 +412,7 @@ Analysis:
 - Python 3.8+
 - pandas
 - requests
+- dnspython (for SPF validation)
 - tqdm (optional, for progress bar - works without it)
 
 See [requirements.txt](requirements.txt) for complete dependencies.

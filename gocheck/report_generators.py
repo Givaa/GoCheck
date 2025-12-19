@@ -395,6 +395,7 @@ class HTMLReportGenerator:
                     <option value="human">Real User Only</option>
                 </select>
                 <button class="btn" onclick="resetFilters()">Reset</button>
+                <span id="filterCount" style="margin-left: 15px; color: #666; font-size: 0.9em;"></span>
             </div>
 
             <table id="resultsTable">
@@ -416,66 +417,79 @@ class HTMLReportGenerator:
         </div>
 
         <div class="footer">
-            Generated with <strong>GoCheck v2.2.0</strong> by <a href="https://github.com/Givaa/GoCheck" target="_blank">@Givaa</a>
+            Generated with <strong>GoCheck v2.3.0</strong> by <a href="https://github.com/Givaa/GoCheck" target="_blank">@Givaa</a>
         </div>
     </div>
 
     <script>
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('keyup', function() {{
-            const searchValue = this.value.toLowerCase();
+        // Combined filter function
+        function applyFilters() {{
+            const searchValue = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filterValue = document.getElementById('filterStatus').value;
             const rows = document.querySelectorAll('#resultsBody tr:not(.details-row)');
+            let visibleCount = 0;
 
             rows.forEach(row => {{
-                const email = row.cells[0].textContent.toLowerCase();
-                row.style.display = email.includes(searchValue) ? '' : 'none';
-                // Hide details row if parent is hidden
-                const detailsRow = row.nextElementSibling;
-                if (detailsRow && detailsRow.classList.contains('details-row')) {{
-                    detailsRow.style.display = 'none';
-                }}
-            }});
-        }});
+                // Get text from cells - for badge cells, get the badge text only
+                const email = row.cells[0].textContent.toLowerCase().trim();
 
-        // Filter functionality
-        document.getElementById('filterStatus').addEventListener('change', function() {{
-            const filterValue = this.value;
-            const rows = document.querySelectorAll('#resultsBody tr:not(.details-row)');
+                // For badge cells (opened, clicked, classification), find the badge element
+                const openedBadge = row.cells[1].querySelector('.badge');
+                const clickedBadge = row.cells[2].querySelector('.badge');
+                const classificationBadge = row.cells[4].querySelector('.badge');
 
-            rows.forEach(row => {{
-                const opened = row.cells[1].textContent;
-                const clicked = row.cells[2].textContent;
-                const classification = row.cells[4].textContent.toLowerCase();
+                const opened = openedBadge ? openedBadge.textContent.trim() : row.cells[1].textContent.trim();
+                const clicked = clickedBadge ? clickedBadge.textContent.trim() : row.cells[2].textContent.trim();
+                const classification = classificationBadge ? classificationBadge.textContent.trim() : row.cells[4].textContent.trim();
 
-                let show = true;
+                let showSearch = email.includes(searchValue);
+                let showFilter = true;
 
                 if (filterValue === 'clicked') {{
-                    show = clicked === 'YES';
+                    showFilter = clicked === 'YES';
                 }} else if (filterValue === 'opened') {{
-                    show = opened === 'YES';
+                    showFilter = opened === 'YES';
                 }} else if (filterValue === 'bot') {{
-                    show = classification.includes('bot') || classification.includes('scanner');
+                    // Show "Bot/scanner only" (exclude "Bot scanner + Real user")
+                    showFilter = classification === 'Bot/scanner only';
                 }} else if (filterValue === 'human') {{
-                    show = classification.includes('real user only');
+                    // Show "Real user only" (exclude "Bot scanner + Real user")
+                    showFilter = classification === 'Real user only';
                 }}
 
-                row.style.display = show ? '' : 'none';
+                const shouldShow = showSearch && showFilter;
+                row.style.display = shouldShow ? '' : 'none';
+                if (shouldShow) visibleCount++;
+
                 // Hide details row if parent is hidden
                 const detailsRow = row.nextElementSibling;
                 if (detailsRow && detailsRow.classList.contains('details-row')) {{
                     detailsRow.style.display = 'none';
                 }}
             }});
-        }});
+
+            // Update counter
+            const totalCount = rows.length;
+            document.getElementById('filterCount').textContent =
+                `Showing ${{visibleCount}} of ${{totalCount}} emails`;
+        }}
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', applyFilters);
+
+        // Filter functionality
+        document.getElementById('filterStatus').addEventListener('change', applyFilters);
 
         function resetFilters() {{
             document.getElementById('searchInput').value = '';
             document.getElementById('filterStatus').value = 'all';
-            const rows = document.querySelectorAll('#resultsBody tr:not(.details-row)');
-            rows.forEach(row => row.style.display = '');
-            const detailsRows = document.querySelectorAll('.details-row');
-            detailsRows.forEach(row => row.style.display = 'none');
+            applyFilters();
         }}
+
+        // Initialize counter on page load
+        window.addEventListener('DOMContentLoaded', function() {{
+            applyFilters();
+        }});
 
         // Sort table
         function sortTable(columnIndex) {{
@@ -484,10 +498,20 @@ class HTMLReportGenerator:
             const rows = Array.from(tbody.querySelectorAll('tr:not(.details-row)'));
 
             rows.sort((a, b) => {{
-                let aValue = a.cells[columnIndex].textContent.trim();
-                let bValue = b.cells[columnIndex].textContent.trim();
+                let aValue, bValue;
 
-                // Handle numeric values
+                // For badge columns, extract text from badge element
+                if (columnIndex === 1 || columnIndex === 2 || columnIndex === 4) {{
+                    const aBadge = a.cells[columnIndex].querySelector('.badge');
+                    const bBadge = b.cells[columnIndex].querySelector('.badge');
+                    aValue = aBadge ? aBadge.textContent.trim() : a.cells[columnIndex].textContent.trim();
+                    bValue = bBadge ? bBadge.textContent.trim() : b.cells[columnIndex].textContent.trim();
+                }} else {{
+                    aValue = a.cells[columnIndex].textContent.trim();
+                    bValue = b.cells[columnIndex].textContent.trim();
+                }}
+
+                // Handle numeric values (score and IPs columns)
                 if (columnIndex === 3 || columnIndex === 5) {{
                     aValue = parseFloat(aValue) || 0;
                     bValue = parseFloat(bValue) || 0;
@@ -590,18 +614,20 @@ class HTMLReportGenerator:
             classification = ip_analysis['classification']
             ip_type = ip_analysis['type']
             is_bot = ip_analysis['is_bot']
+            is_mobile = ip_analysis.get('is_mobile', False)
             events = ip_analysis['events']
             ip_details = ip_analysis.get('details', [])
             breakdown = ip_analysis.get('decision_breakdown', {})
 
             bot_badge = '<span class="badge danger">BOT</span>' if is_bot else '<span class="badge success">HUMAN</span>'
+            mobile_badge = '<span class="badge info" style="background: #dbeafe; color: #1e40af;">📱 MOBILE</span>' if is_mobile else ''
 
             # Generate decision breakdown HTML
             breakdown_html = self._generate_breakdown_html(breakdown) if breakdown else ''
 
             details.append(f'''
                                 <div class="ip-block">
-                                    <h4>IP #{i}: {ip} {bot_badge}</h4>
+                                    <h4>IP #{i}: {ip} {bot_badge} {mobile_badge}</h4>
                                     <p><strong>Classification:</strong> {classification}</p>
                                     <p><strong>Type:</strong> {ip_type}</p>
                                     <p><strong>Score:</strong> {score}/100</p>
@@ -638,6 +664,11 @@ class HTMLReportGenerator:
             penalty_html = f'<span style="color: #ef4444; font-weight: bold;"> (-{step["penalty"]} points)</span>' if step.get('penalty', 0) > 0 else ''
             decision_html = f'<p style="margin-left: 20px; color: #ef4444; font-weight: bold;">{step["decision"]}</p>' if step.get('decision') else ''
 
+            # SPF record display
+            spf_html = ''
+            if step.get('spf_record'):
+                spf_html = f'<div style="margin-left: 20px; margin-top: 8px; padding: 8px; background: #f0fdf4; border-radius: 4px; font-family: monospace; font-size: 0.85em; word-wrap: break-word; color: #166534; border-left: 3px solid #10b981;"><strong>SPF Record:</strong> {step["spf_record"]}</div>'
+
             bonuses_html = ''
             if step.get('bonuses'):
                 bonuses_html = '<ul style="margin-left: 20px; margin-top: 5px;">'
@@ -645,11 +676,17 @@ class HTMLReportGenerator:
                     bonuses_html += f'<li>{bonus["action"]}: <span style="color: #10b981; font-weight: bold;">+{bonus["points"]} points</span></li>'
                 bonuses_html += '</ul>'
 
+            # Bonus display for SPF
+            bonus_html = ''
+            if step.get('bonus'):
+                bonus_html = f'<span style="color: #10b981; font-weight: bold;"> (+{step["bonus"]} points)</span>'
+
             steps_html.append(f'''
                 <div style="padding: 10px; margin: 5px 0; background: #f9fafb; border-left: 3px solid {'#10b981' if status_class == 'success' else '#f59e0b' if status_class == 'warning' else '#ef4444'}; border-radius: 4px;">
-                    <strong>{step['icon']} {step['name']}</strong>{penalty_html}
+                    <strong>{step['icon']} {step['name']}</strong>{penalty_html}{bonus_html}
                     {details_html}
                     {ua_html}
+                    {spf_html}
                     {bonuses_html}
                     {decision_html}
                 </div>
@@ -679,12 +716,18 @@ class HTMLReportGenerator:
             verdict_color = '#10b981' if 'HUMAN' in verdict.get('classification', '') else '#ef4444'
             reasons_html = '<ul style="margin-left: 20px; margin-top: 5px;">' + ''.join(f'<li>{r}</li>' for r in verdict.get('reasons', [])) + '</ul>'
 
+            # Add context notes if present (for bots)
+            context_html = ''
+            if verdict.get('context'):
+                context_html = '<div style="margin-top: 10px; padding: 10px; background: #fffbeb; border-left: 3px solid #f59e0b; border-radius: 4px;"><strong>Additional Context:</strong><ul style="margin: 5px 0 0 20px;">' + ''.join(f'<li style="color: #92400e;">{note}</li>' for note in verdict['context']) + '</ul></div>'
+
             verdict_html = f'''
                 <div style="background: linear-gradient(135deg, {verdict_color}15 0%, {verdict_color}25 100%); padding: 15px; border-radius: 8px; margin-top: 10px; border: 2px solid {verdict_color};">
                     <h4 style="color: {verdict_color}; margin: 0 0 10px 0;">{verdict['icon']} Final Verdict: {verdict['classification']}</h4>
                     <p><strong>Why this decision was made:</strong></p>
                     {reasons_html}
-                    <p style="margin-top: 10px; font-style: italic; color: #666;">{verdict.get('conclusion', '')}</p>
+                    {context_html}
+                    <p style="margin-top: 10px; font-style: italic; color: #666;">{verdict.get('conclusion', '').split("\\n\\n")[0]}</p>
                 </div>
             '''
 
@@ -903,11 +946,13 @@ Based on the analysis results:
             classification = ip_analysis['classification']
             ip_type = ip_analysis['type']
             is_bot = ip_analysis['is_bot']
+            is_mobile = ip_analysis.get('is_mobile', False)
             events = ip_analysis['events']
             details = ip_analysis.get('details', [])
             breakdown = ip_analysis.get('decision_breakdown', {})
 
             bot_indicator = '🤖 **BOT**' if is_bot else '👤 **HUMAN**'
+            mobile_indicator = ' 📱 **MOBILE**' if is_mobile else ''
 
             # Generate breakdown markdown
             breakdown_md = self._generate_breakdown_markdown(breakdown) if breakdown else ''
@@ -919,11 +964,12 @@ Based on the analysis results:
                 details_formatted = f"{newline}  ".join(f"- {detail}" for detail in details)
                 details_section = f"- **Details**:{newline}  {details_formatted}"
 
-            lines.append(f'''#### IP #{i}: {ip} {bot_indicator}
+            lines.append(f'''#### IP #{i}: {ip} {bot_indicator}{mobile_indicator}
 
 - **Classification**: {classification}
 - **Type**: {ip_type}
 - **Score**: {score}/100
+- **Device**: {'Mobile 📱' if is_mobile else 'Desktop/Other 💻'}
 - **Events**: {', '.join(events)}
 {details_section}
 
@@ -944,13 +990,17 @@ Based on the analysis results:
         lines.append('')
         for step in breakdown.get('steps', []):
             penalty_str = f" **(-{step['penalty']} points)**" if step.get('penalty', 0) > 0 else ''
-            lines.append(f"**{step['icon']} {step['name']}**{penalty_str}")
+            bonus_str = f" **(+{step['bonus']} points)**" if step.get('bonus', 0) > 0 else ''
+            lines.append(f"**{step['icon']} {step['name']}**{penalty_str}{bonus_str}")
 
             if isinstance(step.get('details'), list):
                 for detail in step['details']:
                     lines.append(f"  - {detail}")
             elif step.get('details'):
                 lines.append(f"  {step['details']}")
+
+            if step.get('spf_record'):
+                lines.append(f"  - 📧 **SPF Record:** `{step['spf_record']}`")
 
             if step.get('bonuses'):
                 for bonus in step['bonuses']:
@@ -985,8 +1035,17 @@ Based on the analysis results:
             lines.append('**Why this decision was made:**')
             for reason in verdict.get('reasons', []):
                 lines.append(f"- {reason}")
+
+            # Add context notes if present
+            if verdict.get('context'):
+                lines.append('')
+                lines.append('**Additional Context:**')
+                for note in verdict['context']:
+                    lines.append(f"- ⚠️ {note}")
+
             lines.append('')
-            lines.append(f"*{verdict.get('conclusion', '')}*")
+            conclusion = verdict.get('conclusion', '').split('\n\n')[0]
+            lines.append(f"*{conclusion}*")
 
         lines.append('</details>')
 
